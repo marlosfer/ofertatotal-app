@@ -43,7 +43,7 @@
     export default {
         data: function () {
             return {
-                title: 'testee',
+                title: 'teste',
             }
         },
         mounted() {
