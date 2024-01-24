@@ -5086,6 +5086,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
     console.log('Component mounted.');
+  },
+  props: {
+    session_user: String
   }
 });
 
@@ -5142,13 +5145,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       title: 'teste'
     };
+  },
+  props: {
+    session_user: String
   },
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -5362,14 +5367,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      title: this.$t('bs-department-dashboard'),
-      selected2: 'custom',
-      isFirstLoad: true,
-      selectPeriodOptions1: [{
-        text: this.$t('bs-last-7-days'),
+      title: 'marlos',
+      descrip: [{
+        text: 'eae',
         value: 'week'
       }]
     };
+  },
+  props: {
+    session_user: String
   },
   mounted: function mounted() {
     console.log('Component mounted.');
@@ -75141,7 +75147,15 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("nav-bar"), _vm._v(" "), _c("wrapper")], 1)
+  return _c(
+    "div",
+    [
+      _c("nav-bar", { attrs: { session_user: _vm.session_user } }),
+      _vm._v(" "),
+      _c("wrapper", { attrs: { session_user: _vm.session_user } }),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -75174,9 +75188,7 @@ var render = function () {
       },
       [
         _c("div", { staticClass: "container" }, [
-          _c("a", { staticClass: "navbar-brand", attrs: { href: "/#" } }, [
-            _vm._v("\n                Laravel\n            "),
-          ]),
+          _vm._m(0),
           _vm._v(" "),
           _c(
             "div",
@@ -75185,61 +75197,72 @@ var render = function () {
               attrs: { id: "navbarSupportedContent" },
             },
             [
-              _c("ul", { staticClass: "navbar-nav me-auto" }, [
-                _vm._v("\n                    Produtos\n                "),
-              ]),
+              _vm.session_user
+                ? _c("ul", { staticClass: "navbar-nav me-auto" }, [
+                    _vm._v("\n                    Produtos\n                "),
+                  ])
+                : _vm._e(),
               _vm._v(" "),
-              _c("ul", { staticClass: "navbar-nav me-auto" }, [
-                _vm._v("\n                    Cursos\n                "),
-              ]),
+              _vm.session_user
+                ? _c("ul", { staticClass: "navbar-nav me-auto" }, [
+                    _vm._v("\n                    Cursos\n                "),
+                  ])
+                : _vm._e(),
               _vm._v(" "),
-              _c("ul", { staticClass: "navbar-nav ms-auto" }, [
-                _c("li", { staticClass: "nav-item dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      pre: true,
-                      attrs: {
-                        id: "navbarDropdown",
-                        class: "nav-link dropdown-toggle",
-                        href: "#",
-                        role: "button",
-                        "data-bs-toggle": "dropdown",
-                        "aria-haspopup": "true",
-                        "aria-expanded": "false",
-                      },
-                    },
-                    [
-                      _vm._v(
-                        "\n                            Marlos\n                        "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "dropdown-menu dropdown-menu-end",
-                      attrs: { "aria-labelledby": "navbarDropdown" },
-                    },
-                    [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "dropdown-item",
-                          attrs: { href: "/logout" },
-                          on: { click: _vm.sair },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Logout\n                            "
-                          ),
-                        ]
-                      ),
-                    ]
-                  ),
-                ]),
-              ]),
+              _vm.session_user
+                ? _c("ul", { staticClass: "navbar-nav ms-auto" }, [
+                    _c(
+                      "li",
+                      { staticClass: "nav-item dropdown" },
+                      [
+                        _c(
+                          "b-link",
+                          {
+                            staticClass: "nav-link dropdown-toggle",
+                            attrs: {
+                              href: "#",
+                              role: "button",
+                              "data-bs-toggle": "dropdown",
+                              "aria-haspopup": "true",
+                              "aria-expanded": "false",
+                            },
+                          },
+                          [
+                            _vm._v(
+                              "\n                            " +
+                                _vm._s(_vm.session_user.name) +
+                                "\n                        "
+                            ),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass: "dropdown-menu dropdown-menu-end",
+                            attrs: { "aria-labelledby": "navbarDropdown" },
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: { href: "/logout" },
+                                on: { click: _vm.sair },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Logout\n                            "
+                                ),
+                              ]
+                            ),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                  ])
+                : _vm._e(),
             ]
           ),
         ]),
@@ -75247,7 +75270,23 @@ var render = function () {
     ),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("a", { staticClass: "navbar-brand", attrs: { href: "/#" } }, [
+      _c("img", {
+        attrs: {
+          src: "/images/ofertatotal.png",
+          alt: "CaserioBr",
+          width: "40",
+        },
+      }),
+      _vm._v(" Oferta Total\n            "),
+    ])
+  },
+]
 render._withStripped = true
 
 

@@ -187,16 +187,17 @@
     export default {
         data: function () {
             return {
-                title: this.$t('bs-department-dashboard'),
-                selected2: 'custom',
-                isFirstLoad: true,
-                selectPeriodOptions1: [
+                title: 'marlos',
+                descrip: [
                     {
-                        text: this.$t('bs-last-7-days'),
+                        text: 'eae',
                         value: 'week',
                     }
                 ],
             }
+        },
+        props:{
+            session_user: String,
         },
         mounted() {
             console.log('Component mounted.')
