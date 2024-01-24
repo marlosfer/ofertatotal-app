@@ -1,5 +1,5 @@
 @extends('layouts.app')
 
 @section('content')
-    <master-component></master-component>
+    <master-component :session_user="{{ Auth::user()->toJson() }}"></master-component>
 @endsection
