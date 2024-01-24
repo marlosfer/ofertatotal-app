@@ -5084,8 +5084,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  data: function data() {
+    return {
+      session_user_object: {}
+    };
+  },
+  created: function created() {
+    if (this.session_user) {
+      this.session_user_object = JSON.parse(this.session_user);
+    }
   },
   props: {
     session_user: String
@@ -5145,20 +5152,32 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      title: 'teste'
+      is_login: Object.keys(this.session_user).length > 0,
+      search: ''
     };
   },
   props: {
-    session_user: String
+    session_user: Object
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
-  },
+  mounted: function mounted() {},
   methods: {
+    searchItens: function searchItens() {
+      alert('buscou o item: ' + this.search);
+    },
     sair: function sair() {
       console.log('saiu');
     }
@@ -5363,24 +5382,218 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      title: 'marlos',
-      descrip: [{
-        text: 'eae',
-        value: 'week'
-      }]
+      imageSelected: '',
+      comodos: {
+        salaEstar: false
+      }
     };
   },
   props: {
-    session_user: String
+    session_user: Object
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    $(document).ready(function () {
+      $('.flexslider').flexslider({
+        animation: 'slide',
+        // ou 'fade' para efeito de fade
+        slideshowSpeed: 2500,
+        // Tempo de exibição de cada slide em milissegundos (2 segundos no exemplo)
+        animationSpeed: 600,
+        // Tempo da animação em milissegundos
+        controlNav: false,
+        // Mostrar botões de navegação (anterior/próximo)
+        directionNav: false,
+        // Mostrar setas de navegação
+        pauseOnHover: false // Pausar a reprodução automática quando o mouse estiver sobre o slider
+      });
+    });
   },
-  methods: {}
+  methods: {
+    openModal: function openModal(value) {
+      this.$bvModal.show('modal-1');
+      this.setImageModal(value);
+    },
+    handleModalShow: function handleModalShow() {
+      // Adiciona a classe 'modal-open' ao corpo da página ao abrir o modal
+      document.body.classList.add('modal-open');
+    },
+    handleModalHidden: function handleModalHidden() {
+      // Remove a classe 'modal-open' do corpo da página ao fechar o modal
+      document.body.classList.remove('modal-open');
+    },
+    setImageModal: function setImageModal(value) {
+      this.imageSelected = value;
+    }
+  }
 });
 
 /***/ }),
@@ -53754,7 +53967,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.banner[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/background1.webp');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.sizeCard[data-v-29eaf6d0]{\n    padding: 20px;\n    min-height: 400px;\n}\n.menusuperior[data-v-29eaf6d0]{\n    background-color: white;\n    border-radius: 4px;\n    color: black;\n    width: 100%;\n    padding: 8px;\n}\n.product[data-v-29eaf6d0]{\n    width: 20rem;\n    margin-left: 10px;\n}\n.dp-flex[data-v-29eaf6d0]{\n    display: flex;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.border-image[data-v-29eaf6d0] {\n    border: 1px solid rgb(184, 184, 184);\n    padding: 10px;\n    display: inline-block; /* Impede que o span se expanda para a largura total */\n}\n.ajust-check[data-v-29eaf6d0]{\n    margin-right: 10px;\n    margin-top: 1px;\n}\n.card-itens[data-v-29eaf6d0]{\n    background-color: white; \n    border-radius: 10px;\n    margin-left: 0;\n    margin-right: 0;\n}\n.active-h[data-v-29eaf6d0]{\n    font-weight: bolder;\n    color: #0d6efd !important;\n}\n.menu-h[data-v-29eaf6d0]:hover{\n    font-weight: bolder;\n}\n.banner1[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide1.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner2[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide2.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner3[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide3.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner4[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide4.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.sizeCard[data-v-29eaf6d0]{\n    padding: 20px;\n    min-height: 400px;\n}\n.menusuperior[data-v-29eaf6d0]{\n    background-color: white;\n    color: black;\n    width: 100%;\n    padding: 8px;\n    text-align: center;\n}\n.product[data-v-29eaf6d0]{\n    width: 16rem;\n    margin-left: 10px;\n}\n.image-container[data-v-29eaf6d0] {\n    position: relative;\n    max-width: 100%;\n    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */\n}\n.text-overlay[data-v-29eaf6d0] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    text-align: center;\n    color: #ffffff; /* Cor do texto */\n    font-size: 24px; /* Tamanho da fonte */\n    font-weight: bold; /* Peso da fonte */\n    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -74950,7 +75163,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./nav-bar.vue?vue&type=template&id=f7391524& */ "./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&");
+/* harmony import */ var _nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./nav-bar.vue?vue&type=template&id=f7391524&scoped=true& */ "./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true&");
 /* harmony import */ var _nav_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nav-bar.vue?vue&type=script&lang=js& */ "./resources/js/components/nav-bar.vue?vue&type=script&lang=js&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -74962,11 +75175,11 @@ __webpack_require__.r(__webpack_exports__);
 ;
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
   _nav_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__.render,
-  _nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  null,
+  "f7391524",
   null
   
 )
@@ -75097,19 +75310,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524& ***!
-  \****************************************************************************/
+/***/ "./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true& ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./nav-bar.vue?vue&type=template&id=f7391524& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./nav-bar.vue?vue&type=template&id=f7391524&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true&");
 
 
 /***/ }),
@@ -75150,9 +75363,9 @@ var render = function () {
   return _c(
     "div",
     [
-      _c("nav-bar", { attrs: { session_user: _vm.session_user } }),
+      _c("nav-bar", { attrs: { session_user: _vm.session_user_object } }),
       _vm._v(" "),
-      _c("wrapper", { attrs: { session_user: _vm.session_user } }),
+      _c("wrapper", { attrs: { session_user: _vm.session_user_object } }),
     ],
     1
   )
@@ -75164,10 +75377,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -75197,19 +75410,80 @@ var render = function () {
               attrs: { id: "navbarSupportedContent" },
             },
             [
-              _vm.session_user
-                ? _c("ul", { staticClass: "navbar-nav me-auto" }, [
-                    _vm._v("\n                    Produtos\n                "),
-                  ])
-                : _vm._e(),
+              _c("ul", { staticClass: "navbar-nav mx-1 w-100" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass: "input-group mb-2",
+                    staticStyle: { "margin-top": "10px" },
+                  },
+                  [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.search,
+                          expression: "search",
+                        },
+                      ],
+                      staticClass: "form-control",
+                      attrs: {
+                        type: "text",
+                        placeholder: "Pesquisar produto...",
+                      },
+                      domProps: { value: _vm.search },
+                      on: {
+                        keyup: function ($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.searchItens.apply(null, arguments)
+                        },
+                        input: function ($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.search = $event.target.value
+                        },
+                      },
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "input-group-append" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary",
+                          staticStyle: {
+                            "margin-left": "-46px",
+                            border: "none",
+                            "z-index": "10",
+                          },
+                          attrs: { type: "button" },
+                          on: { click: _vm.searchItens },
+                        },
+                        [
+                          _c("b-icon", {
+                            attrs: { icon: "search", "aria-hidden": "true" },
+                          }),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]
+                ),
+              ]),
               _vm._v(" "),
-              _vm.session_user
-                ? _c("ul", { staticClass: "navbar-nav me-auto" }, [
-                    _vm._v("\n                    Cursos\n                "),
-                  ])
-                : _vm._e(),
-              _vm._v(" "),
-              _vm.session_user
+              _vm.is_login
                 ? _c("ul", { staticClass: "navbar-nav ms-auto" }, [
                     _c(
                       "li",
@@ -75243,6 +75517,20 @@ var render = function () {
                             attrs: { "aria-labelledby": "navbarDropdown" },
                           },
                           [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "dropdown-item",
+                                attrs: { href: "/produtos" },
+                                on: { click: _vm.sair },
+                              },
+                              [
+                                _vm._v(
+                                  "\n                                Gerenciamento de Produtos\n                            "
+                                ),
+                              ]
+                            ),
+                            _vm._v(" "),
                             _c(
                               "a",
                               {
@@ -75313,29 +75601,7 @@ var render = function () {
     "div",
     { staticClass: "wrapper" },
     [
-      _c("div", { staticClass: "banner" }),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c("b-col", { attrs: { cols: "auto" } }, [
-            _c("div", [
-              _c("img", {
-                attrs: {
-                  src: "/images/ofertatotal.png",
-                  alt: "CaserioBr",
-                  width: "80",
-                },
-              }),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("b-col"),
-          _vm._v(" "),
-          _c("b-col", { attrs: { cols: "auto" } }),
-        ],
-        1
-      ),
+      _vm._m(0),
       _vm._v(" "),
       _c(
         "b-row",
@@ -75344,33 +75610,29 @@ var render = function () {
           _c("b-col", { attrs: { cols: "12" } }, [
             _c(
               "span",
-              {
-                staticStyle: {
-                  display: "flex",
-                  "justify-content": "center",
-                  "margin-left": "10px",
-                },
-              },
+              { staticStyle: { display: "flex", "justify-content": "center" } },
               [
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Sala")]),
+                _c(
+                  "span",
+                  { staticClass: "menusuperior caret menu-h active-h" },
+                  [_vm._v("Produtos")]
+                ),
                 _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [
-                  _vm._v("Cozinha"),
+                _c("span", { staticClass: "menusuperior caret menu-h" }, [
+                  _vm._v("Cursos"),
                 ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [
-                  _vm._v("Banheiro"),
+                _c("span", { staticClass: "menusuperior caret menu-h" }, [
+                  _vm._v("Ofertas Especiais"),
                 ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Quarto")]),
+                _c("span", { staticClass: "menusuperior caret menu-h" }, [
+                  _vm._v("Novidades"),
+                ]),
                 _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Outros")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Outros")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Outros")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Outros")]),
+                _c("span", { staticClass: "menusuperior caret menu-h" }, [
+                  _vm._v("Mais Vendidos"),
+                ]),
               ]
             ),
           ]),
@@ -75380,7 +75642,7 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-row",
-        { staticClass: "pd-10" },
+        { staticClass: "mt-3" },
         [
           _c(
             "b-col",
@@ -75391,55 +75653,591 @@ var render = function () {
                 [
                   _c(
                     "b-list-group-item",
+                    { staticClass: "bd-none" },
                     [_c("center", [_c("b", [_vm._v("Cômodos")])])],
                     1
                   ),
                   _vm._v(" "),
-                  _c("b-list-group-item", { attrs: { active: "" } }, [
-                    _vm._v("Sala de Estar"),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.comodos.salaEstar,
+                            expression: "comodos.salaEstar",
+                          },
+                        ],
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                        domProps: {
+                          checked: Array.isArray(_vm.comodos.salaEstar)
+                            ? _vm._i(_vm.comodos.salaEstar, "true") > -1
+                            : _vm.comodos.salaEstar,
+                        },
+                        on: {
+                          change: function ($event) {
+                            var $$a = _vm.comodos.salaEstar,
+                              $$el = $event.target,
+                              $$c = $$el.checked ? true : false
+                            if (Array.isArray($$a)) {
+                              var $$v = "true",
+                                $$i = _vm._i($$a, $$v)
+                              if ($$el.checked) {
+                                $$i < 0 &&
+                                  _vm.$set(
+                                    _vm.comodos,
+                                    "salaEstar",
+                                    $$a.concat([$$v])
+                                  )
+                              } else {
+                                $$i > -1 &&
+                                  _vm.$set(
+                                    _vm.comodos,
+                                    "salaEstar",
+                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                                  )
+                              }
+                            } else {
+                              _vm.$set(_vm.comodos, "salaEstar", $$c)
+                            }
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Sala de Estar\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
                   ]),
                   _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Sala de Jantar")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Cozinha")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Banheiro Principal")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Quarto Principal")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Quarto de Hóspedes")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Banheiro de Hóspedes")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Escritório")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Lavanderia")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Garagem")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Sótão")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Porão")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Quarto de Crianças")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Banheiro de Crianças")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [
-                    _vm._v("Sala de TV / Home Theater"),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-2",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-2" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Sala de Jantar\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
                   ]),
                   _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Varanda ou Terraço")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [
-                    _vm._v("Corredor ou Hall de Entrada"),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-3",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-4" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Cozinha\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
                   ]),
                   _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Closet")]),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Banheiro Principal\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
                   _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Despensa")]),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Quarto Principal\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
                   _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Banheiro Social")]),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Quarto de Hóspedes\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Banheiro de Hóspedes\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Escritório\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Lavanderia\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Garagem\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Sótão\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Porão\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Quarto de Crianças\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Banheiro de Crianças\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Sala de TV / Home Theater\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Varanda ou Terraço\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Corredor ou Hall de Entrada\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Closet\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Despensa\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
+                  _vm._v(" "),
+                  _c("b-list-group-item", { staticClass: "bd-none" }, [
+                    _c("div", { staticClass: "dp-flex" }, [
+                      _c("input", {
+                        staticClass: "custom-control-input ajust-check",
+                        attrs: {
+                          id: "checkbox-1",
+                          type: "checkbox",
+                          name: "checkbox-1",
+                          value: "true",
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "label",
+                        {
+                          staticClass: "custom-control-label",
+                          attrs: { for: "checkbox-1" },
+                        },
+                        [
+                          _vm._v(
+                            "\n                                Banheiro Social\n                            "
+                          ),
+                        ]
+                      ),
+                    ]),
+                  ]),
                 ],
                 1
               ),
@@ -75450,33 +76248,9 @@ var render = function () {
           _c(
             "b-col",
             [
-              _c("div", { staticClass: "input-group mb-3" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "text", placeholder: "Pesquisar produto..." },
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group-append" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-secondary",
-                      attrs: { type: "button" },
-                    },
-                    [_vm._v("Pesquisar")]
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
               _c(
                 "b-row",
-                {
-                  staticClass: "jc-c",
-                  staticStyle: {
-                    "background-color": "white",
-                    "border-radius": "20px",
-                  },
-                },
+                { staticClass: "jc-c card-itens" },
                 [
                   _c(
                     "b-col",
@@ -75485,43 +76259,177 @@ var render = function () {
                       attrs: { cols: "auto" },
                     },
                     [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
-                              alt: "Produto 1",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
-                              _vm._v(
-                                "Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional"
-                              ),
-                            ]),
+                      _c(
+                        "div",
+                        { staticClass: "card product bd-none" },
+                        [
+                          _c("div", { staticClass: "h-100" }, [
+                            _c("img", {
+                              staticClass: "card-img-top caret",
+                              attrs: {
+                                src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
+                                alt: "Produto 1",
+                              },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.openModal(
+                                    "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e"
+                                  )
+                                },
+                              },
+                            }),
                             _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                    Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber\n                                "
-                              ),
+                            _c("div", { staticClass: "card-body" }, [
+                              _c("h6", { staticClass: "card-title" }, [
+                                _vm._v(
+                                  "Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional"
+                                ),
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "card-text" }, [
+                                _vm._v(
+                                  "\n                                        Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber\n                                    "
+                                ),
+                              ]),
                             ]),
                           ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: {
-                              href: "https://shope.ee/3VLQP2t3dy",
-                              target: "_blank",
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-primary w-90 mg-10",
+                              attrs: {
+                                href: "https://shope.ee/3VLQP2t3dy",
+                                target: "_blank",
+                              },
                             },
-                          },
-                          [_vm._v("Ver Detalhes")]
-                        ),
-                      ]),
+                            [_vm._v("Ver Detalhes")]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-modal",
+                            {
+                              staticClass: "text-center",
+                              attrs: {
+                                id: "modal-1",
+                                "hide-header-close": "",
+                                "hide-footer": "",
+                                size: "lg",
+                                title:
+                                  "Máquina De Cortar Cabelo Para Barba Masculina Designer Elétrico Profissional",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-row",
+                                [
+                                  _c("b-col", { attrs: { cols: "auto" } }, [
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass: "border-image mt-1 caret",
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "card-img-top",
+                                          staticStyle: { width: "100px" },
+                                          attrs: {
+                                            src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
+                                            alt: "Produto 1",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.setImageModal(
+                                                "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e"
+                                              )
+                                            },
+                                          },
+                                        }),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("br"),
+                                    _vm._v(" "),
+                                    _c(
+                                      "span",
+                                      {
+                                        staticClass: "border-image mt-1 caret",
+                                      },
+                                      [
+                                        _c("img", {
+                                          staticClass: "card-img-top",
+                                          staticStyle: { width: "100px" },
+                                          attrs: {
+                                            src: "https://down-br.img.susercontent.com/file/a0466039c04a805c5c8bade1b5fac19f",
+                                            alt: "Produto 1",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.setImageModal(
+                                                "https://down-br.img.susercontent.com/file/a0466039c04a805c5c8bade1b5fac19f"
+                                              )
+                                            },
+                                          },
+                                        }),
+                                      ]
+                                    ),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-col", [
+                                    _c("img", {
+                                      directives: [
+                                        {
+                                          name: "b-modal",
+                                          rawName: "v-b-modal.modal-1",
+                                          modifiers: { "modal-1": true },
+                                        },
+                                      ],
+                                      staticClass: "card-img-top",
+                                      attrs: {
+                                        src: _vm.imageSelected,
+                                        alt: "Produto 1",
+                                      },
+                                    }),
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("b-col", [
+                                    _c("pre", { staticClass: "h6 mb-3" }, [
+                                      _vm._v(
+                                        "Parâmetros do produto:\n\nPotência: 5W\nBateria: 18650 Bateria Li-ion, Com carregador de bateria USB, pode ser usado em \nqualquer ocasião\nTempo de carregamento: 3 horas\nTensão nominal: 3V-5v\nTempo de uso: 3 horas\nMétodo de carregamento: carregamento da bateria\nRegulagem fina de cabeça cortador duplauso: ajustável zero ajustável\nTipo de Ferramenta: Dentes de Segurança Aguda de Dense\n                                "
+                                      ),
+                                    ]),
+                                  ]),
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-row",
+                                [
+                                  _c("b-col", [
+                                    _c(
+                                      "a",
+                                      {
+                                        staticClass:
+                                          "btn btn-success mt-2 w-100",
+                                        attrs: {
+                                          href: "https://shope.ee/3VLQP2t3dy",
+                                          target: "_blank",
+                                          block: "",
+                                        },
+                                      },
+                                      [_vm._v("Ir para a loja")]
+                                    ),
+                                  ]),
+                                ],
+                                1
+                              ),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
                     ]
                   ),
                   _vm._v(" "),
@@ -75543,7 +76451,7 @@ var render = function () {
                           }),
                           _vm._v(" "),
                           _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
+                            _c("h6", { staticClass: "card-title" }, [
                               _vm._v(
                                 "Mini Processador Elétrico de Alimentos Portátil com 3 lâminas de aço inox USB 250 ml Bivolt"
                               ),
@@ -75551,14 +76459,14 @@ var render = function () {
                             _vm._v(" "),
                             _c("p", { staticClass: "card-text" }, [
                               _vm._v(
-                                "\n                                    " +
+                                "\n                                        " +
                                   _vm._s(
                                     "É de fácil utilização, bastando somente pressionar o botão para que o triturador faça seu trabalho, trazendo conforto na hora de fazer aquela receita. A bateria com bastante autonomia, carregamento via USB e tamanho portátil é perfeita para levar a qualquer lugar.".substring(
                                       0,
                                       110
                                     ) + "..."
                                   ) +
-                                  "\n                                "
+                                  "\n                                    "
                               ),
                             ]),
                           ]),
@@ -75570,147 +76478,6 @@ var render = function () {
                             staticClass: "btn btn-primary w-90 mg-10",
                             attrs: {
                               href: "https://shope.ee/LOOfQXhal",
-                              target: "_blank",
-                            },
-                          },
-                          [_vm._v("Ver Detalhes")]
-                        ),
-                      ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "dp-flex sizeCard",
-                      attrs: { cols: "auto" },
-                    },
-                    [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
-                              alt: "Produto 1",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
-                              _vm._v(
-                                "Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional"
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                    Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber\n                                "
-                              ),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: {
-                              href: "https://shope.ee/3VLQP2t3dy",
-                              target: "_blank",
-                            },
-                          },
-                          [_vm._v("Ver Detalhes")]
-                        ),
-                      ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "dp-flex sizeCard",
-                      attrs: { cols: "auto" },
-                    },
-                    [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
-                              alt: "Produto 1",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
-                              _vm._v(
-                                "Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional"
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                    Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber\n                                "
-                              ),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: {
-                              href: "https://shope.ee/3VLQP2t3dy",
-                              target: "_blank",
-                            },
-                          },
-                          [_vm._v("Ver Detalhes")]
-                        ),
-                      ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "dp-flex sizeCard",
-                      attrs: { cols: "auto" },
-                    },
-                    [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
-                              alt: "Produto 1",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
-                              _vm._v(
-                                "Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional"
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                    Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber\n                                "
-                              ),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: {
-                              href: "https://shope.ee/3VLQP2t3dy",
                               target: "_blank",
                             },
                           },
@@ -75737,12 +76504,60 @@ var render = function () {
       _vm._v(" "),
       _c("br"),
       _vm._v(" "),
-      _vm._m(0),
+      _vm._m(1),
     ],
     1
   )
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      { staticClass: "flexslider", staticStyle: { "margin-bottom": "0" } },
+      [
+        _c("ul", { staticClass: "slides" }, [
+          _c("li", [
+            _c("div", { staticClass: "image-container" }, [
+              _c("div", { staticClass: "banner1" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-overlay" }, [
+                _vm._v("Texto Sobre a Imagem 1"),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("div", { staticClass: "image-container" }, [
+              _c("div", { staticClass: "banner2" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-overlay" }, [
+                _vm._v("Texto Sobre a Imagem 2"),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("div", { staticClass: "image-container" }, [
+              _c("div", { staticClass: "banner3" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "text-overlay" }, [
+                _vm._v("Texto Sobre a Imagem 3"),
+              ]),
+            ]),
+          ]),
+          _vm._v(" "),
+          _c("li", [
+            _c("div", { staticClass: "image-container" }, [
+              _c("div", { staticClass: "banner4" }),
+            ]),
+          ]),
+        ]),
+      ]
+    )
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement

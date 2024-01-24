@@ -1,14 +1,21 @@
 <template>
     <div>
-        <nav-bar :session_user="session_user"></nav-bar>
-        <wrapper :session_user="session_user"></wrapper>
+        <nav-bar :session_user="session_user_object"></nav-bar>
+        <wrapper :session_user="session_user_object"></wrapper>
     </div>
 </template>
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
+        data: function () {
+            return {
+                session_user_object: {},
+            }
+        },
+        created() {
+            if(this.session_user){
+                this.session_user_object = JSON.parse(this.session_user);
+            }
         },
         props:{
             session_user: String,

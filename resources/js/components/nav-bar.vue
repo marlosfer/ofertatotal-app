@@ -7,15 +7,22 @@
                 </a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul v-if="session_user" class="navbar-nav me-auto">
-                        Produtos
-                    </ul>
-                    <ul v-if="session_user" class="navbar-nav me-auto">
+                    <ul class="navbar-nav mx-1 w-100">
+                        <div class="input-group mb-2" style="margin-top: 10px;">
+                            <input type="text" class="form-control" @keyup.enter="searchItens" v-model="search" placeholder="Pesquisar produto...">
+                            <div class="input-group-append">
+                            <button class="btn btn-outline-primary" @click="searchItens" style="margin-left: -46px;border: none;z-index: 10;" type="button">
+                                <b-icon icon="search" aria-hidden="true"></b-icon>
+                            </button>
+                            </div>
+                        </div>
+                    </ul> 
+                    <!-- <ul v-if="is_login" class="navbar-nav mx-1">
                         Cursos
-                    </ul>
+                    </ul> -->
 
                     <!-- Right Side Of Navbar -->
-                    <ul v-if="session_user" class="navbar-nav ms-auto">
+                    <ul v-if="is_login" class="navbar-nav ms-auto">
                         <!-- <li class="nav-item">
                             <a class="nav-link" href="/">marlos</a>
                         </li> -->
@@ -26,6 +33,9 @@
                             </b-link>
 
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="/produtos" @click="sair">
+                                    Gerenciamento de Produtos
+                                </a>
                                 <a class="dropdown-item" href="/logout" @click="sair">
                                     Logout
                                 </a>
@@ -42,19 +52,26 @@
     export default {
         data: function () {
             return {
-                title: 'teste',
+                is_login: Object.keys(this.session_user).length > 0,
+                search: '',
             }
         },
         props:{
-            session_user: String,
+            session_user: Object,
         },
         mounted() {
-            console.log('Component mounted.')
+            
         },
         methods: {
+            searchItens(){
+                alert('buscou o item: ' + this. search);
+            },
             sair(){
                 console.log('saiu')
             }
         },
     }
 </script>
+
+<style scoped>
+</style>

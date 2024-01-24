@@ -1,10 +1,21 @@
 
 
 
+.caret {
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
 
 .wrapper{
     margin-left: 120px;
     margin-right: 120px;
+}
+
+.dp-flex{
+    display: flex;
 }
 
 .w-100{
@@ -29,6 +40,10 @@
 
 .mg-10{
     margin: 10px;
+}
+
+.mt-10{
+    margin-top: 4px;
 }
 
 .bd-none{
