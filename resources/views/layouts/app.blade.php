@@ -24,7 +24,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/jquery.flexslider.min.js"></script>
 </head>
-<body>
+<body style="font-family: 'Montserrat', sans-serif;">
     <div id="app" style="background-color: #F4F5FF;">
         <main>
             @yield('content')

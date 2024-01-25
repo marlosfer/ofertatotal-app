@@ -22,6 +22,15 @@ window.Vue = require('vue').default;
 Vue.component('master-component', require('./components/master-component.vue').default);
 Vue.component('nav-bar', require('./components/nav-bar.vue').default);
 Vue.component('wrapper', require('./components/wrapper.vue').default);
+Vue.component('footer-bot', require('./components/footer-bot.vue').default);
+
+Vue.component('admin-component', require('./components/admin-component.vue').default);
+Vue.component('admin-wrapper', require('./components/admin-wrapper.vue').default);
+
+Vue.component('products', require('./components/register/products.vue').default);
+
+import store from './store';
+Vue.use(store);
 
 
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue'
@@ -38,4 +47,5 @@ Vue.use(BootstrapVueIcons)
 
 const app = new Vue({
     el: '#app',
+    store, 
 });

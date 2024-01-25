@@ -1,11 +1,11 @@
 <template>
     <div class="wrapper">
-        <div class="flexslider" style="margin-bottom: 0;">
+        <div v-show="$store.state.showBanner" class="flexslider" style="margin-bottom: 0;">
             <ul class="slides">
                 <li>
                     <div class="image-container">
                         <div class="banner1"></div>
-                        <div class="text-overlay">Texto Sobre a Imagem 1</div>
+                        <div class="text-overlay">Texto Sobre a Imagem 1: {{ $store.state.companyselect }}</div>
                     </div>
                 </li>
                 <li>
@@ -39,7 +39,7 @@
             <b-col cols="auto"></b-col>
         </b-row> -->
     
-        <b-row style="justify-content: center;">
+        <b-row :class="$store.state.showBanner ? '': 'mt-2'" style="justify-content: center;">
             <b-col cols="12"> 
                 <span style="display: flex;justify-content: center;">
                     <span class="menusuperior caret menu-h active-h">Produtos</span>
@@ -235,7 +235,7 @@
                                     alt="Produto 1"
                                 >
                                 <div class="card-body">
-                                    <h6 class="card-title">Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional</h6>
+                                    <h6 class="card-title"><b>Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional</b></h6>
                                     <p class="card-text">
                                         Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber
                                     </p>
@@ -289,7 +289,7 @@ Tipo de Ferramenta: Dentes de Segurança Aguda de Dense
                             <div class="h-100">
                                 <img src="https://down-br.img.susercontent.com/file/588eea9b630cf18620fc565d5c98ac1e" class="card-img-top" alt="Produto 1">
                                 <div class="card-body">
-                                    <h6 class="card-title">Mini Processador Elétrico de Alimentos Portátil com 3 lâminas de aço inox USB 250 ml Bivolt</h6>
+                                    <h6 class="card-title"><b>Mini Processador Elétrico de Alimentos Portátil com 3 lâminas de aço inox USB 250 ml Bivolt</b></h6>
                                     <p class="card-text">
                                         {{'É de fácil utilização, bastando somente pressionar o botão para que o triturador faça seu trabalho, trazendo conforto na hora de fazer aquela receita. A bateria com bastante autonomia, carregamento via USB e tamanho portátil é perfeita para levar a qualquer lugar.'.substring(0, 110)+'...'}}
                                     </p>
@@ -301,50 +301,6 @@ Tipo de Ferramenta: Dentes de Segurança Aguda de Dense
                 </b-row>
             </b-col>
         </b-row>
-        <br>
-        <br>
-        <br>
-        <br>
-        <!-- Footer -->
-        <footer id="footer">
-            <div class="inner">
-                <section>
-                    <h2>Get in touch</h2>
-                    <form method="post" action="#">
-                        <div class="fields">
-                            <div class="field half">
-                                <input type="text" name="name" id="name" placeholder="Name" />
-                            </div>
-                            <div class="field half">
-                                <input type="email" name="email" id="email" placeholder="Email" />
-                            </div>
-                            <div class="field">
-                                <textarea name="message" id="message" placeholder="Message"></textarea>
-                            </div>
-                        </div>
-                        <ul class="actions">
-                            <li><input type="submit" value="Send" class="primary" /></li>
-                        </ul>
-                    </form>
-                </section>
-                <section>
-                    <h2>Follow</h2>
-                    <ul class="icons">
-                        <li><a href="#" class="icon brands style2 fa-twitter"><span class="label">Twitter</span></a></li>
-                        <li><a href="#" class="icon brands style2 fa-facebook-f"><span class="label">Facebook</span></a></li>
-                        <li><a href="#" class="icon brands style2 fa-instagram"><span class="label">Instagram</span></a></li>
-                        <li><a href="#" class="icon brands style2 fa-dribbble"><span class="label">Dribbble</span></a></li>
-                        <li><a href="#" class="icon brands style2 fa-github"><span class="label">GitHub</span></a></li>
-                        <li><a href="#" class="icon brands style2 fa-500px"><span class="label">500px</span></a></li>
-                        <li><a href="#" class="icon solid style2 fa-phone"><span class="label">Phone</span></a></li>
-                        <li><a href="#" class="icon solid style2 fa-envelope"><span class="label">Email</span></a></li>
-                    </ul>
-                </section>
-                <ul class="copyright">
-                    <li>&copy; Untitled. All rights reserved</li><li>Design: <a href="http://html5up.net">Insectoyde</a></li>
-                </ul>
-            </div>
-        </footer>
     </div>
 </template>
 
@@ -490,6 +446,10 @@ Tipo de Ferramenta: Dentes de Segurança Aguda de Dense
         font-weight: bold; /* Peso da fonte */
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */
     }
+
+    /* pre {
+        font-family: 'Helvetica', 'Arial', sans-serif;
+    } */
 </style>
 
 

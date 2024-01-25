@@ -34,16 +34,15 @@ class HomeController extends Controller
 
     public function login()
     {
-        $user = User::where('email', request('email'))
-                ->first();
+        $user = User::where('email', request('email'))->first();
         auth()->loginUsingId($user->id);
         return redirect('home');
     }
+
     public function showLoginForm(Request $request)
     {
         return view('auth.login');
     }
-
 
     public function logout(Request $request)
     {
@@ -53,4 +52,10 @@ class HomeController extends Controller
         // return view('auth.login.start-home-new', [ 'attendant_id' => Crypt::encrypt(Auth::user()->id), 'is_helpdesk' => ConfigsCompanyReleased::is_helpdesk(),]);
         // return view('home');
     }
+
+    public function admin(Request $request)
+    {
+        return view('layouts.admin');
+    }
+
 }

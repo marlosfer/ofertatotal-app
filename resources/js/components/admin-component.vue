@@ -1,8 +1,8 @@
 <template>
     <div>
         <nav-bar :session_user="session_user_object"></nav-bar>
-        <wrapper :session_user="session_user_object"></wrapper>
-        <footer-bot></footer-bot>
+        <admin-wrapper :session_user="session_user_object"></admin-wrapper>
+        <!-- <footer-bot></footer-bot> -->
     </div>
 </template>
 
