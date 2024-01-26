@@ -225,55 +225,48 @@
                         <button class="btn btn-outline-secondary" style="margin-left: 10px;" type="button">Pesquisar</button>
                         </div>
                     </div> -->
-                    <b-col cols="auto" class="dp-flex sizeCard">
+                    <b-col v-for="(item, index) in product" :key="'product'+index" cols="auto" class="dp-flex sizeCard">
                         <div class="card product bd-none">
                             <div class="h-100">
                                 <img 
                                     class="card-img-top caret"
-                                    @click="openModal('https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e')" 
-                                    src="https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e" 
+                                    @click="openModal(item)" 
+                                    :src="item.images[0]" 
                                     alt="Produto 1"
                                 >
                                 <div class="card-body">
-                                    <h6 class="card-title"><b>Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional</b></h6>
+                                    <h6 class="card-titl"><b>{{item.name}}</b></h6>
                                     <p class="card-text">
-                                        Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber
+                                        {{item.description}}
                                     </p>
                                 </div>
                             </div>
-                            <a href="https://shope.ee/3VLQP2t3dy" class="btn btn-primary w-90 mg-10" target="_blank">Ver Detalhes</a>
+                            <a :href="item.link" class="btn btn-primary w-90 mg-10" target="_blank">Ver Detalhes</a>
+                        </div>
+                    </b-col>
+                </b-row>
 
-                            <b-modal class="text-center" id="modal-1" 
+                <b-modal class="text-center fw-bd" id="modal-1" 
                                 hide-header-close hide-footer size="lg" 
-                                title="Máquina De Cortar Cabelo Para Barba Masculina Designer Elétrico Profissional"
+                                :title="itemSelected.name"
                             >
                                 <b-row>
                                     <b-col cols="auto">
-                                        <span class="border-image mt-1 caret">
-                                            <img @click="setImageModal('https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e')" src="https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e" style="width: 100px;" class="card-img-top" alt="Produto 1">
-                                        </span>
-                                        <br>
-                                        <span class="border-image mt-1 caret">
-                                            <img @click="setImageModal('https://down-br.img.susercontent.com/file/a0466039c04a805c5c8bade1b5fac19f')" src="https://down-br.img.susercontent.com/file/a0466039c04a805c5c8bade1b5fac19f" style="width: 100px;" class="card-img-top" alt="Produto 1">
-                                        </span>
+                                        <div v-for="(item, index) in itemSelected.images" :key="'images2'+index">
+                                            <span  class="border-image mt-1 caret" @click="setImageModal(itemSelected.images[index])">
+                                                <img :src="item" style="width: 100px;" class="card-img-top" alt="Produto 1">
+                                            </span>
+                                            <br>
+                                        </div>
                                     </b-col>
                                     <b-col>
                                         <img v-b-modal.modal-1 :src="imageSelected"  class="card-img-top" alt="Produto 1">
                                     </b-col>
-                                    <b-col>
+                                    <b-col cols="12">
+                                        <hr>
                                         <pre class="h6 mb-3">
-Parâmetros do produto:
-
-Potência: 5W
-Bateria: 18650 Bateria Li-ion, Com carregador de bateria USB, pode ser usado em 
-qualquer ocasião
-Tempo de carregamento: 3 horas
-Tensão nominal: 3V-5v
-Tempo de uso: 3 horas
-Método de carregamento: carregamento da bateria
-Regulagem fina de cabeça cortador duplauso: ajustável zero ajustável
-Tipo de Ferramenta: Dentes de Segurança Aguda de Dense
-                                </pre>
+{{itemSelected.info}}
+                                        </pre>
                                     </b-col>
                                 </b-row>
                                 <b-row>
@@ -282,23 +275,6 @@ Tipo de Ferramenta: Dentes de Segurança Aguda de Dense
                                     </b-col>
                                 </b-row>
                             </b-modal>
-                        </div>
-                    </b-col>
-                    <b-col cols="auto" class="dp-flex sizeCard">
-                        <div class="card product bd-none">
-                            <div class="h-100">
-                                <img src="https://down-br.img.susercontent.com/file/588eea9b630cf18620fc565d5c98ac1e" class="card-img-top" alt="Produto 1">
-                                <div class="card-body">
-                                    <h6 class="card-title"><b>Mini Processador Elétrico de Alimentos Portátil com 3 lâminas de aço inox USB 250 ml Bivolt</b></h6>
-                                    <p class="card-text">
-                                        {{'É de fácil utilização, bastando somente pressionar o botão para que o triturador faça seu trabalho, trazendo conforto na hora de fazer aquela receita. A bateria com bastante autonomia, carregamento via USB e tamanho portátil é perfeita para levar a qualquer lugar.'.substring(0, 110)+'...'}}
-                                    </p>
-                                </div>
-                            </div>
-                            <a href="https://shope.ee/LOOfQXhal" class="btn btn-primary w-90 mg-10" target="_blank">Ver Detalhes</a>
-                        </div>
-                    </b-col>
-                </b-row>
             </b-col>
         </b-row>
     </div>
@@ -309,30 +285,49 @@ Tipo de Ferramenta: Dentes de Segurança Aguda de Dense
         data: function () {
             return {
                 imageSelected: '',
+                itemSelected: '',
                 comodos: {
                     salaEstar: false,
-                }
+                },
+                product: [],
             }
         },
         props:{
             session_user: Object,
         },
-        mounted() {
-            $(document).ready(function () {
-                $('.flexslider').flexslider({
-                    animation: 'slide', // ou 'fade' para efeito de fade
-                    slideshowSpeed: 2500, // Tempo de exibição de cada slide em milissegundos (2 segundos no exemplo)
-                    animationSpeed: 600, // Tempo da animação em milissegundos
-                    controlNav: false, // Mostrar botões de navegação (anterior/próximo)
-                    directionNav: false, // Mostrar setas de navegação
-                    pauseOnHover: false // Pausar a reprodução automática quando o mouse estiver sobre o slider
-                });
-            });
+        created() {
+            this.bannerRotate();
+            this.getProducts();
         },
         methods: {
-            openModal(value) {
+            getProducts(){
+                axios.get('get-products')
+                .then(res => {
+                    if(res.data.success){
+                        this.product = res.data.value;
+                    }
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
+
+            },
+            bannerRotate(){
+                $(document).ready(function () {
+                    $('.flexslider').flexslider({
+                        animation: 'slide', // ou 'fade' para efeito de fade
+                        slideshowSpeed: 2500, // Tempo de exibição de cada slide em milissegundos (2 segundos no exemplo)
+                        animationSpeed: 600, // Tempo da animação em milissegundos
+                        controlNav: false, // Mostrar botões de navegação (anterior/próximo)
+                        directionNav: false, // Mostrar setas de navegação
+                        pauseOnHover: false // Pausar a reprodução automática quando o mouse estiver sobre o slider
+                    });
+                });
+            },
+            openModal(item) {
                 this.$bvModal.show('modal-1');
-                this.setImageModal(value);
+                this.itemSelected = item;
+                this.setImageModal(item.images[0]);
             },
             handleModalShow() {
                 // Adiciona a classe 'modal-open' ao corpo da página ao abrir o modal
@@ -350,7 +345,9 @@ Tipo de Ferramenta: Dentes de Segurança Aguda de Dense
 </script>
 
 <style scoped>
-
+    .fw-bd{
+        font-weight: bold !;
+    }
     .border-image {
         border: 1px solid rgb(184, 184, 184);
         padding: 10px;
@@ -410,7 +407,6 @@ Tipo de Ferramenta: Dentes de Segurança Aguda de Dense
         background-repeat: no-repeat;
         /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */
     }
-
 
     .sizeCard{
         padding: 20px;

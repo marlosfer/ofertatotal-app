@@ -24,9 +24,15 @@ Route::get('/login-unique-private', [App\Http\Controllers\HomeController::class,
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
+Route::get('/get-products', [App\Http\Controllers\ItemsController::class, 'getProducts']);
+
+
 Route::middleware(['auth'])->group(function () {
 
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
+
+    Route::post('/create-product', [App\Http\Controllers\ItemsController::class, 'createProduct'])->name('admin');
 
 });
