@@ -247,34 +247,34 @@
                 </b-row>
 
                 <b-modal class="text-center fw-bd" id="modal-1" 
-                                hide-header-close hide-footer size="lg" 
-                                :title="itemSelected.name"
-                            >
-                                <b-row>
-                                    <b-col cols="auto">
-                                        <div v-for="(item, index) in itemSelected.images" :key="'images2'+index">
-                                            <span  class="border-image mt-1 caret" @click="setImageModal(itemSelected.images[index])">
-                                                <img :src="item" style="width: 100px;" class="card-img-top" alt="Produto 1">
-                                            </span>
-                                            <br>
-                                        </div>
-                                    </b-col>
-                                    <b-col>
-                                        <img v-b-modal.modal-1 :src="imageSelected"  class="card-img-top" alt="Produto 1">
-                                    </b-col>
-                                    <b-col cols="12">
-                                        <hr>
-                                        <pre class="h6 mb-3">
+                    hide-header-close hide-footer size="lg" 
+                    :title="itemSelected.name"
+                >
+                    <b-row>
+                        <b-col cols="auto">
+                            <div v-for="(item, index) in itemSelected.images" :key="'images2'+index">
+                                <span  class="border-image mt-1 caret" @click="setImageModal(itemSelected.images[index])">
+                                    <img :src="item" style="width: 100px;" class="card-img-top" alt="Produto 1">
+                                </span>
+                                <br>
+                            </div>
+                        </b-col>
+                        <b-col>
+                            <img v-b-modal.modal-1 :src="imageSelected"  class="card-img-top" alt="Produto 1">
+                        </b-col>
+                        <b-col cols="12">
+                            <hr>
+                            <pre class="h6 mb-3">
 {{itemSelected.info}}
-                                        </pre>
-                                    </b-col>
-                                </b-row>
-                                <b-row>
-                                    <b-col>
-                                        <a href="https://shope.ee/3VLQP2t3dy" class="btn btn-success mt-2 w-100" target="_blank" block>Ir para a loja</a>
-                                    </b-col>
-                                </b-row>
-                            </b-modal>
+                            </pre>
+                        </b-col>
+                    </b-row>
+                    <b-row>
+                        <b-col>
+                            <a href="https://shope.ee/3VLQP2t3dy" class="btn btn-success mt-2 w-100" target="_blank" block>Ir para a loja</a>
+                        </b-col>
+                    </b-row>
+                </b-modal>
             </b-col>
         </b-row>
     </div>

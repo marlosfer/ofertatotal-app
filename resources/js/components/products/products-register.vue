@@ -130,7 +130,7 @@
                     <b-badge v-for="(item, index) in options" :key="'badge'+index" class="gray caret" @click="insertComodo(item, index)">{{item.text}}</b-badge>
                 </div>
                 <p for="opções">OPÇÕES - PARA <b>REMOVER</b> BASTA CLICAR EM CIMA.</p>
-                <b-badge v-for="(item, index) in comodosSelecteds" :key="'badge'+index" class="success caret" @click="removeComodo(item, index)">{{item.text}}</b-badge>
+                <b-badge v-for="(item, index) in comodosSelecteds" :key="'badgee'+index" class="success caret" @click="removeComodo(item, index)">{{item.text}}</b-badge>
             <hr>
 
             <hr>
@@ -196,7 +196,9 @@
             
             <b-alert variant="danger" :show="showDanger">Falta selecionar alguma coisa</b-alert>
             <br><br><br>
-            <b-button class="mt-1" style="float: right;" type="submit" variant="success" @click="createItem">Criar produto</b-button>
+            
+            <b-button v-if="itemselected == null" class="mt-1" style="float: right;" type="submit" variant="success" @click="createItem">Criar produto</b-button>
+            <b-button v-else class="mt-1" style="float: right;" type="submit" variant="warning" @click="EditItem">Editar produto</b-button>
         </div>
         <br><br><br>
     </div>
@@ -247,14 +249,30 @@
             }
         },
         props:{
-            session_user: Object,
+            itemselected: Object,
+        },
+        created() {
+            console.log(this.itemselected);
+            this.form = {
+                name: this.itemselected.name,
+                description: this.itemselected.description,
+                info: this.itemselected.info,
+                link: this.itemselected.link,
+                image: this.itemselected.image,
+                key: this.itemselected.key
+            };
+            this.images = this.itemselected.images;
+            this.keys = JSON.parse(this.itemselected.keys);
+
+            this.comodosSelecteds = this.itemselected.rooms;
+            this.options = this.options.filter(option => !this.itemselected.rooms.includes(option));
+
         },
         mounted() {
             this.sortLists();
         },
         methods: {
-            createItem() {
-
+            EditItem(){
                 if(
                     this.form.name.trim() == '' || 
                     this.form.description.trim() == '' || 
@@ -269,7 +287,35 @@
                     return this.showDanger = true;
                 }
 
-
+                axios.post('/edit-product',{
+                    id: this.itemselected.id,
+                    form: this.form,
+                    images: this.images,
+                    comodos: this.comodosSelecteds,
+                    keys: this.keys,
+                }).then(res => {
+                    if(res.data.success){
+                        this.$emit('back');
+                    }
+                }).catch(err => {
+                    console.error(err); 
+                });
+                
+            },
+            createItem() {
+                if(
+                    this.form.name.trim() == '' || 
+                    this.form.description.trim() == '' || 
+                    this.form.info.trim() == '' || 
+                    this.form.link.trim() == '' || 
+                    this.images.length == 0 || 
+                    this.comodosSelecteds.length == 0
+                ){
+                    setTimeout(() => {
+                        this.showDanger = false;
+                    }, 2500);
+                    return this.showDanger = true;
+                }
 
                 axios.post('/create-product',{
                     form: this.form,

@@ -34,5 +34,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
 
     Route::post('/create-product', [App\Http\Controllers\ItemsController::class, 'createProduct'])->name('admin');
+    Route::post('/edit-product', [App\Http\Controllers\ItemsController::class, 'editProduct'])->name('admin');
 
 });

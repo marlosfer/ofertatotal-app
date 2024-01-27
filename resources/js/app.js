@@ -27,7 +27,6 @@ Vue.component('footer-bot', require('./components/footer-bot.vue').default);
 Vue.component('admin-component', require('./components/admin-component.vue').default);
 Vue.component('admin-wrapper', require('./components/admin-wrapper.vue').default);
 
-Vue.component('products', require('./components/register/products.vue').default);
 
 import store from './store';
 Vue.use(store);

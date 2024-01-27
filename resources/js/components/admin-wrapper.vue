@@ -1,23 +1,18 @@
 <template>
     <div class="wrapper">
+        <br>
         <b-row :class="$store.state.showBanner ? '': 'mt-2'" style="justify-content: center;">
             <b-col cols="12"> 
                 <span style="display: flex;justify-content: center;">
-                    <span @click="showTab = 'produtos'" class="menusuperior caret menu-h active-h">Lista de Produtos</span>
-                    <span @click="showTab = 'cadastrar'" class="menusuperior caret menu-h">Cadastrar</span>
-                    <span @click="showTab = 'emails'" class="menusuperior caret menu-h">Emails/Sugestões</span>  
+                    <span @click="showTab = 'produtos'" :class="showTab == 'produtos' ? 'menusuperior caret menu-h active-h' : 'menusuperior caret menu-h'">Lista de Produtos</span>
+                    <span @click="showTab = 'cadastrar'" :class="showTab == 'cadastrar' ? 'menusuperior caret menu-h active-h' : 'menusuperior caret menu-h'">Cadastrar</span>
+                    <span @click="showTab = 'emails'" :class="showTab == 'emails' ? 'menusuperior caret menu-h active-h' : 'menusuperior caret menu-h'">Emails/Sugestões</span>  
                 </span>
             </b-col>
         </b-row>
 
         <div class="mt-2" v-if="showTab == 'produtos'">
-            <b-table striped hover :items="items" :fields="fields">
-                <template #cell(actions)="row">
-                    <b-link size="lg" @click="itemDelete(row.item, row.index)">
-                    <i class="fa fa-trash-o bs-trash fa-2x" aria-hidden="true"></i>
-                    </b-link>
-                </template>
-            </b-table>
+            <products-list></products-list>
         </div>
 
         <div class="mt-2" v-if="showTab == 'cadastrar'">
@@ -25,29 +20,24 @@
             <b-row :class="$store.state.showBanner ? '': 'mt-2'" style="justify-content: center;">
                 <b-col cols="12"> 
                     <span style="display: flex;justify-content: center;">
-                        <span @click="showRegister = 'produtos'" class="menusuperior caret menu-h active-h">Produtos</span>
-                        <span @click="showRegister = 'outros'" class="menusuperior caret menu-h">Outros</span>
+                        <span @click="showRegister = 'produtos'" :class="showRegister == 'produtos' ? 'menusuperior caret menu-h active-h' : 'menusuperior caret menu-h'">Produtos</span>
+                        <span @click="showRegister = 'outros'" :class="showRegister == 'outros' ? 'menusuperior caret menu-h active-h' : 'menusuperior caret menu-h'">Outros</span>
                     </span>
                 </b-col>
             </b-row>
 
             <div class="mt-2" v-if="showRegister == 'produtos'">
-                <products></products>
+                <products-register></products-register>
             </div>
 
             <div class="mt-2" v-if="showRegister == 'outros'">
+                <outers></outers>
             </div>
 
         </div>
 
         <div v-if="showTab == 'emails'">
-            <b-table striped hover :items="items" :fields="fields">
-                <template #cell(actions)="row">
-                    <b-link size="lg" @click="itemDelete(row.item, row.index)">
-                    <i class="fa fa-trash-o bs-trash fa-2x" aria-hidden="true"></i>
-                    </b-link>
-                </template>
-            </b-table>
+            <emails></emails>
         </div>
       
 
@@ -58,10 +48,20 @@
 </template>
 
 <script>
-    export default {
+    import productsRegister from '../components/products/products-register.vue';
+    import productsList from '../components/products/products-list.vue';
+    import outers from '../components/products/outers.vue';
+    import emails from '../components/products/emails.vue';
+    export default {  
+        components:{
+            productsRegister,
+            productsList,
+            outers,
+            emails,
+        },
         data: function () {
             return {
-                showTab: 'cadastrar',
+                showTab: 'produtos',
                 showRegister: 'produtos',
                 fields: ['first_name', 'last_name', 'age'],
                 items: [
@@ -84,6 +84,16 @@
             session_user: Object,
         },
         mounted() {
+            const valorSalvo = localStorage.getItem('ofertatotal');
+            if (valorSalvo) {
+                this.showTab = valorSalvo;
+            }
+        },
+        watch: {
+            showTab(newVal) {
+                // Salvar no localStorage quando showTab mudar
+                localStorage.setItem('ofertatotal', newVal);
+            }
         },
         methods: {
             onSubmit(event) {
@@ -115,7 +125,8 @@
 
     .active-h{
         font-weight: bolder;
-        color: #0d6efd !important;
+        background-color: #0d6efd !important;
+        color: white !important;
     }
     
     .menu-h:hover{

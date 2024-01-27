@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class HomeController extends Controller
 {
@@ -35,8 +36,12 @@ class HomeController extends Controller
     public function login()
     {
         $user = User::where('email', request('email'))->first();
-        auth()->loginUsingId($user->id);
-        return redirect('home');
+        if(Hash::check(request('password'), $user->password)){
+            auth()->loginUsingId($user->id);
+            return redirect('home');
+        }else{
+            return redirect('login-unique-private');
+        }
     }
 
     public function showLoginForm(Request $request)
