@@ -44,6 +44,7 @@ class ItemsController extends Controller
                 'info' => $request->form['info'],
                 'link' => $request->form['link'],
                 'images' => json_encode($request->images),
+                'videos' => json_encode($request->videos),
                 'rooms' => json_encode($request->comodos),
                 'keys' => json_encode($request->keys),
                 'updated_at' => Carbon::now()->toDateTimeString(),
@@ -61,24 +62,45 @@ class ItemsController extends Controller
     public function getProducts(Request $request)
     {
         try {
-            $products = DB::table('products')->select('*')->get();
-            // Remover o campo 'id' de cada objeto no array
 
-            foreach ($products as $key) {
-                $key->id = Crypt::encrypt($key->id);;
-                $key->images = json_decode($key->images);
-                $key->rooms = json_decode($key->rooms);
+            if(request('limit') == 1){
+                $products = DB::table('products')
+                ->where('id', Crypt::decrypt(request('id')))
+                ->select('*')->first();
+
+                $products->id = Crypt::encrypt($products->id);;
+                $products->images = json_decode($products->images);
+                $products->videos = json_decode($products->videos);
+                $products->rooms = json_decode($products->rooms);
+                unset($products->price);
+                return $products;
+            }else if(request('limit') == 3){
+                $products = DB::table('products')
+                ->select('id','name','link')->get();
+
+                foreach ($products as $key) {
+                    $key->id = Crypt::encrypt($key->id);
+                }
+            }else{
+                $products = DB::table('products')->select('*')->get();
+
+                foreach ($products as $key) {
+                    $key->id = Crypt::encrypt($key->id);;
+                    $key->images = json_decode($key->images);
+                    $key->videos = json_decode($key->videos);
+                    $key->rooms = json_decode($key->rooms);
+                }
+
+                $productsWithoutId = $products->map(function ($product) {
+                    unset($product->price);
+                    return $product;
+                });
             }
-
-            $productsWithoutId = $products->map(function ($product) {
-                unset($product->price);
-                return $product;
-            });
-
+            
             $product['value'] = $products;
             $product['success'] = true;
         } catch (\Exception $e) {
-            // echo $e;
+            echo $e;
             $product['success'] = false;
         }
         

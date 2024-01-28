@@ -44,27 +44,45 @@
                 setTimeout(() => {
                     this.showAlert = false;
                 }, 3000);
-                this.editarProdudo(this.itemselected);
+                this.showProduct = false;
+                this.fields = [
+                    { key: 'name', sortable: true, sorter: null, label: 'Nome do produto' },
+                    { key: 'link', sortable: true, sorter: null, label: 'link do produto' },
+                    { key: 'actions', label: 'Editar' },
+                ]
             },
             editarProdudo(item){
-                this.itemselected = item;
-                this.showProduct = !this.showProduct;
-                if(this.showProduct){
-                    this.fields = [
-                        { key: 'name', sortable: true, sorter: null, label: 'Nome do produto' },
-                        { key: 'actions', label: 'Editar' },
-                    ]
-                }else{
-                    this.fields = [
-                        { key: 'name', sortable: true, sorter: null, label: 'Nome do produto' },
-			            { key: 'link', sortable: true, sorter: null, label: 'link do produto' },
-                        { key: 'actions', label: 'Editar' },
-                    ]
-                }
-                
+                axios.get('get-products',  {
+                    params:{
+                        limit: 1,
+                        id: item.id,
+                    }
+                }).then((res) => {
+                    this.itemselected = res.data;
+                    this.showProduct = !this.showProduct;
+                    if(this.showProduct){
+                        this.fields = [
+                            { key: 'name', sortable: true, sorter: null, label: 'Nome do produto' },
+                            { key: 'actions', label: 'Editar' },
+                        ]
+                    }else{
+                        this.fields = [
+                            { key: 'name', sortable: true, sorter: null, label: 'Nome do produto' },
+                            { key: 'link', sortable: true, sorter: null, label: 'link do produto' },
+                            { key: 'actions', label: 'Editar' },
+                        ]
+                    }
+                })
+                .catch(err => {
+                    console.error(err); 
+                })
             },
             getProducts(){
-                axios.get('get-products').then(res => {
+                axios.get('get-products',  {
+                    params:{
+                        limit: 3,
+                    }
+                }).then((res) => {
                     if(res.data.success){
                         this.product = res.data.value;
                     }

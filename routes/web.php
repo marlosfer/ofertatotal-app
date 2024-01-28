@@ -25,6 +25,20 @@ Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->n
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 
+
+// FAZER
+
+// NOVIDADES{
+//     CORRIGIR O FRONT "TEXTO" O TEXTO ESTÁ MUITO GRANDE
+//     ORDERNAR PRODUTOS PARA TRAZER OS NOVOS
+//     FAZER FILTROS LATERAL E FINALIZAR MENU
+//     BANNER
+// }
+
+
+
+
+
 Route::get('/get-products', [App\Http\Controllers\ItemsController::class, 'getProducts']);
 
 

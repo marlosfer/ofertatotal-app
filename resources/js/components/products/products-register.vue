@@ -1,5 +1,6 @@
 <template>
     <div>
+        <b-button v-if="itemselected != null" class="mt-1" style="float: right;position: absolute;right: 121px;top: 147px;" type="submit" variant="warning" @click="EditItem">Editar produto</b-button>
         <div>
             <b-alert variant="success" :show="showAlert">Salvo com sucesso!</b-alert>
             <b-alert variant="danger" :show="showDanger">Falta selecionar alguma coisa</b-alert>
@@ -81,31 +82,69 @@
 
             <b-row>
                 <b-col>
-                    <b-form-group 
-                        class="mt-1"
-                        id="input-group-6"
-                        label="Imagem do produto"
-                        label-for="input-6"
-                    >
-                        <b-form-input
-                        id="input-6"
-                        v-model="form.image"
-                        type="text"
-                        placeholder="Imagem do produto"
-                        @keyup.enter="addImage" 
-                        ></b-form-input>
-                    </b-form-group>
+                    <b-row>
+                        <b-col>
+                            <b-form-group 
+                                class="mt-1"
+                                id="input-group-6"
+                                label="Imagem do produto"
+                                label-for="input-6"
+                            >
+                                <b-form-input
+                                id="input-6"
+                                v-model="form.image"
+                                type="text"
+                                placeholder="Imagem do produto"
+                                @keyup.enter="addImage" 
+                                ></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                        <b-col cols="auto" style="margin-top: 28px;">
+                            <b-input-group-append>
+                                <!-- <b-button variant="outline-success" @click="addImage">Adicionar</b-button> -->
+                            </b-input-group-append>
+                        </b-col>
+                    </b-row>
+                    <span v-if="restartImage" v-for="(item, index) in images" :key="'images1'+index" class="d-inline-block mr-2">
+                        <img class="d-inline-block" :src="item" @click="openModal(item)" style="height: 150px; width: 150px;" :alt="'image'+index"><br>
+                        <b-badge @click="moverImage(index)" class="btn btn-dark" style="width: 130px;">>>>>MOVER>>>></b-badge><br>
+                        <b-button @click="removerImage(index)" class="btn btn-danger" style="width: 130px;">remover</b-button>
+                    </span>
                 </b-col>
-                <b-col cols="auto" style="margin-top: 28px;">
-                    <b-input-group-append>
-                        <!-- <b-button variant="outline-success" @click="addImage">Adicionar</b-button> -->
-                    </b-input-group-append>
+                <b-col cols="4">
+                    <b-row>
+                        <b-col>
+                            <b-form-group 
+                                class="mt-1"
+                                id="input-group-6"
+                                label="Video do produto"
+                                label-for="input-6"
+                            >
+                                <b-form-input
+                                id="input-6"
+                                v-model="form.video"
+                                type="text"
+                                placeholder="Video do produto"
+                                @keyup.enter="addVideo" 
+                                ></b-form-input>
+                            </b-form-group>
+                        </b-col>
+                        <b-col cols="auto" style="margin-top: 28px;">
+                            <b-input-group-append>
+                                <!-- <b-button variant="outline-success" @click="addVideo">Adicionar</b-button> -->
+                            </b-input-group-append>
+                        </b-col>
+                    </b-row>
+                    <span v-for="(item, index) in videos" :key="'videos1'+index" class="d-inline-block">
+                        <video controls class="d-inline-block" style="width: 250px;" :alt="'video'+index">
+                            <source :src="item" :type="getVideoType(item)">
+                            Your browser does not support the video tag.
+                        </video>
+                        <b-button @click="removerVideo(index)" class="btn btn-danger" style="width: 130px;">remover</b-button>
+                    </span>
                 </b-col>
             </b-row>
-            <span v-for="(item, index) in images" :key="'images1'+index" class="d-inline-block mr-2">
-                <img class="d-inline-block" :src="item"  @click="openModal(item)"  style="height: 150px; width: 150px;" :alt="'teste'+index"><br>
-                <b-button @click="removerImage(index)" class="btn btn-danger" style="width: 130px;">remover</b-button>
-            </span>
+            
             <b-modal class="text-center" id="modal-1" 
                 hide-header-close hide-footer size="lg" 
             >
@@ -127,7 +166,8 @@
             <hr>
                 <div class="mt-3" for="opções">OPÇÕES - PARA <b>ADICIONAR</b> BASTA CLICAR EM CIMA.</div>
                 <div>
-                    <b-badge v-for="(item, index) in options" :key="'badge'+index" class="gray caret" @click="insertComodo(item, index)">{{item.text}}</b-badge>
+                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.value != 'Outros'" class="gray caret" @click="insertComodo(item, index)">{{item.text}}</b-badge>
+                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.value == 'Outros'" class="gray1 caret" @click="insertComodo(item, index)">{{item.text}}</b-badge>
                 </div>
                 <p for="opções">OPÇÕES - PARA <b>REMOVER</b> BASTA CLICAR EM CIMA.</p>
                 <b-badge v-for="(item, index) in comodosSelecteds" :key="'badgee'+index" class="success caret" @click="removeComodo(item, index)">{{item.text}}</b-badge>
@@ -213,7 +253,7 @@
                     description: '',
                     info: '',
                     link: '',
-                    // value: '',
+                    video: '',
                     image: '',
                     key: '',
                 },
@@ -238,14 +278,22 @@
                     { value: 'Closet', text: 'Closet' },
                     { value: 'Despensa', text: 'Despensa' },
                     { value: 'BanheiroSocial', text: 'Banheiro Social' },
+                    { value: 'Outros', text: 'Outros' },
                 ],
                 keys: [],
                 comodosSelecteds:[],
-                images: [],
+                images: [
+                    // "https://down-br.img.susercontent.com/file/588eea9b630cf18620fc565d5c98ac1e",
+                    // ... outras URLs
+                ],
+                videos: [
+                    // "https://cvf.shopee.com.br/file/8cebfa43468685e3df7b88e9dcf28807",
+                ],
                 imageselected: '',
                 showAlert: false,
                 showDanger: false,
                 selectedRadio: 'A',
+                restartImage: true,
             }
         },
         props:{
@@ -253,25 +301,62 @@
         },
         created() {
             console.log(this.itemselected);
-            this.form = {
-                name: this.itemselected.name,
-                description: this.itemselected.description,
-                info: this.itemselected.info,
-                link: this.itemselected.link,
-                image: this.itemselected.image,
-                key: this.itemselected.key
-            };
-            this.images = this.itemselected.images;
-            this.keys = JSON.parse(this.itemselected.keys);
+            if(this.itemselected != undefined){
+                this.form = {
+                    name: this.itemselected.name,
+                    description: this.itemselected.description,
+                    info: this.itemselected.info,
+                    link: this.itemselected.link,
+                    key: this.itemselected.key
+                };
+                this.images = this.itemselected.images;
+                this.videos = this.itemselected.videos == undefined ? [] : this.itemselected.videos ;
+                this.keys = JSON.parse(this.itemselected.keys);
 
-            this.comodosSelecteds = this.itemselected.rooms;
-            this.options = this.options.filter(option => !this.itemselected.rooms.includes(option));
-
+                this.comodosSelecteds = this.itemselected.rooms;
+                this.options = this.options.filter(option => !this.itemselected.rooms.includes(option));
+            }
         },
         mounted() {
             this.sortLists();
         },
         methods: {
+            moverImage(index){
+                this.restartImage = false;
+                 // Verificar se é possível mover para a frente
+                if (index < this.images.length - 1) {
+                    // Trocar a posição da imagem com a próxima imagem
+                    const temp = this.images[index];
+                    this.images[index] = this.images[index + 1];
+                    this.images[index + 1] = temp;
+                }
+                    this.restartImage = true;
+            },
+            async isVideo(url) {
+                const contentType = await this.getContentType(url);
+                return contentType.startsWith('video/');
+            },
+            async isImage(url) {
+                const contentType = await this.getContentType(url);
+                return contentType.startsWith('image/') || this.isImageExtension(url);
+            },
+            isImageExtension(url) {
+                const imageExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+                const fileExtension = this.getFileExtension(url);
+                return imageExtensions.includes(fileExtension.toLowerCase());
+            },
+            getFileExtension(url) {
+                return url.split('.').pop();
+            },
+            async getContentType(url) {
+                const response = await fetch(url, { method: 'HEAD' });
+                const contentType = response.headers.get('content-type');
+                return contentType || '';
+            },
+            getVideoType(url) {
+                // Adapte conforme necessário, dependendo dos tipos de vídeo suportados
+                return 'video/mp4';
+            },
             EditItem(){
                 if(
                     this.form.name.trim() == '' || 
@@ -291,6 +376,7 @@
                     id: this.itemselected.id,
                     form: this.form,
                     images: this.images,
+                    videos: this.videos,
                     comodos: this.comodosSelecteds,
                     keys: this.keys,
                 }).then(res => {
@@ -320,6 +406,7 @@
                 axios.post('/create-product',{
                     form: this.form,
                     images: this.images,
+                    videos: this.videos,
                     comodos: this.comodosSelecteds,
                     keys: this.keys,
                 }).then(res => {
@@ -332,6 +419,7 @@
                             image: '',
                         }
                         this.images = [];
+                        this.videos = [];
                         this.keys = [];
                         this.comodosSelecteds = [];
                         this.options = [
@@ -355,6 +443,7 @@
                             { value: 'Closet', text: 'Closet' },
                             { value: 'Despensa', text: 'Despensa' },
                             { value: 'BanheiroSocial', text: 'Banheiro Social' },
+                            { value: 'Outros', text: 'Outros' },
                         ];
                         this.showAlert = true;
                         // Configurar um temporizador para ocultar o alerta após 5 segundos
@@ -409,6 +498,13 @@
             removerImage(index){
                 this.images.splice(index, 1);
             },
+            addVideo(){
+                this.videos.push(this.form.video);
+                this.form.video = '';
+            },
+            removerVideo(index){
+                this.videos.splice(index, 1);
+            },
             insertComodo(item, index){
                 this.comodosSelecteds.push(item);
                 this.options.splice(index, 1);
@@ -432,7 +528,7 @@
             },
             validateTextDescr() {
                 const textLength = this.form.description.length;
-                return textLength > 4 && textLength < 400;
+                return textLength > 4;
             },
             validateTextInfo() {
                 const textLength = this.form.info.length;
@@ -475,6 +571,14 @@
         padding: 4px;
         font-size: 14px;
     }
+    .gray1{
+        background-color: rgb(134, 133, 133);
+        color: white;
+        margin-right: 8px;
+        padding: 4px;
+        font-size: 14px;
+    }
+
 </style>
 
 
