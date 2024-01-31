@@ -5708,6 +5708,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5730,6 +5737,11 @@ __webpack_require__.r(__webpack_exports__);
         sorter: null,
         label: 'link do produto'
       }, {
+        key: 'rooms',
+        sortable: true,
+        sorter: null,
+        label: 'Tipo'
+      }, {
         key: 'actions',
         label: 'Editar'
       }],
@@ -5740,6 +5752,13 @@ __webpack_require__.r(__webpack_exports__);
     this.getProducts();
   },
   methods: {
+    truncateText: function truncateText(text, maxLength) {
+      if (text.length > maxLength) {
+        return text.slice(0, maxLength) + "...";
+      } else {
+        return text;
+      }
+    },
     editSave: function editSave() {
       var _this = this;
       this.showAlert = true;
@@ -5747,20 +5766,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.showAlert = false;
       }, 3000);
       this.showProduct = false;
-      this.fields = [{
-        key: 'name',
-        sortable: true,
-        sorter: null,
-        label: 'Nome do produto'
-      }, {
-        key: 'link',
-        sortable: true,
-        sorter: null,
-        label: 'link do produto'
-      }, {
-        key: 'actions',
-        label: 'Editar'
-      }];
+      this.getProducts();
     },
     editarProdudo: function editarProdudo(item) {
       var _this2 = this;
@@ -5779,6 +5785,11 @@ __webpack_require__.r(__webpack_exports__);
             sorter: null,
             label: 'Nome do produto'
           }, {
+            key: 'rooms',
+            sortable: true,
+            sorter: null,
+            label: 'Tipo'
+          }, {
             key: 'actions',
             label: 'Editar'
           }];
@@ -5793,6 +5804,11 @@ __webpack_require__.r(__webpack_exports__);
             sortable: true,
             sorter: null,
             label: 'link do produto'
+          }, {
+            key: 'rooms',
+            sortable: true,
+            sorter: null,
+            label: 'Tipo'
           }, {
             key: 'actions',
             label: 'Editar'
@@ -6086,6 +6102,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6099,70 +6117,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         image: '',
         key: ''
       },
-      options: [{
-        value: 'SaladeEstar',
-        text: 'Sala de Estar'
-      }, {
-        value: 'SaladeJantar',
-        text: 'Sala de Jantar'
-      }, {
-        value: 'Cozinha',
-        text: 'Cozinha'
-      }, {
-        value: 'BanheiroPrincipal',
-        text: 'Banheiro Principal'
-      }, {
-        value: 'QuartoPrincipal',
-        text: 'Quarto Principal'
-      }, {
-        value: 'QuartodeHóspedes',
-        text: 'Quarto de Hóspedes'
-      }, {
-        value: 'BanheirodeHóspedes',
-        text: 'Banheiro de Hóspedes'
-      }, {
-        value: 'Escritório',
-        text: 'Escritório'
-      }, {
-        value: 'Lavanderia',
-        text: 'Lavanderia'
-      }, {
-        value: 'Garagem',
-        text: 'Garagem'
-      }, {
-        value: 'Sótão',
-        text: 'Sótão'
-      }, {
-        value: 'Porão',
-        text: 'Porão'
-      }, {
-        value: 'QuartodeCrianças',
-        text: 'Quarto de Crianças'
-      }, {
-        value: 'BanheirodeCrianças',
-        text: 'Banheiro de Crianças'
-      }, {
-        value: 'SaladeTV/HomeTheater',
-        text: 'Sala de TV / Home Theater'
-      }, {
-        value: 'VarandaouTerraço',
-        text: 'Varanda ou Terraço'
-      }, {
-        value: 'CorredorouHalldeEntrada',
-        text: 'Corredor ou Hall de Entrada'
-      }, {
-        value: 'Closet',
-        text: 'Closet'
-      }, {
-        value: 'Despensa',
-        text: 'Despensa'
-      }, {
-        value: 'BanheiroSocial',
-        text: 'Banheiro Social'
-      }, {
-        value: 'Outros',
-        text: 'Outros'
-      }],
+      // form: {
+      //     name: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbccccd',
+      //     description: 'adawdawdawawdawdawdaw',
+      //     info: 'adawdawdawawdawdawdaw',
+      //     link: 'adawdawdawawdawdawdaw',
+      //     video: 'adawdawdawawdawdawdaw',
+      //     image: 'adawdawdawawdawdawdaw',
+      //     key: 'adawdawdawawdawdawdaw',
+      // },
+      options: [],
       keys: [],
       comodosSelecteds: [],
       images: [
@@ -6183,9 +6147,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     itemselected: Object
   },
   created: function created() {
-    var _this = this;
     console.log(this.itemselected);
     if (this.itemselected != undefined) {
+      this.getTypeProduct();
       this.form = {
         name: this.itemselected.name,
         description: this.itemselected.description,
@@ -6196,16 +6160,39 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.images = this.itemselected.images;
       this.videos = this.itemselected.videos == undefined ? [] : this.itemselected.videos;
       this.keys = JSON.parse(this.itemselected.keys);
-      this.comodosSelecteds = this.itemselected.rooms;
-      this.options = this.options.filter(function (option) {
-        return !_this.itemselected.rooms.includes(option);
-      });
+    } else {
+      this.getColumns();
     }
   },
   mounted: function mounted() {
     this.sortLists();
   },
   methods: {
+    getColumns: function getColumns() {
+      var _this = this;
+      axios.get('get-column-product', {}).then(function (res) {
+        if (res.data.success) {
+          _this.options = res.data.value;
+        }
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
+    getTypeProduct: function getTypeProduct() {
+      var _this2 = this;
+      axios.get('get-type-product', {
+        params: {
+          id: this.itemselected.id
+        }
+      }).then(function (res) {
+        if (res.data.success) {
+          _this2.options = res.data.value1;
+          _this2.comodosSelecteds = res.data.value2;
+        }
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
     moverImage: function moverImage(index) {
       this.restartImage = false;
       // Verificar se é possível mover para a frente
@@ -6218,14 +6205,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.restartImage = true;
     },
     isVideo: function isVideo(url) {
-      var _this2 = this;
+      var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         var contentType;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _this2.getContentType(url);
+              return _this3.getContentType(url);
             case 2:
               contentType = _context.sent;
               return _context.abrupt("return", contentType.startsWith('video/'));
@@ -6237,17 +6224,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     isImage: function isImage(url) {
-      var _this3 = this;
+      var _this4 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var contentType;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _this3.getContentType(url);
+              return _this4.getContentType(url);
             case 2:
               contentType = _context2.sent;
-              return _context2.abrupt("return", contentType.startsWith('image/') || _this3.isImageExtension(url));
+              return _context2.abrupt("return", contentType.startsWith('image/') || _this4.isImageExtension(url));
             case 4:
             case "end":
               return _context2.stop();
@@ -6289,10 +6276,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return 'video/mp4';
     },
     EditItem: function EditItem() {
-      var _this4 = this;
+      var _this5 = this;
       if (this.form.name.trim() == '' || this.form.description.trim() == '' || this.form.info.trim() == '' || this.form.link.trim() == '' || this.images.length == 0 || this.comodosSelecteds.length == 0) {
         setTimeout(function () {
-          _this4.showDanger = false;
+          _this5.showDanger = false;
         }, 2500);
         return this.showDanger = true;
       }
@@ -6305,17 +6292,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         keys: this.keys
       }).then(function (res) {
         if (res.data.success) {
-          _this4.$emit('back');
+          _this5.$emit('back');
         }
       })["catch"](function (err) {
         console.error(err);
       });
     },
     createItem: function createItem() {
-      var _this5 = this;
-      if (this.form.name.trim() == '' || this.form.description.trim() == '' || this.form.info.trim() == '' || this.form.link.trim() == '' || this.images.length == 0 || this.comodosSelecteds.length == 0) {
+      var _this6 = this;
+      var textLength = this.form.name.length;
+      if (textLength > 255 || this.form.description.trim() == '' || this.form.info.trim() == '' || this.form.link.trim() == '' || this.images.length == 0 || this.comodosSelecteds.length == 0) {
         setTimeout(function () {
-          _this5.showDanger = false;
+          _this6.showDanger = false;
         }, 2500);
         return this.showDanger = true;
       }
@@ -6327,85 +6315,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         keys: this.keys
       }).then(function (res) {
         if (res.data.success) {
-          _this5.form = {
+          _this6.form = {
             name: '',
             description: '',
             info: '',
             link: '',
             image: ''
           };
-          _this5.images = [];
-          _this5.videos = [];
-          _this5.keys = [];
-          _this5.comodosSelecteds = [];
-          _this5.options = [{
-            value: 'SaladeEstar',
-            text: 'Sala de Estar'
-          }, {
-            value: 'SaladeJantar',
-            text: 'Sala de Jantar'
-          }, {
-            value: 'Cozinha',
-            text: 'Cozinha'
-          }, {
-            value: 'BanheiroPrincipal',
-            text: 'Banheiro Principal'
-          }, {
-            value: 'QuartoPrincipal',
-            text: 'Quarto Principal'
-          }, {
-            value: 'QuartodeHóspedes',
-            text: 'Quarto de Hóspedes'
-          }, {
-            value: 'BanheirodeHóspedes',
-            text: 'Banheiro de Hóspedes'
-          }, {
-            value: 'Escritório',
-            text: 'Escritório'
-          }, {
-            value: 'Lavanderia',
-            text: 'Lavanderia'
-          }, {
-            value: 'Garagem',
-            text: 'Garagem'
-          }, {
-            value: 'Sótão',
-            text: 'Sótão'
-          }, {
-            value: 'Porão',
-            text: 'Porão'
-          }, {
-            value: 'QuartodeCrianças',
-            text: 'Quarto de Crianças'
-          }, {
-            value: 'BanheirodeCrianças',
-            text: 'Banheiro de Crianças'
-          }, {
-            value: 'SaladeTV/HomeTheater',
-            text: 'Sala de TV / Home Theater'
-          }, {
-            value: 'VarandaouTerraço',
-            text: 'Varanda ou Terraço'
-          }, {
-            value: 'CorredorouHalldeEntrada',
-            text: 'Corredor ou Hall de Entrada'
-          }, {
-            value: 'Closet',
-            text: 'Closet'
-          }, {
-            value: 'Despensa',
-            text: 'Despensa'
-          }, {
-            value: 'BanheiroSocial',
-            text: 'Banheiro Social'
-          }, {
-            value: 'Outros',
-            text: 'Outros'
-          }];
-          _this5.showAlert = true;
+          _this6.images = [];
+          _this6.videos = [];
+          _this6.keys = [];
+          _this6.comodosSelecteds = [];
+          _this6.options = [];
+          _this6.showAlert = true;
           // Configurar um temporizador para ocultar o alerta após 5 segundos
           setTimeout(function () {
-            _this5.showAlert = false;
+            _this6.showAlert = false;
           }, 2500);
         } else {
           alert('erro ao salvar');
@@ -6423,12 +6348,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       vm.imageselected = value;
     },
     processarPalavrasChave: function processarPalavrasChave() {
-      var _this6 = this;
+      var _this7 = this;
       try {
         if (Array.isArray(this.keys)) {
           this.keys = JSON.parse(this.form.key);
           setTimeout(function () {
-            _this6.form.key = '';
+            _this7.form.key = '';
           }, 100);
         }
         if (!Array.isArray(this.keys)) {
@@ -6449,6 +6374,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.keys = [];
     },
     addImage: function addImage() {
+      if (this.form.image.trim() == '') {
+        return;
+      }
       this.images.push(this.form.image);
       this.form.image = '';
     },
@@ -6456,6 +6384,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.images.splice(index, 1);
     },
     addVideo: function addVideo() {
+      if (this.form.video.trim() == '') {
+        return;
+      }
       this.videos.push(this.form.video);
       this.form.video = '';
     },
@@ -6468,24 +6399,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.sortLists();
     },
     removeComodo: function removeComodo(item, index) {
-      this.options.push(item);
-      this.comodosSelecteds.splice(index, 1);
-      this.sortLists();
+      var vm = this;
+      console.log(item);
+      vm.options.push(item);
+      vm.comodosSelecteds.splice(index, 1);
+      vm.sortLists();
     },
     sortLists: function sortLists() {
       // Ordena ambas as listas alfabeticamente
       this.options.sort(function (a, b) {
-        return a.text.localeCompare(b.text);
+        return a.name.localeCompare(b.name);
       });
       this.comodosSelecteds.sort(function (a, b) {
-        return a.text.localeCompare(b.text);
+        return a.name.localeCompare(b.name);
       });
     }
   },
   computed: {
     validateTextName: function validateTextName() {
       var textLength = this.form.name.length;
-      return textLength > 4 && textLength < 255;
+      return textLength > 4 && textLength < 254;
     },
     validateTextDescr: function validateTextDescr() {
       var textLength = this.form.description.length;
@@ -6677,138 +6610,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       imageSelected: '',
       itemSelected: '',
-      comodos: {
-        salaEstar: false
-      },
-      product: []
+      selectedColumns: [],
+      columns: [],
+      product: [],
+      productCount: 0,
+      ShowVideo: false,
+      perPage: 8,
+      currentPage: 1
     };
   },
   props: {
@@ -6816,18 +6630,70 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     this.bannerRotate();
+    this.getColumns();
     this.getProducts();
   },
   methods: {
-    getProducts: function getProducts() {
+    searchRooms: function searchRooms() {
       var _this = this;
-      axios.get('get-products').then(function (res) {
+      if (this.selectedColumns.length == 0) {
+        return this.getProducts();
+      }
+      axios.get('get-column-product-id', {
+        params: {
+          selectedColumns: this.selectedColumns
+        }
+      }).then(function (res) {
         if (res.data.success) {
           _this.product = res.data.value;
         }
       })["catch"](function (err) {
         console.error(err);
       });
+    },
+    getColumns: function getColumns() {
+      var _this2 = this;
+      axios.get('get-column-product', {}).then(function (res) {
+        if (res.data.success) {
+          _this2.columns = res.data.value;
+        }
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
+    getProducts: function getProducts() {
+      var _this3 = this;
+      axios.get('get-products', {
+        params: {
+          page: this.currentPage,
+          perPage: this.perPage
+        }
+      }).then(function (res) {
+        if (res.data.success) {
+          _this3.product = res.data.value;
+          _this3.productCount = res.data.count;
+        }
+      })["catch"](function (err) {
+        console.error(err);
+      });
+    },
+    isItemNew: function isItemNew(item) {
+      var createdDate = new Date(item.created_at);
+      var currentDate = new Date();
+      var differenceInMilliseconds = currentDate - createdDate;
+      var differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
+      return differenceInDays < 3;
+    },
+    truncateText: function truncateText(text, maxLength) {
+      if (text.length > maxLength) {
+        return text.slice(0, maxLength) + "...";
+      } else {
+        return text;
+      }
+    },
+    getVideoType: function getVideoType(url) {
+      // A
+      return 'video/mp4';
     },
     bannerRotate: function bannerRotate() {
       $(document).ready(function () {
@@ -6861,6 +6727,23 @@ __webpack_require__.r(__webpack_exports__);
     },
     setImageModal: function setImageModal(value) {
       this.imageSelected = value;
+      this.ShowVideo = false;
+    },
+    setVideoModal: function setVideoModal() {
+      this.ShowVideo = true;
+    }
+  },
+  watch: {
+    currentPage: function currentPage(newvalue) {
+      this.getProducts();
+    },
+    selectedColumns: function selectedColumns(newvalue) {
+      this.searchRooms();
+    }
+  },
+  computed: {
+    rows: function rows() {
+      return this.productCount;
     }
   }
 });
@@ -55369,7 +55252,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.fw-bd[data-v-29eaf6d0]{\n    font-weight: bold !;\n}\n.border-image[data-v-29eaf6d0] {\n    border: 1px solid rgb(184, 184, 184);\n    padding: 10px;\n    display: inline-block; /* Impede que o span se expanda para a largura total */\n}\n.ajust-check[data-v-29eaf6d0]{\n    margin-right: 10px;\n    margin-top: 1px;\n}\n.card-itens[data-v-29eaf6d0]{\n    background-color: white; \n    border-radius: 10px;\n    margin-left: 0;\n    margin-right: 0;\n}\n.active-h[data-v-29eaf6d0]{\n    font-weight: bolder;\n    color: #0d6efd !important;\n}\n.menu-h[data-v-29eaf6d0]:hover{\n    font-weight: bolder;\n}\n.banner1[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide1.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner2[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide2.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner3[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide3.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner4[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide4.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.sizeCard[data-v-29eaf6d0]{\n    padding: 20px;\n    min-height: 400px;\n}\n.menusuperior[data-v-29eaf6d0]{\n    background-color: white;\n    color: black;\n    width: 100%;\n    padding: 8px;\n    text-align: center;\n}\n.product[data-v-29eaf6d0]{\n    width: 16rem;\n    margin-left: 10px;\n}\n.image-container[data-v-29eaf6d0] {\n    position: relative;\n    max-width: 100%;\n    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */\n}\n.text-overlay[data-v-29eaf6d0] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    text-align: center;\n    color: #ffffff; /* Cor do texto */\n    font-size: 24px; /* Tamanho da fonte */\n    font-weight: bold; /* Peso da fonte */\n    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */\n}\n\n/* pre {\n    font-family: 'Helvetica', 'Arial', sans-serif;\n} */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bdshadow[data-v-29eaf6d0]{\n    box-shadow: 4px 3px 20px 0px rgb(223 223 223 / 50%);\n}\n.fw-bd[data-v-29eaf6d0]{\n    font-weight: bold !;\n}\n.border-image[data-v-29eaf6d0] {\n    border: 1px solid rgb(184, 184, 184);\n    padding: 10px;\n    display: inline-block; /* Impede que o span se expanda para a largura total */\n}\n.ajust-check[data-v-29eaf6d0]{\n    margin-right: 10px;\n    margin-top: 1px;\n}\n.card-itens[data-v-29eaf6d0]{\n    background-color: white; \n    border-radius: 10px;\n    margin-left: 0;\n    margin-right: 0;\n}\n.active-h[data-v-29eaf6d0]{\n    font-weight: bolder;\n    color: #0d6efd !important;\n}\n.menu-h[data-v-29eaf6d0]:hover{\n    font-weight: bolder;\n}\n.banner1[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide1.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner2[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide2.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner3[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide3.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner4[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide4.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.sizeCard[data-v-29eaf6d0]{\n    padding: 20px;\n    min-height: 400px;\n}\n.menusuperior[data-v-29eaf6d0]{\n    background-color: white;\n    color: black;\n    width: 100%;\n    padding: 8px;\n    text-align: center;\n}\n.product[data-v-29eaf6d0]{\n    width: 16rem;\n    margin-left: 10px;\n}\n.image-container[data-v-29eaf6d0] {\n    position: relative;\n    max-width: 100%;\n    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */\n}\n.text-overlay[data-v-29eaf6d0] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    text-align: center;\n    color: #ffffff; /* Cor do texto */\n    font-size: 24px; /* Tamanho da fonte */\n    font-weight: bold; /* Peso da fonte */\n    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */\n}\n\n/* pre {\n    font-family: 'Helvetica', 'Arial', sans-serif;\n} */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -78258,6 +78141,46 @@ var render = function () {
             scopedSlots: _vm._u(
               [
                 {
+                  key: "cell(name)",
+                  fn: function (row) {
+                    return [
+                      _vm._v(
+                        "\n           " +
+                          _vm._s(_vm.truncateText(row.item.name, 40)) +
+                          "\n        "
+                      ),
+                    ]
+                  },
+                },
+                {
+                  key: "cell(link)",
+                  fn: function (row) {
+                    return [
+                      _vm._v(
+                        "\n           " +
+                          _vm._s(_vm.truncateText(row.item.link, 40)) +
+                          "\n        "
+                      ),
+                    ]
+                  },
+                },
+                {
+                  key: "cell(rooms)",
+                  fn: function (row) {
+                    return _vm._l(row.item.rooms, function (room, index) {
+                      return _c(
+                        "b-badge",
+                        {
+                          key: "rooms" + index,
+                          staticClass: "btn btn-dark",
+                          attrs: { variant: "success" },
+                        },
+                        [_vm._v(_vm._s(room))]
+                      )
+                    })
+                  },
+                },
+                {
                   key: "cell(actions)",
                   fn: function (row) {
                     return [
@@ -78279,7 +78202,7 @@ var render = function () {
               ],
               null,
               false,
-              2296646637
+              1318966370
             ),
           })
         : _vm._e(),
@@ -78820,7 +78743,9 @@ var render = function () {
           ),
           _vm._v(" "),
           _c("hr"),
-          _vm._v(" "),
+          _vm._v(
+            "\n            " + _vm._s(_vm.comodosSelecteds) + " \n            "
+          ),
           _vm._m(0),
           _vm._v(" "),
           _c(
@@ -78839,7 +78764,7 @@ var render = function () {
                           },
                         },
                       },
-                      [_vm._v(_vm._s(item.text))]
+                      [_vm._v(_vm._s(item.name))]
                     )
                   : _vm._e()
               }),
@@ -78857,7 +78782,7 @@ var render = function () {
                           },
                         },
                       },
-                      [_vm._v(_vm._s(item.text))]
+                      [_vm._v(_vm._s(item.name))]
                     )
                   : _vm._e()
               }),
@@ -78879,7 +78804,7 @@ var render = function () {
                   },
                 },
               },
-              [_vm._v(_vm._s(item.text))]
+              [_vm._v(_vm._s(item.name))]
             )
           }),
           _vm._v(" "),
@@ -79149,8 +79074,14 @@ var render = function () {
           _vm._v(" "),
           _c(
             "b-alert",
+            { attrs: { variant: "success", show: _vm.showAlert } },
+            [_vm._v("Salvo com sucesso!")]
+          ),
+          _vm._v(" "),
+          _c(
+            "b-alert",
             { attrs: { variant: "danger", show: _vm.showDanger } },
-            [_vm._v("Falta selecionar alguma coisa")]
+            [_vm._v("Campo invalido")]
           ),
           _vm._v(" "),
           _c("br"),
@@ -79277,46 +79208,6 @@ var render = function () {
       _vm._v(" "),
       _c(
         "b-row",
-        {
-          class: _vm.$store.state.showBanner ? "" : "mt-2",
-          staticStyle: { "justify-content": "center" },
-        },
-        [
-          _c("b-col", { attrs: { cols: "12" } }, [
-            _c(
-              "span",
-              { staticStyle: { display: "flex", "justify-content": "center" } },
-              [
-                _c(
-                  "span",
-                  { staticClass: "menusuperior caret menu-h active-h" },
-                  [_vm._v("Produtos")]
-                ),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior caret menu-h" }, [
-                  _vm._v("Cursos"),
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior caret menu-h" }, [
-                  _vm._v("Ofertas Especiais"),
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior caret menu-h" }, [
-                  _vm._v("Novidades"),
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior caret menu-h" }, [
-                  _vm._v("Mais Vendidos"),
-                ]),
-              ]
-            ),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
         { staticClass: "mt-3" },
         [
           _c(
@@ -79333,588 +79224,77 @@ var render = function () {
                     1
                   ),
                   _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        directives: [
-                          {
-                            name: "model",
-                            rawName: "v-model",
-                            value: _vm.comodos.salaEstar,
-                            expression: "comodos.salaEstar",
-                          },
-                        ],
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                        domProps: {
-                          checked: Array.isArray(_vm.comodos.salaEstar)
-                            ? _vm._i(_vm.comodos.salaEstar, "true") > -1
-                            : _vm.comodos.salaEstar,
-                        },
-                        on: {
-                          change: function ($event) {
-                            var $$a = _vm.comodos.salaEstar,
-                              $$el = $event.target,
-                              $$c = $$el.checked ? true : false
-                            if (Array.isArray($$a)) {
-                              var $$v = "true",
-                                $$i = _vm._i($$a, $$v)
-                              if ($$el.checked) {
-                                $$i < 0 &&
-                                  _vm.$set(
-                                    _vm.comodos,
-                                    "salaEstar",
-                                    $$a.concat([$$v])
-                                  )
-                              } else {
-                                $$i > -1 &&
-                                  _vm.$set(
-                                    _vm.comodos,
-                                    "salaEstar",
-                                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                                  )
-                              }
-                            } else {
-                              _vm.$set(_vm.comodos, "salaEstar", $$c)
-                            }
-                          },
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Sala de Estar\n                            "
+                  _vm._l(_vm.columns, function (item, index) {
+                    return _c(
+                      "b-list-group-item",
+                      { key: "columns" + index, staticClass: "bd-none" },
+                      [
+                        _c("div", { staticClass: "dp-flex" }, [
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.selectedColumns,
+                                expression: "selectedColumns",
+                              },
+                            ],
+                            staticClass: "custom-control-input ajust-check",
+                            attrs: {
+                              id: "checkbox-" + index,
+                              type: "checkbox",
+                              name: "checkbox-" + index,
+                            },
+                            domProps: {
+                              value: item.id,
+                              checked: Array.isArray(_vm.selectedColumns)
+                                ? _vm._i(_vm.selectedColumns, item.id) > -1
+                                : _vm.selectedColumns,
+                            },
+                            on: {
+                              change: function ($event) {
+                                var $$a = _vm.selectedColumns,
+                                  $$el = $event.target,
+                                  $$c = $$el.checked ? true : false
+                                if (Array.isArray($$a)) {
+                                  var $$v = item.id,
+                                    $$i = _vm._i($$a, $$v)
+                                  if ($$el.checked) {
+                                    $$i < 0 &&
+                                      (_vm.selectedColumns = $$a.concat([$$v]))
+                                  } else {
+                                    $$i > -1 &&
+                                      (_vm.selectedColumns = $$a
+                                        .slice(0, $$i)
+                                        .concat($$a.slice($$i + 1)))
+                                  }
+                                } else {
+                                  _vm.selectedColumns = $$c
+                                }
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "label",
+                            {
+                              staticClass: "custom-control-label",
+                              attrs: { for: "checkbox-1" },
+                            },
+                            [
+                              _vm._v(
+                                "\n                                " +
+                                  _vm._s(item.name) +
+                                  "\n                            "
+                              ),
+                            ]
                           ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-2",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-2" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Sala de Jantar\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-3",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-4" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Cozinha\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Banheiro Principal\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Quarto Principal\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Quarto de Hóspedes\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Banheiro de Hóspedes\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Escritório\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Lavanderia\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Garagem\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Sótão\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Porão\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Quarto de Crianças\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Banheiro de Crianças\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Sala de TV / Home Theater\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Varanda ou Terraço\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Corredor ou Hall de Entrada\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Closet\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Despensa\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { staticClass: "bd-none" }, [
-                    _c("div", { staticClass: "dp-flex" }, [
-                      _c("input", {
-                        staticClass: "custom-control-input ajust-check",
-                        attrs: {
-                          id: "checkbox-1",
-                          type: "checkbox",
-                          name: "checkbox-1",
-                          value: "true",
-                        },
-                      }),
-                      _vm._v(" "),
-                      _c(
-                        "label",
-                        {
-                          staticClass: "custom-control-label",
-                          attrs: { for: "checkbox-1" },
-                        },
-                        [
-                          _vm._v(
-                            "\n                                Banheiro Social\n                            "
-                          ),
-                        ]
-                      ),
-                    ]),
-                  ]),
+                        ]),
+                      ]
+                    )
+                  }),
                 ],
-                1
+                2
               ),
             ],
             1
@@ -79925,7 +79305,10 @@ var render = function () {
             [
               _c(
                 "b-row",
-                { staticClass: "jc-c card-itens" },
+                {
+                  staticClass: "jc-c card-itens",
+                  staticStyle: { "min-height": "840px" },
+                },
                 _vm._l(_vm.product, function (item, index) {
                   return _c(
                     "b-col",
@@ -79935,45 +79318,89 @@ var render = function () {
                       attrs: { cols: "auto" },
                     },
                     [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top caret",
-                            attrs: { src: item.images[0], alt: "Produto 1" },
-                            on: {
-                              click: function ($event) {
-                                return _vm.openModal(item)
-                              },
-                            },
-                          }),
+                      _c(
+                        "div",
+                        { staticClass: "card product bd-none bdshadow" },
+                        [
+                          _vm.isItemNew(item)
+                            ? _c(
+                                "div",
+                                {
+                                  staticClass:
+                                    "position-absolute top-0 end-0 m-2",
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "badge bg-danger" },
+                                    [_vm._v("NOVO")]
+                                  ),
+                                ]
+                              )
+                            : _vm._e(),
                           _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h6", { staticClass: "card-titl" }, [
-                              _c("b", [_vm._v(_vm._s(item.name))]),
-                            ]),
+                          _c("div", { staticStyle: { height: "100%" } }, [
+                            _c("img", {
+                              staticClass: "card-img-top caret",
+                              attrs: { src: item.images[0], alt: "Produto 1" },
+                              on: {
+                                click: function ($event) {
+                                  return _vm.openModal(item)
+                                },
+                              },
+                            }),
                             _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                        " +
-                                  _vm._s(item.description) +
-                                  "\n                                    "
-                              ),
+                            _c("div", { staticClass: "card-body" }, [
+                              _c("h6", { staticClass: "card-titl" }, [
+                                _c("b", [_vm._v(_vm._s(item.name))]),
+                              ]),
+                              _vm._v(" "),
+                              _c("p", { staticClass: "card-text" }, [
+                                _vm._v(
+                                  "\n                                        " +
+                                    _vm._s(
+                                      _vm.truncateText(item.description, 100)
+                                    ) +
+                                    "\n                                    "
+                                ),
+                              ]),
                             ]),
                           ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: { href: item.link, target: "_blank" },
-                          },
-                          [_vm._v("Ver Detalhes")]
-                        ),
-                      ]),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "btn btn-primary w-90 mg-10",
+                              attrs: { href: item.link, target: "_blank" },
+                            },
+                            [_vm._v("Ver Detalhes")]
+                          ),
+                        ]
+                      ),
                     ]
                   )
                 }),
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                [
+                  _c("b-pagination", {
+                    attrs: {
+                      "total-rows": _vm.rows,
+                      "per-page": _vm.perPage,
+                      align: "fill",
+                    },
+                    model: {
+                      value: _vm.currentPage,
+                      callback: function ($$v) {
+                        _vm.currentPage = $$v
+                      },
+                      expression: "currentPage",
+                    },
+                  }),
+                ],
                 1
               ),
               _vm._v(" "),
@@ -79996,48 +79423,137 @@ var render = function () {
                       _c(
                         "b-col",
                         { attrs: { cols: "auto" } },
-                        _vm._l(_vm.itemSelected.images, function (item, index) {
-                          return _c("div", { key: "images2" + index }, [
-                            _c(
-                              "span",
-                              {
-                                staticClass: "border-image mt-1 caret",
-                                on: {
-                                  click: function ($event) {
-                                    return _vm.setImageModal(
-                                      _vm.itemSelected.images[index]
-                                    )
+                        [
+                          _vm._l(
+                            _vm.itemSelected.images,
+                            function (item, index) {
+                              return _c("div", { key: "images2" + index }, [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "border-image mt-1 caret",
+                                    on: {
+                                      click: function ($event) {
+                                        return _vm.setImageModal(
+                                          _vm.itemSelected.images[index]
+                                        )
+                                      },
+                                    },
                                   },
+                                  [
+                                    _c("img", {
+                                      staticClass: "card-img-top",
+                                      staticStyle: { width: "100px" },
+                                      attrs: { src: item, alt: "Produto 1" },
+                                    }),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("br"),
+                              ])
+                            }
+                          ),
+                          _vm._v(" "),
+                          _vm._l(
+                            _vm.itemSelected.videos,
+                            function (item, index) {
+                              return _c("div", { key: "videos2" + index }, [
+                                _c(
+                                  "span",
+                                  {
+                                    staticClass: "border-image mt-1 caret",
+                                    on: { click: _vm.setVideoModal },
+                                  },
+                                  [
+                                    _c(
+                                      "video",
+                                      {
+                                        staticClass: "card-img-top",
+                                        staticStyle: { width: "100px" },
+                                        attrs: {
+                                          muted: "",
+                                          poster: _vm.itemSelected.images[0],
+                                          alt: "video",
+                                        },
+                                        domProps: { muted: true },
+                                      },
+                                      [
+                                        _c("source", {
+                                          attrs: {
+                                            src: _vm.itemSelected.videos[0],
+                                            type: _vm.getVideoType("video/mp4"),
+                                          },
+                                        }),
+                                      ]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("i", {
+                                      staticClass: "fa fa-play fa-4x",
+                                      staticStyle: {
+                                        position: "absolute",
+                                        left: "50px",
+                                        top: "555px",
+                                        color: "white",
+                                      },
+                                      attrs: { "aria-hidden": "true" },
+                                    }),
+                                  ]
+                                ),
+                                _vm._v(" "),
+                                _c("br"),
+                              ])
+                            }
+                          ),
+                        ],
+                        2
+                      ),
+                      _vm._v(" "),
+                      !_vm.ShowVideo
+                        ? _c("b-col", [
+                            _c("img", {
+                              directives: [
+                                {
+                                  name: "b-modal",
+                                  rawName: "v-b-modal.modal-1",
+                                  modifiers: { "modal-1": true },
+                                },
+                              ],
+                              staticClass: "card-img-top",
+                              attrs: {
+                                src: _vm.imageSelected,
+                                alt: "Produto 1",
+                              },
+                            }),
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.ShowVideo
+                        ? _c("b-col", [
+                            _c(
+                              "video",
+                              {
+                                staticClass: "card-img-top",
+                                attrs: {
+                                  controls: "",
+                                  autoplay: "",
+                                  poster: _vm.itemSelected.images[0],
+                                  alt: "video",
                                 },
                               },
                               [
-                                _c("img", {
-                                  staticClass: "card-img-top",
-                                  staticStyle: { width: "100px" },
-                                  attrs: { src: item, alt: "Produto 1" },
+                                _c("source", {
+                                  attrs: {
+                                    src: _vm.itemSelected.videos[0],
+                                    type: _vm.getVideoType("video/mp4"),
+                                  },
                                 }),
+                                _vm._v(
+                                  "\n                                Video.\n                            "
+                                ),
                               ]
                             ),
-                            _vm._v(" "),
-                            _c("br"),
                           ])
-                        }),
-                        0
-                      ),
-                      _vm._v(" "),
-                      _c("b-col", [
-                        _c("img", {
-                          directives: [
-                            {
-                              name: "b-modal",
-                              rawName: "v-b-modal.modal-1",
-                              modifiers: { "modal-1": true },
-                            },
-                          ],
-                          staticClass: "card-img-top",
-                          attrs: { src: _vm.imageSelected, alt: "Produto 1" },
-                        }),
-                      ]),
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("b-col", { attrs: { cols: "12" } }, [
                         _c("hr"),
@@ -80062,7 +79578,7 @@ var render = function () {
                           {
                             staticClass: "btn btn-success mt-2 w-100",
                             attrs: {
-                              href: "https://shope.ee/3VLQP2t3dy",
+                              href: _vm.itemSelected.link,
                               target: "_blank",
                               block: "",
                             },

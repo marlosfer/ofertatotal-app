@@ -39,7 +39,7 @@
             <b-col cols="auto"></b-col>
         </b-row> -->
     
-        <b-row :class="$store.state.showBanner ? '': 'mt-2'" style="justify-content: center;">
+        <!-- <b-row :class="$store.state.showBanner ? '': 'mt-2'" style="justify-content: center;">
             <b-col cols="12"> 
                 <span style="display: flex;justify-content: center;">
                     <span class="menusuperior caret menu-h active-h">Produtos</span>
@@ -49,168 +49,23 @@
                     <span class="menusuperior caret menu-h">Mais Vendidos</span>    
                 </span>
             </b-col>
-        </b-row>
+        </b-row> -->
         <b-row class="mt-3">
             <b-col cols="auto"> 
                 <b-list-group>
                     <b-list-group-item class="bd-none"><center><b>Cômodos</b></center></b-list-group-item>
-                    <b-list-group-item class="bd-none">
+                    <b-list-group-item class="bd-none"  v-for="(item, index) in columns" :key="'columns'+index">
                         <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" v-model="comodos.salaEstar" class="custom-control-input ajust-check" value="true">
+                             <input
+                                :id="'checkbox-' + index"
+                                type="checkbox"
+                                :name="'checkbox-' + index"
+                                v-model="selectedColumns"
+                                :value="item.id"
+                                class="custom-control-input ajust-check"
+                                />
                             <label for="checkbox-1" class="custom-control-label">
-                                Sala de Estar
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-2" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-2" class="custom-control-label">
-                                Sala de Jantar
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-3" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-4" class="custom-control-label">
-                                Cozinha
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Banheiro Principal
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Quarto Principal
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Quarto de Hóspedes
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Banheiro de Hóspedes
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Escritório
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Lavanderia
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Garagem
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Sótão
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Porão
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Quarto de Crianças
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Banheiro de Crianças
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Sala de TV / Home Theater
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Varanda ou Terraço
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Corredor ou Hall de Entrada
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Closet
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Despensa
-                            </label>
-                        </div>
-                    </b-list-group-item>
-                    <b-list-group-item class="bd-none">
-                        <div  class="dp-flex">
-                            <input id="checkbox-1" type="checkbox" name="checkbox-1" class="custom-control-input ajust-check" value="true">
-                            <label for="checkbox-1" class="custom-control-label">
-                                Banheiro Social
+                                {{ item.name }}
                             </label>
                         </div>
                     </b-list-group-item>
@@ -218,7 +73,7 @@
             </b-col>
 
             <b-col>
-                <b-row class="jc-c card-itens">
+                <b-row class="jc-c card-itens" style="min-height: 840px;">
                     <!-- <div class="input-group mb-3" style="margin-top: 10px;">
                         <input type="text" class="form-control" placeholder="Pesquisar produto...">
                         <div class="input-group-append">
@@ -226,8 +81,11 @@
                         </div>
                     </div> -->
                     <b-col v-for="(item, index) in product" :key="'product'+index" cols="auto" class="dp-flex sizeCard">
-                        <div class="card product bd-none">
-                            <div class="h-100">
+                        <div class="card product bd-none bdshadow"> 
+                            <div v-if="isItemNew(item)" class="position-absolute top-0 end-0 m-2">
+                                <span class="badge bg-danger">NOVO</span>
+                            </div>
+                            <div style="height: 100%;">
                                 <img 
                                     class="card-img-top caret"
                                     @click="openModal(item)" 
@@ -237,7 +95,7 @@
                                 <div class="card-body">
                                     <h6 class="card-titl"><b>{{item.name}}</b></h6>
                                     <p class="card-text">
-                                        {{item.description}}
+                                        {{ truncateText(item.description, 100) }}
                                     </p>
                                 </div>
                             </div>
@@ -245,7 +103,10 @@
                         </div>
                     </b-col>
                 </b-row>
-
+                <div>
+                    <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="fill"></b-pagination>
+                </div>
+                
                 <b-modal class="text-center fw-bd" id="modal-1" 
                     hide-header-close hide-footer size="lg" 
                     :title="itemSelected.name"
@@ -258,9 +119,26 @@
                                 </span>
                                 <br>
                             </div>
+                            <div v-for="(item, index) in itemSelected.videos" :key="'videos2'+index">
+                                <span  class="border-image mt-1 caret" @click="setVideoModal">
+                                    <!-- <img :src="item" style="width: 100px;" class="card-img-top" alt="Produto 1"> -->
+                                    <!--  -->
+                                    <video muted style="width: 100px;" :poster="itemSelected.images[0]" class="card-img-top" :alt="'video'">
+                                        <source :src="itemSelected.videos[0]" :type="getVideoType('video/mp4')">
+                                    </video>
+                                    <i class="fa fa-play fa-4x" style="position: absolute;left: 50px;top: 555px;color: white;" aria-hidden="true"></i>
+                                </span>
+                                <br>
+                            </div>
                         </b-col>
-                        <b-col>
+                        <b-col v-if="!ShowVideo">
                             <img v-b-modal.modal-1 :src="imageSelected"  class="card-img-top" alt="Produto 1">
+                        </b-col>
+                        <b-col v-if="ShowVideo">
+                            <video controls autoplay :poster="itemSelected.images[0]" class="card-img-top" :alt="'video'">
+                                <source :src="itemSelected.videos[0]" :type="getVideoType('video/mp4')">
+                                Video.
+                            </video>
                         </b-col>
                         <b-col cols="12">
                             <hr>
@@ -271,7 +149,7 @@
                     </b-row>
                     <b-row>
                         <b-col>
-                            <a href="https://shope.ee/3VLQP2t3dy" class="btn btn-success mt-2 w-100" target="_blank" block>Ir para a loja</a>
+                            <a :href="itemSelected.link" class="btn btn-success mt-2 w-100" target="_blank" block>Ir para a loja</a>
                         </b-col>
                     </b-row>
                 </b-modal>
@@ -286,10 +164,13 @@
             return {
                 imageSelected: '',
                 itemSelected: '',
-                comodos: {
-                    salaEstar: false,
-                },
+                selectedColumns: [],
+                columns: [],
                 product: [],
+                productCount: 0,
+                ShowVideo: false,
+                perPage: 8,
+                currentPage: 1,
             }
         },
         props:{
@@ -297,20 +178,73 @@
         },
         created() {
             this.bannerRotate();
+            this.getColumns();
             this.getProducts();
         },
         methods: {
-            getProducts(){
-                axios.get('get-products')
-                .then(res => {
+            searchRooms(){
+                if(this.selectedColumns.length == 0){
+                    return this.getProducts();
+                }
+                axios.get('get-column-product-id',{
+                    params: {
+                        selectedColumns: this.selectedColumns,
+                    },
+                }).then(res => {
                     if(res.data.success){
                         this.product = res.data.value;
                     }
                 })
                 .catch(err => {
                     console.error(err); 
+                });
+            },
+            getColumns(){
+                axios.get('get-column-product',{
+                }).then(res => {
+                    if(res.data.success){
+                        this.columns = res.data.value;
+                    }
                 })
+                .catch(err => {
+                    console.error(err); 
+                });
+            },
+            getProducts(){
+                axios.get('get-products',{
+                    params: {
+                        page: this.currentPage,
+                        perPage: this.perPage,
+                    },
+                })
+                .then(res => {
+                    if(res.data.success){
+                        this.product = res.data.value;
+                        this.productCount = res.data.count;
+                    }
+                })
+                .catch(err => {
+                    console.error(err); 
+                });
+            },
+            isItemNew(item) {
+                const createdDate = new Date(item.created_at);
+                const currentDate = new Date();
+                const differenceInMilliseconds = currentDate - createdDate;
+                const differenceInDays = differenceInMilliseconds / (1000 * 60 * 60 * 24);
 
+                return differenceInDays < 3;
+            },
+            truncateText(text, maxLength) {
+                if (text.length > maxLength) {
+                    return text.slice(0, maxLength) + "...";
+                } else {
+                    return text;
+                }
+            },
+            getVideoType(url) {
+                // A
+                return 'video/mp4';
             },
             bannerRotate(){
                 $(document).ready(function () {
@@ -339,12 +273,32 @@
             },
             setImageModal(value){
                 this.imageSelected = value;
+                this.ShowVideo = false;
+            },
+            setVideoModal(){
+                this.ShowVideo = true;
             },
         },
+        watch: {
+            currentPage(newvalue){
+                this.getProducts();
+            },
+            selectedColumns(newvalue){
+                this.searchRooms();
+            },
+        },
+        computed: {
+            rows() {
+                return this.productCount;
+            }
+        }
     }
 </script>
 
 <style scoped>
+    .bdshadow{
+        box-shadow: 4px 3px 20px 0px rgb(223 223 223 / 50%);
+    }
     .fw-bd{
         font-weight: bold !;
     }

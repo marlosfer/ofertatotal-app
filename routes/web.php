@@ -29,10 +29,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // FAZER
 
 // NOVIDADES{
-//     CORRIGIR O FRONT "TEXTO" O TEXTO ESTÁ MUITO GRANDE
-//     ORDERNAR PRODUTOS PARA TRAZER OS NOVOS
-//     FAZER FILTROS LATERAL E FINALIZAR MENU
-//     BANNER
+//      CORRIGIR O FRONT "TEXTO" O TEXTO ESTÁ MUITO GRANDE
+//      ORDERNAR PRODUTOS PARA TRAZER OS NOVOS
+//      FAZER FILTROS LATERAL E FINALIZAR MENU
+//      BANNER
+//      FILTRO SUPERIOR - 
+//      ORDER BY - OK
+//      ITEM NOVO - OK
+//      PAGINATE - OK
+//      CAIXA DE SUGESTÃO
 // }
 
 
@@ -40,6 +45,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('/get-products', [App\Http\Controllers\ItemsController::class, 'getProducts']);
+Route::get('/get-column-product', [App\Http\Controllers\ItemsController::class, 'getColumnProduct']);
+Route::get('/get-column-product-id', [App\Http\Controllers\ItemsController::class, 'getColumnProductId']);
 
 
 Route::middleware(['auth'])->group(function () {
@@ -49,5 +56,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/create-product', [App\Http\Controllers\ItemsController::class, 'createProduct'])->name('admin');
     Route::post('/edit-product', [App\Http\Controllers\ItemsController::class, 'editProduct'])->name('admin');
+    Route::get('/get-type-product', [App\Http\Controllers\ItemsController::class, 'getTypeProduct'])->name('admin');
 
 });

@@ -164,13 +164,14 @@
             </b-modal>
 
             <hr>
+                {{ comodosSelecteds }} 
                 <div class="mt-3" for="opções">OPÇÕES - PARA <b>ADICIONAR</b> BASTA CLICAR EM CIMA.</div>
                 <div>
-                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.value != 'Outros'" class="gray caret" @click="insertComodo(item, index)">{{item.text}}</b-badge>
-                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.value == 'Outros'" class="gray1 caret" @click="insertComodo(item, index)">{{item.text}}</b-badge>
+                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.value != 'Outros'" class="gray caret" @click="insertComodo(item, index)">{{item.name}}</b-badge>
+                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.value == 'Outros'" class="gray1 caret" @click="insertComodo(item, index)">{{item.name}}</b-badge>
                 </div>
                 <p for="opções">OPÇÕES - PARA <b>REMOVER</b> BASTA CLICAR EM CIMA.</p>
-                <b-badge v-for="(item, index) in comodosSelecteds" :key="'badgee'+index" class="success caret" @click="removeComodo(item, index)">{{item.text}}</b-badge>
+                <b-badge v-for="(item, index) in comodosSelecteds" :key="'badgee'+index" class="success caret" @click="removeComodo(item, index)">{{item.name}}</b-badge>
             <hr>
 
             <hr>
@@ -234,7 +235,8 @@
 
 
             
-            <b-alert variant="danger" :show="showDanger">Falta selecionar alguma coisa</b-alert>
+            <b-alert variant="success" :show="showAlert">Salvo com sucesso!</b-alert>
+            <b-alert variant="danger" :show="showDanger">Campo invalido</b-alert>
             <br><br><br>
             
             <b-button v-if="itemselected == null" class="mt-1" style="float: right;" type="submit" variant="success" @click="createItem">Criar produto</b-button>
@@ -257,29 +259,16 @@
                     image: '',
                     key: '',
                 },
-                options: [
-                    { value: 'SaladeEstar', text: 'Sala de Estar' },
-                    { value: 'SaladeJantar', text: 'Sala de Jantar' },
-                    { value: 'Cozinha', text: 'Cozinha' },
-                    { value: 'BanheiroPrincipal', text: 'Banheiro Principal' },
-                    { value: 'QuartoPrincipal', text: 'Quarto Principal' },
-                    { value: 'QuartodeHóspedes', text: 'Quarto de Hóspedes' },
-                    { value: 'BanheirodeHóspedes', text: 'Banheiro de Hóspedes' },
-                    { value: 'Escritório', text: 'Escritório' },
-                    { value: 'Lavanderia', text: 'Lavanderia' },
-                    { value: 'Garagem', text: 'Garagem' },
-                    { value: 'Sótão', text: 'Sótão' },
-                    { value: 'Porão', text: 'Porão' },
-                    { value: 'QuartodeCrianças', text: 'Quarto de Crianças' },
-                    { value: 'BanheirodeCrianças', text: 'Banheiro de Crianças' },
-                    { value: 'SaladeTV/HomeTheater', text: 'Sala de TV / Home Theater' },
-                    { value: 'VarandaouTerraço', text: 'Varanda ou Terraço' },
-                    { value: 'CorredorouHalldeEntrada', text: 'Corredor ou Hall de Entrada' },
-                    { value: 'Closet', text: 'Closet' },
-                    { value: 'Despensa', text: 'Despensa' },
-                    { value: 'BanheiroSocial', text: 'Banheiro Social' },
-                    { value: 'Outros', text: 'Outros' },
-                ],
+                // form: {
+                //     name: 'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabbbbbccccd',
+                //     description: 'adawdawdawawdawdawdaw',
+                //     info: 'adawdawdawawdawdawdaw',
+                //     link: 'adawdawdawawdawdawdaw',
+                //     video: 'adawdawdawawdawdawdaw',
+                //     image: 'adawdawdawawdawdawdaw',
+                //     key: 'adawdawdawawdawdawdaw',
+                // },
+                options: [],
                 keys: [],
                 comodosSelecteds:[],
                 images: [
@@ -302,6 +291,7 @@
         created() {
             console.log(this.itemselected);
             if(this.itemselected != undefined){
+                this.getTypeProduct();
                 this.form = {
                     name: this.itemselected.name,
                     description: this.itemselected.description,
@@ -312,15 +302,40 @@
                 this.images = this.itemselected.images;
                 this.videos = this.itemselected.videos == undefined ? [] : this.itemselected.videos ;
                 this.keys = JSON.parse(this.itemselected.keys);
-
-                this.comodosSelecteds = this.itemselected.rooms;
-                this.options = this.options.filter(option => !this.itemselected.rooms.includes(option));
+            }else{
+                this.getColumns();
             }
         },
         mounted() {
             this.sortLists();
         },
         methods: {
+            getColumns(){
+                axios.get('get-column-product',{
+                }).then(res => {
+                    if(res.data.success){
+                        this.options = res.data.value;
+                    }
+                })
+                .catch(err => {
+                    console.error(err); 
+                });
+            },
+            getTypeProduct(){
+                axios.get('get-type-product',{
+                    params: {
+                        id: this.itemselected.id,
+                    },
+                }).then(res => {
+                    if(res.data.success){
+                        this.options = res.data.value1;
+                        this.comodosSelecteds = res.data.value2;
+                    }
+                })
+                .catch(err => {
+                    console.error(err); 
+                });
+            },
             moverImage(index){
                 this.restartImage = false;
                  // Verificar se é possível mover para a frente
@@ -389,8 +404,9 @@
                 
             },
             createItem() {
+                const textLength = this.form.name.length;
                 if(
-                    this.form.name.trim() == '' || 
+                    textLength > 255 || 
                     this.form.description.trim() == '' || 
                     this.form.info.trim() == '' || 
                     this.form.link.trim() == '' || 
@@ -402,7 +418,7 @@
                     }, 2500);
                     return this.showDanger = true;
                 }
-
+              
                 axios.post('/create-product',{
                     form: this.form,
                     images: this.images,
@@ -422,29 +438,7 @@
                         this.videos = [];
                         this.keys = [];
                         this.comodosSelecteds = [];
-                        this.options = [
-                            { value: 'SaladeEstar', text: 'Sala de Estar' },
-                            { value: 'SaladeJantar', text: 'Sala de Jantar' },
-                            { value: 'Cozinha', text: 'Cozinha' },
-                            { value: 'BanheiroPrincipal', text: 'Banheiro Principal' },
-                            { value: 'QuartoPrincipal', text: 'Quarto Principal' },
-                            { value: 'QuartodeHóspedes', text: 'Quarto de Hóspedes' },
-                            { value: 'BanheirodeHóspedes', text: 'Banheiro de Hóspedes' },
-                            { value: 'Escritório', text: 'Escritório' },
-                            { value: 'Lavanderia', text: 'Lavanderia' },
-                            { value: 'Garagem', text: 'Garagem' },
-                            { value: 'Sótão', text: 'Sótão' },
-                            { value: 'Porão', text: 'Porão' },
-                            { value: 'QuartodeCrianças', text: 'Quarto de Crianças' },
-                            { value: 'BanheirodeCrianças', text: 'Banheiro de Crianças' },
-                            { value: 'SaladeTV/HomeTheater', text: 'Sala de TV / Home Theater' },
-                            { value: 'VarandaouTerraço', text: 'Varanda ou Terraço' },
-                            { value: 'CorredorouHalldeEntrada', text: 'Corredor ou Hall de Entrada' },
-                            { value: 'Closet', text: 'Closet' },
-                            { value: 'Despensa', text: 'Despensa' },
-                            { value: 'BanheiroSocial', text: 'Banheiro Social' },
-                            { value: 'Outros', text: 'Outros' },
-                        ];
+                        this.options = [];
                         this.showAlert = true;
                         // Configurar um temporizador para ocultar o alerta após 5 segundos
                         setTimeout(() => {
@@ -492,6 +486,9 @@
                 this.keys = [];
             },
             addImage(){
+                if(this.form.image.trim() == ''){
+                    return;
+                }
                 this.images.push(this.form.image);
                 this.form.image = '';
             },
@@ -499,6 +496,9 @@
                 this.images.splice(index, 1);
             },
             addVideo(){
+                if(this.form.video.trim() == ''){
+                    return;
+                }
                 this.videos.push(this.form.video);
                 this.form.video = '';
             },
@@ -511,20 +511,22 @@
                 this.sortLists();
             },
             removeComodo(item, index) {
-                this.options.push(item);
-                this.comodosSelecteds.splice(index, 1);
-                this.sortLists();
+                var vm = this;
+                console.log(item);
+                vm.options.push(item);
+                vm.comodosSelecteds.splice(index, 1);
+                vm.sortLists();
             },
             sortLists() {
             // Ordena ambas as listas alfabeticamente
-                this.options.sort((a, b) => a.text.localeCompare(b.text));
-                this.comodosSelecteds.sort((a, b) => a.text.localeCompare(b.text));
+                this.options.sort((a, b) => a.name.localeCompare(b.name));
+                this.comodosSelecteds.sort((a, b) => a.name.localeCompare(b.name));
             },
         },
         computed: {
             validateTextName() {
                 const textLength = this.form.name.length;
-                return textLength > 4 && textLength < 255;
+                return textLength > 4 && textLength < 254;
             },
             validateTextDescr() {
                 const textLength = this.form.description.length;

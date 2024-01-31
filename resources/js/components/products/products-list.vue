@@ -3,16 +3,23 @@
         
         <b-alert variant="success" :show="showAlert">Editado com sucesso!</b-alert>
         <b-table v-if="!showProduct" striped hover :items="product" :fields="fields">
+            <template #cell(name)="row">
+               {{ truncateText(row.item.name, 40) }}
+            </template>
+            <template #cell(link)="row">
+               {{ truncateText(row.item.link, 40) }}
+            </template>
+            <template #cell(rooms)="row">
+                <b-badge variant="success" class="btn btn-dark" v-for="(room, index) in row.item.rooms" :key="'rooms'+index" >{{ room }}</b-badge>
+            </template>
             <template #cell(actions)="row">
                 <b-button @click="editarProdudo(row.item)" variant="primary"> Editar</b-button>
             </template>
         </b-table>
-
         <div v-if="showProduct">
             <h4>Edição produto - <b-button @click="editarProdudo(itemselected)" variant="danger">Cancelar</b-button></h4>
             <products-register :itemselected="itemselected" v-on:back="editSave"></products-register>
         </div>
-
     </div>
 </template>
 
@@ -30,6 +37,7 @@
                 fields: [
 			        { key: 'name', sortable: true, sorter: null, label: 'Nome do produto' },
 			        { key: 'link', sortable: true, sorter: null, label: 'link do produto' },
+			        { key: 'rooms', sortable: true, sorter: null, label: 'Tipo' },
 			        { key: 'actions', label: 'Editar' },
                 ],
                 showAlert: false,
@@ -39,17 +47,20 @@
             this.getProducts();
         },
         methods: {
+            truncateText(text, maxLength) {
+                if (text.length > maxLength) {
+                    return text.slice(0, maxLength) + "...";
+                } else {
+                    return text;
+                }
+            },
             editSave(){
                 this.showAlert = true;
                 setTimeout(() => {
                     this.showAlert = false;
                 }, 3000);
                 this.showProduct = false;
-                this.fields = [
-                    { key: 'name', sortable: true, sorter: null, label: 'Nome do produto' },
-                    { key: 'link', sortable: true, sorter: null, label: 'link do produto' },
-                    { key: 'actions', label: 'Editar' },
-                ]
+                this.getProducts();
             },
             editarProdudo(item){
                 axios.get('get-products',  {
@@ -63,12 +74,14 @@
                     if(this.showProduct){
                         this.fields = [
                             { key: 'name', sortable: true, sorter: null, label: 'Nome do produto' },
+			                { key: 'rooms', sortable: true, sorter: null, label: 'Tipo' },
                             { key: 'actions', label: 'Editar' },
                         ]
                     }else{
                         this.fields = [
                             { key: 'name', sortable: true, sorter: null, label: 'Nome do produto' },
                             { key: 'link', sortable: true, sorter: null, label: 'link do produto' },
+			                { key: 'rooms', sortable: true, sorter: null, label: 'Tipo' },
                             { key: 'actions', label: 'Editar' },
                         ]
                     }
