@@ -126,10 +126,9 @@
                     </b-col>
                 </b-row>
             </section>
-            <hr>
-            <ul class="copyright">
+            <span class="copyright">
                 &copy; Untitled. All rights reserved Design: <a href="#">Insectoyde</a> 
-            </ul>
+            </span>
         </div>
     </footer>
 </template>
@@ -184,6 +183,7 @@
         display: flex;
         text-align: center;
         color: rgb(46, 46, 46);
+        margin-left: 116px;
     }
     .footer{
         margin-top: 50px;

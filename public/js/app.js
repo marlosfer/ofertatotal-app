@@ -5388,7 +5388,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6524,6 +6523,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
 //
 //
 //
@@ -55254,7 +55254,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.copyright[data-v-a7601ec0]{\n    display: flex;\n    text-align: center;\n    color: rgb(46, 46, 46);\n}\n.footer[data-v-a7601ec0]{\n    margin-top: 50px;\n}\n.custom-input[data-v-a7601ec0]{\n    margin: 20px;\n    margin-top: 40px;\n    padding: 30px;\n}\n.custom-input[data-v-a7601ec0]:hover{\n    border: 1px solid black;\n}\n.inner1[data-v-a7601ec0]{\n    background-color: #9cd2bb;\n    color: white;\n    padding-left: 120px;\n    padding-right: 140px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\n.inner2[data-v-a7601ec0]{\n    color: #314933;\n    padding-left: 120px;\n    padding-right: 120px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\n.btn-outline-success[data-v-a7601ec0]{\n    color: #7da091; /* Cor do texto ao remover o efeito hover */\n    border-color: #7da091; /* Cor da borda ao remover o efeito hover */\n}\n.btn-outline-success[data-v-a7601ec0]:hover {\n    color: white; /* Cor do texto ao remover o efeito hover */\n    background-color: #89d3b3;\n    border-color: #707a70; /* Cor da borda ao remover o efeito hover */\n}\npre[data-v-a7601ec0] {\n    font-family: 'Helvetica', 'Arial', sans-serif;\n    font-size: 16px;\n    line-height: 1.5;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.copyright[data-v-a7601ec0]{\n    display: flex;\n    text-align: center;\n    color: rgb(46, 46, 46);\n    margin-left: 116px;\n}\n.footer[data-v-a7601ec0]{\n    margin-top: 50px;\n}\n.custom-input[data-v-a7601ec0]{\n    margin: 20px;\n    margin-top: 40px;\n    padding: 30px;\n}\n.custom-input[data-v-a7601ec0]:hover{\n    border: 1px solid black;\n}\n.inner1[data-v-a7601ec0]{\n    background-color: #9cd2bb;\n    color: white;\n    padding-left: 120px;\n    padding-right: 140px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\n.inner2[data-v-a7601ec0]{\n    color: #314933;\n    padding-left: 120px;\n    padding-right: 120px;\n    padding-top: 30px;\n    padding-bottom: 30px;\n}\n.btn-outline-success[data-v-a7601ec0]{\n    color: #7da091; /* Cor do texto ao remover o efeito hover */\n    border-color: #7da091; /* Cor da borda ao remover o efeito hover */\n}\n.btn-outline-success[data-v-a7601ec0]:hover {\n    color: white; /* Cor do texto ao remover o efeito hover */\n    background-color: #89d3b3;\n    border-color: #707a70; /* Cor da borda ao remover o efeito hover */\n}\npre[data-v-a7601ec0] {\n    font-family: 'Helvetica', 'Arial', sans-serif;\n    font-size: 16px;\n    line-height: 1.5;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -77868,8 +77868,6 @@ var render = function () {
         1
       ),
       _vm._v(" "),
-      _c("hr"),
-      _vm._v(" "),
       _vm._m(0),
     ]),
   ])
@@ -77879,7 +77877,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("ul", { staticClass: "copyright" }, [
+    return _c("span", { staticClass: "copyright" }, [
       _vm._v("\n            © Untitled. All rights reserved Design: "),
       _c("a", { attrs: { href: "#" } }, [_vm._v("Insectoyde")]),
     ])
@@ -79395,7 +79393,7 @@ var render = function () {
                             "label",
                             {
                               staticClass: "custom-control-label",
-                              attrs: { for: "checkbox-1" },
+                              attrs: { for: "checkbox-" + index },
                             },
                             [
                               _vm._v(
@@ -79458,6 +79456,9 @@ var render = function () {
                           _c("div", { staticStyle: { height: "100%" } }, [
                             _c("img", {
                               staticClass: "card-img-top caret",
+                              style: _vm.isItemNew(item)
+                                ? "border: 3px solid red"
+                                : "",
                               attrs: { src: item.images[0], alt: "Produto 1" },
                               on: {
                                 click: function ($event) {
@@ -79499,26 +79500,28 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _c(
-                "div",
-                [
-                  _c("b-pagination", {
-                    attrs: {
-                      "total-rows": _vm.rows,
-                      "per-page": _vm.perPage,
-                      align: "fill",
-                    },
-                    model: {
-                      value: _vm.currentPage,
-                      callback: function ($$v) {
-                        _vm.currentPage = $$v
-                      },
-                      expression: "currentPage",
-                    },
-                  }),
-                ],
-                1
-              ),
+              _vm.selectedColumns.length == 0
+                ? _c(
+                    "div",
+                    [
+                      _c("b-pagination", {
+                        attrs: {
+                          "total-rows": _vm.rows,
+                          "per-page": _vm.perPage,
+                          align: "fill",
+                        },
+                        model: {
+                          value: _vm.currentPage,
+                          callback: function ($$v) {
+                            _vm.currentPage = $$v
+                          },
+                          expression: "currentPage",
+                        },
+                      }),
+                    ],
+                    1
+                  )
+                : _vm._e(),
               _vm._v(" "),
               _c(
                 "b-modal",

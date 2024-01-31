@@ -145,41 +145,26 @@ class ItemsController extends Controller
             if(request('selectedColumns') == null){
 
             }else{
-                $column = DB::table('types')
-                    ->whereIn('id', request('selectedColumns'))
-                    ->select('name')
-                    ->get();
                 
-                $names = [];
-                foreach ($column as $key) {
-                    $names[] = $key->name;
-                }
-                
-                $concat = implode(', ', $names);
-                
-                $conditions = [];
-                $namesArray = explode(', ', $concat); // Converter a string em um array
-                
-                foreach ($namesArray as $name) {
-                    $conditions[] = "JSON_EXTRACT(rooms, '$[*].text') LIKE '%$name%'";
-                }
-                
-                $query = "SELECT *
-                        FROM products
-                        WHERE " . implode(' OR ', $conditions) . "
-                LIMIT 30";
-                
-                $result = DB::select($query);
+                $itens = request('selectedColumns');
 
-                foreach ($result as $key) {
+                // Agora você pode usar $itemIds em sua cláusula WHERE IN
+                $column = DB::table('product_type')
+                    ->join('products', 'products.id', 'product_type.product_id')
+                    ->whereIn('type_id', $itens)
+                    ->select('products.id', 'products.name', 'products.description',  'products.info', 'products.link', 'products.images', 'products.videos', 'products.keys', 'products.created_at', 'products.created_by', 'products.deleted_at')
+                    ->groupBy('products.id', 'products.name', 'products.description', 'products.info', 'products.link', 'products.images', 'products.videos', 'products.keys', 'products.created_at', 'products.created_by', 'products.deleted_at')           
+                    ->orderBy('products.created_at', 'desc')
+                    ->get();
+
+                foreach ($column as $key) {
                     $key->id = Crypt::encrypt($key->id);;
                     $key->images = json_decode($key->images);
                     $key->videos = json_decode($key->videos);
-                    $key->rooms = json_decode($key->rooms);
+                    // $key->rooms = json_decode($key->rooms);
                 }
 
-
-                $colunas['value'] = $result;
+                $colunas['value'] = $column;
                 $colunas['success'] = true;
             }
             

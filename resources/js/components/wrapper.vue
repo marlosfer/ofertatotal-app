@@ -64,7 +64,7 @@
                                 :value="item.id"
                                 class="custom-control-input ajust-check"
                                 />
-                            <label for="checkbox-1" class="custom-control-label">
+                            <label :for="'checkbox-' + index" class="custom-control-label">
                                 {{ item.name }}
                             </label>
                         </div>
@@ -88,6 +88,7 @@
                             <div style="height: 100%;">
                                 <img 
                                     class="card-img-top caret"
+                                    :style="isItemNew(item) ? 'border: 3px solid red' : ''"
                                     @click="openModal(item)" 
                                     :src="item.images[0]" 
                                     alt="Produto 1"
@@ -103,7 +104,7 @@
                         </div>
                     </b-col>
                 </b-row>
-                <div>
+                <div v-if="selectedColumns.length == 0">
                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="fill"></b-pagination>
                 </div>
                 
