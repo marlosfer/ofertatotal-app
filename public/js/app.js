@@ -5180,7 +5180,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      showTab: 'produtos',
+      showTab: '',
       showRegister: 'produtos',
       fields: ['first_name', 'last_name', 'age'],
       items: [{
@@ -5382,28 +5382,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       form: {
         email: '',
-        text: ''
+        description: ''
       },
-      foods: [{
-        text: 'Select One',
-        value: null
-      }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-      show: true
+      sendMessage: false
     };
   },
-  created: function created() {},
+  created: function created() {
+    // Para obter o valor e verificar se ainda está dentro do prazo de validade
+    var storedData = JSON.parse(localStorage.getItem('ofertatotal_1'));
+    if (storedData && storedData.expirationTime > new Date().getTime()) {
+      this.sendMessage = storedData.value === 'true';
+    } else {
+      // O valor expirou ou não está presente
+      this.sendMessage = false;
+    }
+  },
   methods: {
-    searchItens: function searchItens() {
-      alert('buscou o item: ' + this.search);
-    },
-    sair: function sair() {
-      console.log('saiu');
+    sendSugestion: function sendSugestion() {
+      var _this = this;
+      axios.post('/send-sugestion', {
+        form: this.form
+      }).then(function (res) {
+        if (res.data.success) {
+          _this.form = {
+            email: '',
+            description: ''
+          };
+          var expirationTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 horas em milissegundos
+          localStorage.setItem('ofertatotal_1', JSON.stringify({
+            value: 'true',
+            expirationTime: expirationTime
+          }));
+          _this.sendMessage = true;
+        } else {
+          alert('erro ao salvar');
+        }
+      })["catch"](function (err) {
+        console.error(err);
+      });
     }
   }
 });
@@ -5556,6 +5585,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperty(obj, key, value) { key = _toPropertyKey(key); if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : String(i); }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+//
 //
 //
 //
@@ -5572,40 +5606,80 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return {
+    return _defineProperty(_defineProperty({
       selectedRadio: 'A',
-      fields: ['first_name', 'last_name', 'age'],
-      items: [{
-        isActive: true,
-        age: 40,
-        first_name: 'Dickerson',
-        last_name: 'Macdonald'
-      }, {
-        isActive: false,
-        age: 21,
-        first_name: 'Larsen',
-        last_name: 'Shaw'
-      }, {
-        isActive: false,
-        age: 89,
-        first_name: 'Geneva',
-        last_name: 'Wilson'
-      }, {
-        isActive: true,
-        age: 38,
-        first_name: 'Jami',
-        last_name: 'Carney'
-      }]
-    };
+      fields: ['description', 'email', 'user', 'created_at']
+    }, "fields", [{
+      key: 'description',
+      sortable: true,
+      sorter: null,
+      label: 'Descrição'
+    }, {
+      key: 'email',
+      sortable: true,
+      sorter: null,
+      label: 'Email'
+    }, {
+      key: 'user',
+      sortable: true,
+      sorter: null,
+      label: 'Aparelho'
+    }, {
+      key: 'created_at',
+      label: 'Data de envio'
+    }]), "items", []);
   },
-  props: {
-    session_user: Object
+  mounted: function mounted() {
+    this.getSusgestions();
   },
-  mounted: function mounted() {},
   methods: {
-    openModal: function openModal(value) {
-      this.$bvModal.show('modal-1');
-      this.setImageModal(value);
+    formater: function formater(created_at) {
+      var date = new Date(created_at);
+      var day = date.getDate().toString().padStart(2, '0');
+      var month = (date.getMonth() + 1).toString().padStart(2, '0');
+      var year = date.getFullYear();
+      var hours = date.getHours().toString().padStart(2, '0');
+      var minutes = date.getMinutes().toString().padStart(2, '0');
+      var seconds = date.getSeconds().toString().padStart(2, '0');
+      return "".concat(hours, ":").concat(minutes, ":").concat(seconds, " - ").concat(day, "/").concat(month, "/").concat(year);
+    },
+    getBrowserInfo: function getBrowserInfo(userAgent) {
+      var browserInfo = this.parseUserAgent(userAgent);
+      return "".concat(browserInfo.name, " ").concat(browserInfo.version, " em ").concat(browserInfo.os);
+    },
+    parseUserAgent: function parseUserAgent(userAgent) {
+      var lowerAgent = userAgent.toLowerCase();
+      if (lowerAgent.includes('chrome')) {
+        return {
+          name: 'Chrome',
+          version: '...',
+          os: '...'
+        };
+      } else if (lowerAgent.includes('firefox')) {
+        return {
+          name: 'Firefox',
+          version: '...',
+          os: '...'
+        };
+      }
+      // Adicione mais verificações para outros navegadores conforme necessário
+
+      // Caso padrão
+      return {
+        name: 'Desconhecido',
+        version: '...',
+        os: '...'
+      };
+    },
+    getSusgestions: function getSusgestions() {
+      var _this = this;
+      axios.get('get-susgestions', {}).then(function (res) {
+        if (res.data.success) {
+          _this.items = res.data.value;
+        }
+      })["catch"](function (err) {
+        console.error(err);
+      });
     }
   },
   computed: {
@@ -5822,7 +5896,8 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
       axios.get('get-products', {
         params: {
-          limit: 3
+          limit: 3,
+          marlos: 333
         }
       }).then(function (res) {
         if (res.data.success) {
@@ -6164,15 +6239,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.getColumns();
     }
   },
-  mounted: function mounted() {
-    this.sortLists();
-  },
   methods: {
     getColumns: function getColumns() {
       var _this = this;
       axios.get('get-column-product', {}).then(function (res) {
         if (res.data.success) {
           _this.options = res.data.value;
+          _this.sortLists();
         }
       })["catch"](function (err) {
         console.error(err);
@@ -6188,6 +6261,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         if (res.data.success) {
           _this2.options = res.data.value1;
           _this2.comodosSelecteds = res.data.value2;
+          _this2.sortLists();
         }
       })["catch"](function (err) {
         console.error(err);
@@ -77549,107 +77623,151 @@ var render = function () {
     _c("div", [
       _c(
         "section",
-        { staticClass: "inner1" },
+        { staticClass: "inner1", staticStyle: { "text-align": "center" } },
         [
           _c(
             "b-row",
             [
               _c("b-col", [
-                _c("div", [
-                  _c("h2", [_vm._v("Envie-nos suas Sugestões e Críticas!")]),
-                  _vm._v(" "),
-                  _c("p", [
-                    _vm._v(
-                      "Se você tiver alguma sugestão, ideia ou crítica construtiva, não hesite em enviar-nos um e-mail. \n                        Estamos sempre abertos a receber feedback e valorizamos a sua contribuição."
-                    ),
-                  ]),
-                ]),
+                !_vm.sendMessage
+                  ? _c("div", [
+                      _c("h2", [
+                        _vm._v("Envie-nos suas Sugestões e Críticas!"),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Se você tiver alguma sugestão, ideia ou crítica construtiva, não hesite em enviar-nos um e-mail. \n                        Estamos sempre abertos a receber feedback e valorizamos a sua contribuição."
+                        ),
+                      ]),
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.sendMessage
+                  ? _c("div", [
+                      _c("h2", [_vm._v("Obrigado pela sua Contribuição!")]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Agradecemos por compartilhar suas sugestões e críticas conosco. Seu feedback é extremamente valioso e nos ajuda a melhorar continuamente."
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Se tiver mais alguma sugestão ou comentário, sinta-se à vontade para entrar em contato novamente. Estamos aqui para ouvir e melhorar."
+                        ),
+                      ]),
+                    ])
+                  : _vm._e(),
               ]),
               _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "b-form-group",
-                    { attrs: { id: "input-group-1", "label-for": "input-1" } },
-                    [
-                      _c("b-form-input", {
-                        staticClass: "custom-input",
-                        attrs: {
-                          id: "input-1",
-                          type: "email",
-                          placeholder: "Seu email",
-                          size: "lg",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.form.email,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.form, "email", $$v)
-                          },
-                          expression: "form.email",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "b-form-group",
-                    { attrs: { id: "input-group-2", "label-for": "input-2" } },
-                    [
-                      _c("b-form-input", {
-                        staticClass: "custom-input",
-                        attrs: {
-                          id: "input-2",
-                          size: "lg",
-                          type: "text",
-                          placeholder: "Sua sugestão",
-                          required: "",
-                        },
-                        model: {
-                          value: _vm.form.text,
-                          callback: function ($$v) {
-                            _vm.$set(_vm.form, "text", $$v)
-                          },
-                          expression: "form.text",
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-col",
-                [
-                  _c(
-                    "b-form-group",
-                    { attrs: { id: "input-group-2", "label-for": "input-2" } },
+              !_vm.sendMessage
+                ? _c(
+                    "b-col",
                     [
                       _c(
-                        "b-button",
+                        "b-form-group",
                         {
-                          staticClass: "custom-input",
-                          staticStyle: { width: "100%" },
-                          attrs: { variant: "outline-success" },
+                          attrs: {
+                            id: "input-group-1",
+                            "label-for": "input-1",
+                          },
                         },
-                        [_vm._v("Enviar")]
+                        [
+                          _c("b-form-input", {
+                            staticClass: "custom-input",
+                            attrs: {
+                              id: "input-1",
+                              type: "email",
+                              placeholder: "Seu email",
+                              size: "lg",
+                              required: "",
+                            },
+                            model: {
+                              value: _vm.form.email,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "email", $$v)
+                              },
+                              expression: "form.email",
+                            },
+                          }),
+                        ],
+                        1
                       ),
                     ],
                     1
-                  ),
-                ],
-                1
-              ),
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.sendMessage
+                ? _c(
+                    "b-col",
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "input-group-2",
+                            "label-for": "input-2",
+                          },
+                        },
+                        [
+                          _c("b-form-input", {
+                            staticClass: "custom-input",
+                            attrs: {
+                              id: "input-2",
+                              size: "lg",
+                              type: "text",
+                              placeholder: "Sua sugestão",
+                              required: "",
+                            },
+                            model: {
+                              value: _vm.form.description,
+                              callback: function ($$v) {
+                                _vm.$set(_vm.form, "description", $$v)
+                              },
+                              expression: "form.description",
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              !_vm.sendMessage
+                ? _c(
+                    "b-col",
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "input-group-2",
+                            "label-for": "input-2",
+                          },
+                        },
+                        [
+                          _c(
+                            "b-button",
+                            {
+                              staticClass: "custom-input",
+                              staticStyle: { width: "100%" },
+                              attrs: { variant: "outline-success" },
+                              on: { click: _vm.sendSugestion },
+                            },
+                            [_vm._v("Enviar")]
+                          ),
+                        ],
+                        1
+                      ),
+                    ],
+                    1
+                  )
+                : _vm._e(),
             ],
             1
           ),
@@ -78043,25 +78161,25 @@ var render = function () {
         attrs: { striped: "", hover: "", items: _vm.items, fields: _vm.fields },
         scopedSlots: _vm._u([
           {
-            key: "cell(actions)",
+            key: "cell(user)",
             fn: function (row) {
               return [
-                _c(
-                  "b-link",
-                  {
-                    attrs: { size: "lg" },
-                    on: {
-                      click: function ($event) {
-                        return _vm.itemDelete(row.item, row.index)
-                      },
-                    },
-                  },
-                  [
-                    _c("i", {
-                      staticClass: "fa fa-trash-o bs-trash fa-2x",
-                      attrs: { "aria-hidden": "true" },
-                    }),
-                  ]
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.getBrowserInfo(row.item.user)) +
+                    "\n        "
+                ),
+              ]
+            },
+          },
+          {
+            key: "cell(created_at)",
+            fn: function (row) {
+              return [
+                _vm._v(
+                  "\n            " +
+                    _vm._s(_vm.formater(row.item.created_at)) +
+                    "\n        "
                 ),
               ]
             },
@@ -78743,16 +78861,14 @@ var render = function () {
           ),
           _vm._v(" "),
           _c("hr"),
-          _vm._v(
-            "\n            " + _vm._s(_vm.comodosSelecteds) + " \n            "
-          ),
+          _vm._v(" "),
           _vm._m(0),
           _vm._v(" "),
           _c(
             "div",
             [
               _vm._l(_vm.options, function (item, index) {
-                return item.value != "Outros"
+                return item.name != "Outros"
                   ? _c(
                       "b-badge",
                       {
@@ -78770,7 +78886,7 @@ var render = function () {
               }),
               _vm._v(" "),
               _vm._l(_vm.options, function (item, index) {
-                return item.value == "Outros"
+                return item.name == "Outros"
                   ? _c(
                       "b-badge",
                       {

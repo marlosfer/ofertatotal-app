@@ -94,6 +94,7 @@
                 axios.get('get-products',  {
                     params:{
                         limit: 3,
+                        marlos: 333,
                     }
                 }).then((res) => {
                     if(res.data.success){

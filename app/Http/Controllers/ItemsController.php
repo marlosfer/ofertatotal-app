@@ -190,6 +190,7 @@ class ItemsController extends Controller
 
         return $colunas;
     }
+
     public function getProducts(Request $request)
     {
         try {
@@ -297,6 +298,50 @@ class ItemsController extends Controller
         }
         
         return $product;
+    }
+    
+    public function getSusgestions(Request $request){
+        try {
+
+            $result['value'] = DB::table('susgestion')
+            ->orderBy('created_at', 'desc')
+            ->limit(50)
+            ->get();
+
+            $result['success'] = true;
+        } catch (\Exception $e) {
+            echo $e;
+            $result['success'] = false;
+        }
+        
+        return $result;
+    }
+    
+    public function sendSugestion(Request $request){
+        try {
+
+            $email = $request->form['email'];
+
+            // Verificar se é um endereço de e-mail válido
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                throw new \Exception('Email inválido');
+            }
+
+            $idItem = DB::table('susgestion')->insertGetId([
+                'description' => $request->form['description'],
+                'email' => $request->form['email'],
+                'user' => $_SERVER['HTTP_USER_AGENT'],
+                'created_at' => Carbon::now()->toDateTimeString(),
+            ]);
+
+            
+            $sugestion['success'] = true;
+        } catch (\Exception $e) {
+            echo $e;
+            $sugestion['success'] = false;
+        }
+        
+        return $sugestion;
     }
 
 }

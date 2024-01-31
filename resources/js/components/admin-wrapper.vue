@@ -61,7 +61,7 @@
         },
         data: function () {
             return {
-                showTab: 'produtos',
+                showTab: '',
                 showRegister: 'produtos',
                 fields: ['first_name', 'last_name', 'age'],
                 items: [

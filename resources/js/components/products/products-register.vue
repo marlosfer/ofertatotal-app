@@ -164,11 +164,11 @@
             </b-modal>
 
             <hr>
-                {{ comodosSelecteds }} 
+                <!-- {{ comodosSelecteds }}  -->
                 <div class="mt-3" for="opções">OPÇÕES - PARA <b>ADICIONAR</b> BASTA CLICAR EM CIMA.</div>
                 <div>
-                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.value != 'Outros'" class="gray caret" @click="insertComodo(item, index)">{{item.name}}</b-badge>
-                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.value == 'Outros'" class="gray1 caret" @click="insertComodo(item, index)">{{item.name}}</b-badge>
+                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.name != 'Outros'" class="gray caret" @click="insertComodo(item, index)">{{item.name}}</b-badge>
+                    <b-badge v-for="(item, index) in options" :key="'badge'+index" v-if="item.name == 'Outros'" class="gray1 caret" @click="insertComodo(item, index)">{{item.name}}</b-badge>
                 </div>
                 <p for="opções">OPÇÕES - PARA <b>REMOVER</b> BASTA CLICAR EM CIMA.</p>
                 <b-badge v-for="(item, index) in comodosSelecteds" :key="'badgee'+index" class="success caret" @click="removeComodo(item, index)">{{item.name}}</b-badge>
@@ -306,15 +306,13 @@
                 this.getColumns();
             }
         },
-        mounted() {
-            this.sortLists();
-        },
         methods: {
             getColumns(){
                 axios.get('get-column-product',{
                 }).then(res => {
                     if(res.data.success){
                         this.options = res.data.value;
+                        this.sortLists(); 
                     }
                 })
                 .catch(err => {
@@ -330,6 +328,7 @@
                     if(res.data.success){
                         this.options = res.data.value1;
                         this.comodosSelecteds = res.data.value2;
+                        this.sortLists(); 
                     }
                 })
                 .catch(err => {

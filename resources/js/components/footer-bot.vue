@@ -1,16 +1,23 @@
 <template>
     <footer class="footer">
         <div>
-            <section class="inner1">
+            <section class="inner1" style="text-align: center;">
                 <b-row>
                     <b-col>
-                        <div>
+                        <div v-if="!sendMessage">
                             <h2>Envie-nos suas Sugestões e Críticas!</h2>
                             <p>Se você tiver alguma sugestão, ideia ou crítica construtiva, não hesite em enviar-nos um e-mail. 
                             Estamos sempre abertos a receber feedback e valorizamos a sua contribuição.</p>
                         </div>
+
+                        <div v-if="sendMessage">
+                            <h2>Obrigado pela sua Contribuição!</h2>
+                            <p>Agradecemos por compartilhar suas sugestões e críticas conosco. Seu feedback é extremamente valioso e nos ajuda a melhorar continuamente.</p>
+                            <p>Se tiver mais alguma sugestão ou comentário, sinta-se à vontade para entrar em contato novamente. Estamos aqui para ouvir e melhorar.</p>
+                        </div>
+
                     </b-col>
-                    <b-col>
+                    <b-col v-if="!sendMessage">
                         <b-form-group
                             id="input-group-1"
                             label-for="input-1"
@@ -26,14 +33,14 @@
                             ></b-form-input>
                         </b-form-group>
                     </b-col>
-                    <b-col>
+                    <b-col v-if="!sendMessage">
                         <b-form-group
                             id="input-group-2"
                             label-for="input-2"
                         >
                             <b-form-input
                             id="input-2"
-                            v-model="form.text"
+                            v-model="form.description"
                             size="lg"
                             type="text"
                             placeholder="Sua sugestão"
@@ -42,12 +49,12 @@
                             ></b-form-input>
                         </b-form-group>
                     </b-col>
-                    <b-col>
+                    <b-col v-if="!sendMessage">
                         <b-form-group
                             id="input-group-2"
                             label-for="input-2"
                         >
-                            <b-button class="custom-input" style="width: 100%;" variant="outline-success">Enviar</b-button>
+                            <b-button class="custom-input" style="width: 100%;" @click="sendSugestion" variant="outline-success">Enviar</b-button>
                         </b-form-group>
                     </b-col>
                 </b-row>
@@ -131,23 +138,43 @@
     export default {
         data: function () {
             return {
-        form: {
-          email: '',
-          text: '',
-        },
-        foods: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-        show: true
-      }
+                form: {
+                    email: '',
+                    description: '',
+                },
+                sendMessage: false,
+            }
         },
         created() {
+            // Para obter o valor e verificar se ainda está dentro do prazo de validade
+            const storedData = JSON.parse(localStorage.getItem('ofertatotal_1'));
+            if (storedData && storedData.expirationTime > new Date().getTime()) {
+                this.sendMessage = storedData.value === 'true';
+            } else {
+                // O valor expirou ou não está presente
+                this.sendMessage = false;
+            }
         },
         methods: {
-            searchItens(){
-                alert('buscou o item: ' + this. search);
+            sendSugestion(){
+                axios.post('/send-sugestion',{
+                    form: this.form,
+                }).then(res => {
+                    if(res.data.success){
+                        this.form = {
+                            email: '',
+                            description: '',
+                        }
+                        const expirationTime = new Date().getTime() + 24 * 60 * 60 * 1000; // 24 horas em milissegundos
+                        localStorage.setItem('ofertatotal_1', JSON.stringify({ value: 'true', expirationTime }));
+                        this.sendMessage = true;
+                    }else{
+                        alert('erro ao salvar');
+                    }
+                }).catch(err => {
+                    console.error(err); 
+                })
             },
-            sair(){
-                console.log('saiu')
-            }
         },
     }
 </script>

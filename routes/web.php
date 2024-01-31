@@ -30,8 +30,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 // NOVIDADES{
 //      CORRIGIR O FRONT "TEXTO" O TEXTO ESTÁ MUITO GRANDE
-//      ORDERNAR PRODUTOS PARA TRAZER OS NOVOS
-//      FAZER FILTROS LATERAL E FINALIZAR MENU
+//      ORDERNAR PRODUTOS PARA TRAZER OS NOVOS - OK
+//      FAZER FILTROS LATERAL E FINALIZAR MENU - OK
 //      BANNER
 //      FILTRO SUPERIOR - 
 //      ORDER BY - OK
@@ -39,7 +39,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 //      PAGINATE - OK
 //      CAIXA DE SUGESTÃO
 // }
-
+// enviar outro email amanha as 8:07
 
 
 
@@ -47,6 +47,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/get-products', [App\Http\Controllers\ItemsController::class, 'getProducts']);
 Route::get('/get-column-product', [App\Http\Controllers\ItemsController::class, 'getColumnProduct']);
 Route::get('/get-column-product-id', [App\Http\Controllers\ItemsController::class, 'getColumnProductId']);
+Route::post('/send-sugestion', [App\Http\Controllers\ItemsController::class, 'sendSugestion']);
 
 
 Route::middleware(['auth'])->group(function () {
@@ -57,5 +58,6 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/create-product', [App\Http\Controllers\ItemsController::class, 'createProduct'])->name('admin');
     Route::post('/edit-product', [App\Http\Controllers\ItemsController::class, 'editProduct'])->name('admin');
     Route::get('/get-type-product', [App\Http\Controllers\ItemsController::class, 'getTypeProduct'])->name('admin');
+    Route::get('/get-susgestions', [App\Http\Controllers\ItemsController::class, 'getSusgestions'])->name('admin');
 
 });
