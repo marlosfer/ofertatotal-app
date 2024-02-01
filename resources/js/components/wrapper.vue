@@ -4,26 +4,61 @@
             <ul class="slides">
                 <li>
                     <div class="image-container">
+                        <div class="banner0"></div>
+                        <div class="text-overlay">
+                            <pre>
+                                <h2><b><center>{{ capsM('Ofertas Incríveis para o Seu Dia a Dia') }}</center></b></h2>
+                            </pre>
+                            <div>
+                                <pre>    
+<h6><b>
+{{ capsM('Na nossa seleção de produtos úteis e baratos, você encontrará soluções ') }}
+{{ capsM('inteligentes para simplificar a sua vida sem pesar no seu bolso. ') }}
+</b></h6>
+<h6><b>{{capsM('Descubra ofertas incríveis que tornarão o seu dia a dia mais prático e econômico.')}}</b></h6> 
+                                </pre>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <div class="image-container">
                         <div class="banner1"></div>
-                        <div class="text-overlay">Texto Sobre a Imagem 1: {{ $store.state.companyselect }}</div>
+                        <div class="text-overlay">
+                            <pre>
+                                <h2><b><center>{{ capsM('Produtos essenciais combina utilidade e economia. ') }}</center></b></h2>
+                            </pre>
+                            <div>
+                                <pre>    
+<h6><b>
+{{ capsM('Apresentamos uma variedade de soluções inteligentes, ') }}
+{{ capsM('projetadas para facilitar a sua rotina diária a preços imbatíveis. ') }}
+</b></h6>
+<h6><b>{{capsM('Descubra como é possível ter qualidade sem comprometer o seu orçamento.')}}</b></h6> 
+                                </pre>
+                            </div>
+                        </div>
                     </div>
                 </li>
                 <li>
                     <div class="image-container">
                         <div class="banner2"></div>
-                        <div class="text-overlay">Texto Sobre a Imagem 2</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="image-container">
-                        <div class="banner3"></div>
-                        <div class="text-overlay">Texto Sobre a Imagem 3</div>
-                    </div>
-                </li>
-                <li>
-                    <div class="image-container">
-                        <div class="banner4"></div>
-                        <!-- <div class="text-overlay">Texto Sobre a Imagem 4</div> -->
+                        <div class="text-overlay">
+                            <pre>
+                                <h2><b><center>{{ capsM('Aproveite nossas promoções exclusivas ') }}</center></b></h2>
+                            </pre>
+                            <!-- <div style="background-color: #9cd2bb;">
+                            </div> -->
+                            <div>
+                                <pre>    
+<h6><b>
+{{ capsM('Na busca por soluções úteis que não pesem no seu orçamento, ') }}
+{{ capsM('oferecemos uma variedade de opções que tornarão sua vida mais fácil sem comprometer sua carteira.') }}
+</b></h6>
+<h6><b>{{capsM('Explore as ofertas agora!')}}</b></h6> 
+                                </pre>
+                            </div>
+                        </div>
                     </div>
                 </li>
             </ul>
@@ -183,6 +218,9 @@
             this.getProducts();
         },
         methods: {
+            capsM(value){
+                return value.toUpperCase();
+            },
             searchRooms(){
                 if(this.selectedColumns.length == 0){
                     return this.getProducts();
@@ -329,9 +367,17 @@
         font-weight: bolder;
     }
 
+    .banner0 {
+        height: 400px;
+        background-image: url('/images/7.png');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */
+    }
     .banner1 {
         height: 400px;
-        background-image: url('/images/slide1.jpg');
+        background-image: url('/images/slide3.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -340,7 +386,7 @@
 
     .banner2 {
         height: 400px;
-        background-image: url('/images/slide2.jpg');
+        background-image: url('/images/4.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -348,7 +394,7 @@
     }
     .banner3 {
         height: 400px;
-        background-image: url('/images/slide3.jpg');
+        background-image: url('/images/6.jpg');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -356,11 +402,56 @@
     }
     .banner4 {
         height: 400px;
-        background-image: url('/images/slide4.jpg');
+        background-image: url('/images/3.webp');
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
         /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */
+    }
+    .banner0::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.5); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */
+    }
+    .banner1::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.7); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */
+    }
+    .banner2::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.7); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */
+    }
+    .banner3::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.7); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */
+    }
+    .banner4::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.7); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */
     }
 
     .sizeCard{
@@ -395,7 +486,7 @@
         color: #ffffff; /* Cor do texto */
         font-size: 24px; /* Tamanho da fonte */
         font-weight: bold; /* Peso da fonte */
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); /* Sombra do texto */
     }
 
     /* pre {

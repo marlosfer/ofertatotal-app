@@ -29,15 +29,15 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // FAZER
 
 // NOVIDADES{
-//      CORRIGIR O FRONT "TEXTO" O TEXTO ESTÁ MUITO GRANDE
+//      CORRIGIR O FRONT "TEXTO" O TEXTO ESTÁ MUITO GRANDE - 
+//      BANNER - 
+//      FILTRO SUPERIOR - 
 //      ORDERNAR PRODUTOS PARA TRAZER OS NOVOS - OK
 //      FAZER FILTROS LATERAL E FINALIZAR MENU - OK
-//      BANNER
-//      FILTRO SUPERIOR - 
 //      ORDER BY - OK
 //      ITEM NOVO - OK
 //      PAGINATE - OK
-//      CAIXA DE SUGESTÃO
+//      CAIXA DE SUGESTÃO - OK
 // }
 // enviar outro email amanha as 8:07
 

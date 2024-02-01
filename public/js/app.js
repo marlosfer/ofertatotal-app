@@ -6684,6 +6684,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6708,6 +6743,9 @@ __webpack_require__.r(__webpack_exports__);
     this.getProducts();
   },
   methods: {
+    capsM: function capsM(value) {
+      return value.toUpperCase();
+    },
     searchRooms: function searchRooms() {
       var _this = this;
       if (this.selectedColumns.length == 0) {
@@ -55326,7 +55364,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.bdshadow[data-v-29eaf6d0]{\n    box-shadow: 4px 3px 20px 0px rgb(223 223 223 / 50%);\n}\n.fw-bd[data-v-29eaf6d0]{\n    font-weight: bold !;\n}\n.border-image[data-v-29eaf6d0] {\n    border: 1px solid rgb(184, 184, 184);\n    padding: 10px;\n    display: inline-block; /* Impede que o span se expanda para a largura total */\n}\n.ajust-check[data-v-29eaf6d0]{\n    margin-right: 10px;\n    margin-top: 1px;\n}\n.card-itens[data-v-29eaf6d0]{\n    background-color: white; \n    border-radius: 10px;\n    margin-left: 0;\n    margin-right: 0;\n}\n.active-h[data-v-29eaf6d0]{\n    font-weight: bolder;\n    color: #0d6efd !important;\n}\n.menu-h[data-v-29eaf6d0]:hover{\n    font-weight: bolder;\n}\n.banner1[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide1.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner2[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide2.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner3[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide3.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner4[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide4.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.sizeCard[data-v-29eaf6d0]{\n    padding: 20px;\n    min-height: 400px;\n}\n.menusuperior[data-v-29eaf6d0]{\n    background-color: white;\n    color: black;\n    width: 100%;\n    padding: 8px;\n    text-align: center;\n}\n.product[data-v-29eaf6d0]{\n    width: 16rem;\n    margin-left: 10px;\n}\n.image-container[data-v-29eaf6d0] {\n    position: relative;\n    max-width: 100%;\n    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */\n}\n.text-overlay[data-v-29eaf6d0] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    text-align: center;\n    color: #ffffff; /* Cor do texto */\n    font-size: 24px; /* Tamanho da fonte */\n    font-weight: bold; /* Peso da fonte */\n    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra do texto */\n}\n\n/* pre {\n    font-family: 'Helvetica', 'Arial', sans-serif;\n} */\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.bdshadow[data-v-29eaf6d0]{\n    box-shadow: 4px 3px 20px 0px rgb(223 223 223 / 50%);\n}\n.fw-bd[data-v-29eaf6d0]{\n    font-weight: bold !;\n}\n.border-image[data-v-29eaf6d0] {\n    border: 1px solid rgb(184, 184, 184);\n    padding: 10px;\n    display: inline-block; /* Impede que o span se expanda para a largura total */\n}\n.ajust-check[data-v-29eaf6d0]{\n    margin-right: 10px;\n    margin-top: 1px;\n}\n.card-itens[data-v-29eaf6d0]{\n    background-color: white; \n    border-radius: 10px;\n    margin-left: 0;\n    margin-right: 0;\n}\n.active-h[data-v-29eaf6d0]{\n    font-weight: bolder;\n    color: #0d6efd !important;\n}\n.menu-h[data-v-29eaf6d0]:hover{\n    font-weight: bolder;\n}\n.banner0[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/7.png');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner1[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/slide3.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner2[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/4.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner3[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/6.jpg');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner4[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/3.webp');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.banner0[data-v-29eaf6d0]::before {\n    content: \"\";\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.5); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */\n}\n.banner1[data-v-29eaf6d0]::before {\n    content: \"\";\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.7); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */\n}\n.banner2[data-v-29eaf6d0]::before {\n    content: \"\";\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.7); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */\n}\n.banner3[data-v-29eaf6d0]::before {\n    content: \"\";\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.7); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */\n}\n.banner4[data-v-29eaf6d0]::before {\n    content: \"\";\n    position: absolute;\n    top: 0;\n    right: 0;\n    bottom: 0;\n    left: 0;\n    background-color: rgba(0, 0, 0, 0.7); /* Altere o valor do último número (de 0 a 1) para ajustar a opacidade */\n}\n.sizeCard[data-v-29eaf6d0]{\n    padding: 20px;\n    min-height: 400px;\n}\n.menusuperior[data-v-29eaf6d0]{\n    background-color: white;\n    color: black;\n    width: 100%;\n    padding: 8px;\n    text-align: center;\n}\n.product[data-v-29eaf6d0]{\n    width: 16rem;\n    margin-left: 10px;\n}\n.image-container[data-v-29eaf6d0] {\n    position: relative;\n    max-width: 100%;\n    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */\n}\n.text-overlay[data-v-29eaf6d0] {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    text-align: center;\n    color: #ffffff; /* Cor do texto */\n    font-size: 24px; /* Tamanho da fonte */\n    font-weight: bold; /* Peso da fonte */\n    text-shadow: 2px 2px 4px rgba(0, 0, 0, 1); /* Sombra do texto */\n}\n\n/* pre {\n    font-family: 'Helvetica', 'Arial', sans-serif;\n} */\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -79300,22 +79338,203 @@ var render = function () {
           _c("ul", { staticClass: "slides" }, [
             _c("li", [
               _c("div", { staticClass: "image-container" }, [
-                _c("div", { staticClass: "banner1" }),
+                _c("div", { staticClass: "banner0" }),
                 _vm._v(" "),
                 _c("div", { staticClass: "text-overlay" }, [
-                  _vm._v(
-                    "Texto Sobre a Imagem 1: " +
-                      _vm._s(_vm.$store.state.companyselect)
-                  ),
+                  _c("pre", [
+                    _vm._v("                                "),
+                    _c("h2", [
+                      _c(
+                        "b",
+                        [
+                          _c("center", [
+                            _vm._v(
+                              _vm._s(
+                                _vm.capsM(
+                                  "Ofertas Incríveis para o Seu Dia a Dia"
+                                )
+                              )
+                            ),
+                          ]),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v("\n                            "),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("pre", [
+                      _vm._v("    \n"),
+                      _c("h6", [
+                        _c("b", [
+                          _vm._v(
+                            "\n" +
+                              _vm._s(
+                                _vm.capsM(
+                                  "Na nossa seleção de produtos úteis e baratos, você encontrará soluções "
+                                )
+                              ) +
+                              "\n" +
+                              _vm._s(
+                                _vm.capsM(
+                                  "inteligentes para simplificar a sua vida sem pesar no seu bolso. "
+                                )
+                              ) +
+                              "\n"
+                          ),
+                        ]),
+                      ]),
+                      _vm._v("\n"),
+                      _c("h6", [
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.capsM(
+                                "Descubra ofertas incríveis que tornarão o seu dia a dia mais prático e econômico."
+                              )
+                            )
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" \n                                "),
+                    ]),
+                  ]),
                 ]),
               ]),
             ]),
             _vm._v(" "),
-            _vm._m(0),
+            _c("li", [
+              _c("div", { staticClass: "image-container" }, [
+                _c("div", { staticClass: "banner1" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-overlay" }, [
+                  _c("pre", [
+                    _vm._v("                                "),
+                    _c("h2", [
+                      _c(
+                        "b",
+                        [
+                          _c("center", [
+                            _vm._v(
+                              _vm._s(
+                                _vm.capsM(
+                                  "Produtos essenciais combina utilidade e economia. "
+                                )
+                              )
+                            ),
+                          ]),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v("\n                            "),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("pre", [
+                      _vm._v("    \n"),
+                      _c("h6", [
+                        _c("b", [
+                          _vm._v(
+                            "\n" +
+                              _vm._s(
+                                _vm.capsM(
+                                  "Apresentamos uma variedade de soluções inteligentes, "
+                                )
+                              ) +
+                              "\n" +
+                              _vm._s(
+                                _vm.capsM(
+                                  "projetadas para facilitar a sua rotina diária a preços imbatíveis. "
+                                )
+                              ) +
+                              "\n"
+                          ),
+                        ]),
+                      ]),
+                      _vm._v("\n"),
+                      _c("h6", [
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(
+                              _vm.capsM(
+                                "Descubra como é possível ter qualidade sem comprometer o seu orçamento."
+                              )
+                            )
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" \n                                "),
+                    ]),
+                  ]),
+                ]),
+              ]),
+            ]),
             _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._m(2),
+            _c("li", [
+              _c("div", { staticClass: "image-container" }, [
+                _c("div", { staticClass: "banner2" }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-overlay" }, [
+                  _c("pre", [
+                    _vm._v("                                "),
+                    _c("h2", [
+                      _c(
+                        "b",
+                        [
+                          _c("center", [
+                            _vm._v(
+                              _vm._s(
+                                _vm.capsM(
+                                  "Aproveite nossas promoções exclusivas "
+                                )
+                              )
+                            ),
+                          ]),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v("\n                            "),
+                  ]),
+                  _vm._v(" "),
+                  _c("div", [
+                    _c("pre", [
+                      _vm._v("    \n"),
+                      _c("h6", [
+                        _c("b", [
+                          _vm._v(
+                            "\n" +
+                              _vm._s(
+                                _vm.capsM(
+                                  "Na busca por soluções úteis que não pesem no seu orçamento, "
+                                )
+                              ) +
+                              "\n" +
+                              _vm._s(
+                                _vm.capsM(
+                                  "oferecemos uma variedade de opções que tornarão sua vida mais fácil sem comprometer sua carteira."
+                                )
+                              ) +
+                              "\n"
+                          ),
+                        ]),
+                      ]),
+                      _vm._v("\n"),
+                      _c("h6", [
+                        _c("b", [
+                          _vm._v(
+                            _vm._s(_vm.capsM("Explore as ofertas agora!"))
+                          ),
+                        ]),
+                      ]),
+                      _vm._v(" \n                                "),
+                    ]),
+                  ]),
+                ]),
+              ]),
+            ]),
           ]),
         ]
       ),
@@ -79721,46 +79940,7 @@ var render = function () {
     1
   )
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("div", { staticClass: "image-container" }, [
-        _c("div", { staticClass: "banner2" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "text-overlay" }, [
-          _vm._v("Texto Sobre a Imagem 2"),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("div", { staticClass: "image-container" }, [
-        _c("div", { staticClass: "banner3" }),
-        _vm._v(" "),
-        _c("div", { staticClass: "text-overlay" }, [
-          _vm._v("Texto Sobre a Imagem 3"),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", [
-      _c("div", { staticClass: "image-container" }, [
-        _c("div", { staticClass: "banner4" }),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
