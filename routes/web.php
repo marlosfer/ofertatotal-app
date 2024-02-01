@@ -29,9 +29,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // FAZER
 
 // NOVIDADES{
-//      CORRIGIR O FRONT "TEXTO" O TEXTO ESTÁ MUITO GRANDE - 
-//      BANNER - 
+//      CORRIGIR O FRONT "DESCRIPTION" O TEXTO ESTÁ MUITO GRANDE - 
 //      FILTRO SUPERIOR - 
+//      BANNER - OK
 //      ORDERNAR PRODUTOS PARA TRAZER OS NOVOS - OK
 //      FAZER FILTROS LATERAL E FINALIZAR MENU - OK
 //      ORDER BY - OK
