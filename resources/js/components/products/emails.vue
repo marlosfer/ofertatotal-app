@@ -1,6 +1,5 @@
 <template>
     <div style="height: 800px;">
-        <h4><center>EM BREVE</center></h4>
         <b-table striped hover :items="items" :fields="fields">
             <template #cell(user)="row">
                 {{ getBrowserInfo(row.item.user) }}

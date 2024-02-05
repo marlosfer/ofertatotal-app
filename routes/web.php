@@ -57,6 +57,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/create-product', [App\Http\Controllers\ItemsController::class, 'createProduct'])->name('admin');
     Route::post('/edit-product', [App\Http\Controllers\ItemsController::class, 'editProduct'])->name('admin');
+    Route::get('/get-all-product', [App\Http\Controllers\ItemsController::class, 'getAllProduct']);
     Route::get('/get-type-product', [App\Http\Controllers\ItemsController::class, 'getTypeProduct'])->name('admin');
     Route::get('/get-susgestions', [App\Http\Controllers\ItemsController::class, 'getSusgestions'])->name('admin');
 

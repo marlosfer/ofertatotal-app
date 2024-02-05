@@ -308,7 +308,7 @@
         },
         methods: {
             getColumns(){
-                axios.get('get-column-product',{
+                axios.get('get-all-product',{
                 }).then(res => {
                     if(res.data.success){
                         this.options = res.data.value;

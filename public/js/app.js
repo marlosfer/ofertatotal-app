@@ -5601,7 +5601,6 @@ function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e 
 //
 //
 //
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -6241,7 +6240,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     getColumns: function getColumns() {
       var _this = this;
-      axios.get('get-column-product', {}).then(function (res) {
+      axios.get('get-all-product', {}).then(function (res) {
         if (res.data.success) {
           _this.options = res.data.value;
           _this.sortLists();
@@ -78191,8 +78190,6 @@ var render = function () {
     "div",
     { staticStyle: { height: "800px" } },
     [
-      _c("h4", [_c("center", [_vm._v("EM BREVE")])], 1),
-      _vm._v(" "),
       _c("b-table", {
         attrs: { striped: "", hover: "", items: _vm.items, fields: _vm.fields },
         scopedSlots: _vm._u([

@@ -34,7 +34,7 @@ class ItemsController extends Controller
 
             $product['success'] = true;
         } catch (\Exception $e) {
-            // echo $e;
+            echo $e;
             $product['success'] = false;
         }
         
@@ -139,6 +139,23 @@ class ItemsController extends Controller
 
         return $colunas;
     }
+    public function getAllProduct(Request $request)
+    {
+        try {
+        $result = DB::table('types')
+        ->select('types.id', 'types.name', 'types.group', 'types.created_at', 'types.updated_at', 'types.deleted_at')
+        ->get();
+
+        $colunas['value'] = $result;
+        $colunas['success'] = true;
+        } catch (\Exception $e) {
+            echo $e;
+            $product['success'] = false;
+        }
+
+        return $colunas;
+    }
+    
     public function getColumnProductId(Request $request)
     {
         try {
