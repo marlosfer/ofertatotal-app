@@ -5563,7 +5563,22 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.state.showBanner = true;
     },
     searchItens: function searchItens() {
-      alert('buscou o item: ' + this.search);
+      var _this = this;
+      // alert('buscou o item: ' + this.search);
+      if (this.search.trim() == '') {
+        return this.$store.state.filterSearch = true;
+      }
+      axios.get('get-product-name', {
+        params: {
+          search: this.search
+        }
+      }).then(function (res) {
+        if (res.data.success) {
+          _this.$store.state.productsItems = res.data.value;
+        }
+      })["catch"](function (err) {
+        console.error(err);
+      });
     },
     sair: function sair() {
       console.log('saiu');
@@ -6850,6 +6865,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectedColumns: function selectedColumns(newvalue) {
       this.searchRooms();
+    },
+    '$store.state.productsItems': {
+      handler: function handler() {
+        // Faça alguma coisa quando $store.state.productsItems mudar
+        this.product = this.$store.state.productsItems;
+        this.$store.state.filterSearch = false;
+      }
     }
   },
   computed: {
@@ -6978,7 +7000,9 @@ vue__WEBPACK_IMPORTED_MODULE_0__["default"].use(vuex__WEBPACK_IMPORTED_MODULE_1_
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vuex__WEBPACK_IMPORTED_MODULE_1__["default"].Store({
   state: {
     sidebar_is_mini: false,
-    showBanner: true
+    showBanner: true,
+    productsItems: [],
+    filterSearch: true
   },
   mutations: {},
   //computed
@@ -79716,7 +79740,7 @@ var render = function () {
                 1
               ),
               _vm._v(" "),
-              _vm.selectedColumns.length == 0
+              _vm.selectedColumns.length == 0 && _vm.$store.state.filterSearch
                 ? _c(
                     "div",
                     [

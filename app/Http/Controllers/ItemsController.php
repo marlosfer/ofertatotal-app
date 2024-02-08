@@ -346,4 +346,42 @@ class ItemsController extends Controller
         return $sugestion;
     }
 
+    
+    public function getProductName(Request $request) {
+        try {
+            $products = DB::table('products')
+                ->select('products.id', 'products.name', 'products.description', 'products.info', 'products.link', 'products.images', 'products.videos', 'products.keys', 'products.created_at', 'products.created_by', 'products.deleted_at')
+                ->leftJoin('product_type', 'products.id', '=', 'product_type.product_id')
+                ->leftJoin('types', 'product_type.type_id', '=', 'types.id')
+                ->where(function ($query) use ($request) {
+                    $query->where('products.name', 'like', '%' . $request->search . '%')
+                        ->orWhere('types.name', 'like', '%' . $request->search . '%');
+                })
+                ->orderByRaw('CASE WHEN products.name LIKE ? THEN 1 ELSE 2 END', ['%' . $request->search . '%'])
+                ->orderBy('products.created_at', 'desc')
+                ->groupBy('products.id', 'products.name', 'products.description', 'products.info', 'products.link', 'products.images', 'products.videos', 'products.keys', 'products.created_at', 'products.created_by', 'products.deleted_at')
+                ->limit('20')
+                ->get();
+
+                   
+            foreach ($products as $key) {
+                $key->id = Crypt::encrypt($key->id);
+                $key->images = json_decode($key->images);
+                $key->videos = json_decode($key->videos);
+                // $key->rooms = explode(',', $key->rooms);
+            }
+
+            unset($products->price);
+
+            $product['value'] = $products;
+            $product['success'] = true;
+
+        } catch (\Exception $e) {
+            echo $e;
+            $product['success'] = false;
+        }
+
+        return $product;
+    }
+
 }

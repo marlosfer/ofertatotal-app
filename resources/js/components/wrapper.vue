@@ -139,7 +139,7 @@
                         </div>
                     </b-col>
                 </b-row>
-                <div v-if="selectedColumns.length == 0">
+                <div v-if="selectedColumns.length == 0 && $store.state.filterSearch">
                     <b-pagination v-model="currentPage" :total-rows="rows" :per-page="perPage" align="fill"></b-pagination>
                 </div>
                 
@@ -325,6 +325,13 @@
             selectedColumns(newvalue){
                 this.searchRooms();
             },
+            '$store.state.productsItems': {
+                handler: function() {
+                    // Faça alguma coisa quando $store.state.productsItems mudar
+                    this.product = this.$store.state.productsItems;
+                    this.$store.state.filterSearch = false;
+                },
+            }
         },
         computed: {
             rows() {

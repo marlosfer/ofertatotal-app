@@ -29,8 +29,10 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 // FAZER
 
 // NOVIDADES{
-//      CORRIGIR O FRONT "DESCRIPTION" O TEXTO ESTÁ MUITO GRANDE - 
 //      FILTRO SUPERIOR - 
+//      CRIAR ICON - 
+//      MELHORAR TEXTO "LOGOMARCA" - 
+//      TALVEZ ATUALIZAR OS CARD - COM A DESCRIÇÃO - 
 //      BANNER - OK
 //      ORDERNAR PRODUTOS PARA TRAZER OS NOVOS - OK
 //      FAZER FILTROS LATERAL E FINALIZAR MENU - OK
@@ -48,6 +50,7 @@ Route::get('/get-products', [App\Http\Controllers\ItemsController::class, 'getPr
 Route::get('/get-column-product', [App\Http\Controllers\ItemsController::class, 'getColumnProduct']);
 Route::get('/get-column-product-id', [App\Http\Controllers\ItemsController::class, 'getColumnProductId']);
 Route::post('/send-sugestion', [App\Http\Controllers\ItemsController::class, 'sendSugestion']);
+Route::get('/get-product-name', [App\Http\Controllers\ItemsController::class, 'getProductName']);
 
 
 Route::middleware(['auth'])->group(function () {

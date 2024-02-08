@@ -76,7 +76,22 @@
                 this.$store.state.showBanner = true;
             },
             searchItens(){
-                alert('buscou o item: ' + this. search);
+                // alert('buscou o item: ' + this.search);
+                if(this.search.trim() == ''){
+                    return this.$store.state.filterSearch = true;
+                }
+                axios.get('get-product-name',{
+                    params: {
+                        search: this.search,
+                    },
+                }).then(res => {
+                    if(res.data.success){
+                        this.$store.state.productsItems = res.data.value;
+                    }
+                })
+                .catch(err => {
+                    console.error(err); 
+                });
             },
             sair(){
                 console.log('saiu')

@@ -7,6 +7,8 @@ export default new Vuex.Store({
     state: {
         sidebar_is_mini: false,
         showBanner: true,
+        productsItems: [],
+        filterSearch: true,
     },
 
     mutations: {
