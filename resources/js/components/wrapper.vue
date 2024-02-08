@@ -126,7 +126,7 @@
                                     :style="isItemNew(item) ? 'border: 3px solid red' : ''"
                                     @click="openModal(item)" 
                                     :src="item.images[0]" 
-                                    alt="Produto 1"
+                                    :alt="'Produto '+index"
                                 >
                                 <div class="card-body">
                                     <h6 class="card-titl"><b>{{item.name}}</b></h6>
@@ -151,13 +151,13 @@
                         <b-col cols="auto">
                             <div v-for="(item, index) in itemSelected.images" :key="'images2'+index">
                                 <span  class="border-image mt-1 caret" @click="setImageModal(itemSelected.images[index])">
-                                    <img :src="item" style="width: 100px;" class="card-img-top" alt="Produto 1">
+                                    <img :src="item" style="width: 100px;" class="card-img-top" :alt="'Imagem '+index">
                                 </span>
                                 <br>
                             </div>
                             <div v-for="(item, index) in itemSelected.videos" :key="'videos2'+index">
                                 <span  class="border-image mt-1 caret" @click="setVideoModal">
-                                    <!-- <img :src="item" style="width: 100px;" class="card-img-top" alt="Produto 1"> -->
+                                    <!-- <img :src="item" style="width: 100px;" class="card-img-top" :alt="'Produto '+index"> -->
                                     <!--  -->
                                     <video muted style="width: 100px;" :poster="itemSelected.images[0]" class="card-img-top" :alt="'video'">
                                         <source :src="itemSelected.videos[0]" :type="getVideoType('video/mp4')">
@@ -168,7 +168,7 @@
                             </div>
                         </b-col>
                         <b-col v-if="!ShowVideo">
-                            <img v-b-modal.modal-1 :src="imageSelected"  class="card-img-top" alt="Produto 1">
+                            <img v-b-modal.modal-1 :src="imageSelected"  class="card-img-top" alt="Video 1">
                         </b-col>
                         <b-col v-if="ShowVideo">
                             <video controls autoplay :poster="itemSelected.images[0]" class="card-img-top" :alt="'video'">
@@ -213,6 +213,7 @@
             session_user: Object,
         },
         created() {
+            this.$root.$refs.wrapper = this;
             this.bannerRotate();
             this.getColumns();
             this.getProducts();

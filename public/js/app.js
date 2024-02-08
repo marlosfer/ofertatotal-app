@@ -5560,21 +5560,25 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.state.showBanner = false;
     },
     onInputBlur: function onInputBlur() {
-      this.$store.state.showBanner = true;
+      // vm.$store.state.showBanner = true;
     },
     searchItens: function searchItens() {
-      var _this = this;
+      var vm = this;
       // alert('buscou o item: ' + this.search);
-      if (this.search.trim() == '') {
-        return this.$store.state.filterSearch = true;
+      if (vm.search.trim() == '') {
+        vm.$store.state.showBanner = true;
+        vm.$root.$refs.wrapper.getProducts();
+        return vm.$store.state.filterSearch = true;
+      } else {
+        this.$store.state.showBanner = false;
       }
       axios.get('get-product-name', {
         params: {
-          search: this.search
+          search: vm.search
         }
       }).then(function (res) {
         if (res.data.success) {
-          _this.$store.state.productsItems = res.data.value;
+          vm.$store.state.productsItems = res.data.value;
         }
       })["catch"](function (err) {
         console.error(err);
@@ -6752,6 +6756,7 @@ __webpack_require__.r(__webpack_exports__);
     session_user: Object
   },
   created: function created() {
+    this.$root.$refs.wrapper = this;
     this.bannerRotate();
     this.getColumns();
     this.getProducts();
@@ -79699,7 +79704,10 @@ var render = function () {
                               style: _vm.isItemNew(item)
                                 ? "border: 3px solid red"
                                 : "",
-                              attrs: { src: item.images[0], alt: "Produto 1" },
+                              attrs: {
+                                src: item.images[0],
+                                alt: "Produto " + index,
+                              },
                               on: {
                                 click: function ($event) {
                                   return _vm.openModal(item)
@@ -79803,7 +79811,10 @@ var render = function () {
                                     _c("img", {
                                       staticClass: "card-img-top",
                                       staticStyle: { width: "100px" },
-                                      attrs: { src: item, alt: "Produto 1" },
+                                      attrs: {
+                                        src: item,
+                                        alt: "Imagem " + index,
+                                      },
                                     }),
                                   ]
                                 ),
@@ -79878,10 +79889,7 @@ var render = function () {
                                 },
                               ],
                               staticClass: "card-img-top",
-                              attrs: {
-                                src: _vm.imageSelected,
-                                alt: "Produto 1",
-                              },
+                              attrs: { src: _vm.imageSelected, alt: "Video 1" },
                             }),
                           ])
                         : _vm._e(),

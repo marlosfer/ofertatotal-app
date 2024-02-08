@@ -73,20 +73,25 @@
                 this.$store.state.showBanner = false;
             },
             onInputBlur(){
-                this.$store.state.showBanner = true;
+                // vm.$store.state.showBanner = true;
             },
             searchItens(){
+                var vm = this;
                 // alert('buscou o item: ' + this.search);
-                if(this.search.trim() == ''){
-                    return this.$store.state.filterSearch = true;
+                if(vm.search.trim() == ''){
+                    vm.$store.state.showBanner = true;
+                    vm.$root.$refs.wrapper.getProducts();
+                    return vm.$store.state.filterSearch = true;
+                }else{
+                    this.$store.state.showBanner = false;
                 }
                 axios.get('get-product-name',{
                     params: {
-                        search: this.search,
+                        search: vm.search,
                     },
                 }).then(res => {
                     if(res.data.success){
-                        this.$store.state.productsItems = res.data.value;
+                        vm.$store.state.productsItems = res.data.value;
                     }
                 })
                 .catch(err => {
