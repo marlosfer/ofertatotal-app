@@ -355,6 +355,7 @@ class ItemsController extends Controller
                 ->leftJoin('types', 'product_type.type_id', '=', 'types.id')
                 ->where(function ($query) use ($request) {
                     $query->where('products.name', 'like', '%' . $request->search . '%')
+                        ->orWhere('products.description', 'like', '%' . $request->search . '%')
                         ->orWhere('types.name', 'like', '%' . $request->search . '%');
                 })
                 ->orderByRaw('CASE WHEN products.name LIKE ? THEN 1 ELSE 2 END', ['%' . $request->search . '%'])

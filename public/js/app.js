@@ -5386,8 +5386,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
@@ -5557,10 +5555,16 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {},
   methods: {
     onInputFocus: function onInputFocus() {
-      this.$store.state.showBanner = false;
+      var vm = this;
+      if (vm.search.trim() != '') {
+        vm.$store.state.showBanner = false;
+      }
     },
     onInputBlur: function onInputBlur() {
-      // vm.$store.state.showBanner = true;
+      var vm = this;
+      if (vm.search.trim() == '') {
+        vm.$store.state.showBanner = true;
+      }
     },
     searchItens: function searchItens() {
       var vm = this;
@@ -55344,7 +55348,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.color-custom1[data-v-f7391524]{\n    color: #2d6125;\n}\n.color-custom2[data-v-f7391524]{\n    color: #198754;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.color-custom1[data-v-f7391524]{\n    color: #2d6125;\n}\n.color-custom2[data-v-f7391524] {\n    color: #3f0606;\n    font-weight: bold;\n}\n\n/* Adiciona transição suave para a mudança de cor ao passar o mouse */\n.color-custom2[data-v-f7391524]:hover {\n    color: #0d6e9c; /* Nova cor ao passar o mouse (tom de azul) */\n    transition: color 0.3s ease-in-out;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -77859,38 +77863,16 @@ var render = function () {
               ]),
               _vm._v(" "),
               _c("b-col", [
-                _c(
-                  "pre",
-                  [
-                    _vm._v("                        "),
-                    _c("b", [_vm._v("INSTITUCIONAL")]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [
-                      _vm._v("Sobre a Oferta Total"),
-                    ]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [
-                      _vm._v("Depoimentos de Clientes"),
-                    ]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [_vm._v("faq")]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [
-                      _vm._v("Fale Conosco"),
-                    ]),
-                    _vm._v("\n                    "),
-                  ],
-                  1
-                ),
-              ]),
-              _vm._v(" "),
-              _c("b-col", [
                 _c("pre", [
                   _vm._v("                        "),
                   _c("b", [_vm._v("ATENDIMENTO")]),
                   _vm._v(
-                    "\n                        Contato\n                        +55 (63) 9224-3968\n\n                        Envie um e-mail\n                        storeofertatotal@gmail.com\n\n                        HORÁRIO DE ATENDIMENTO\n                        Segunda a Sexta das 9h às 18h\n                    "
+                    "\n                        Envie um e-mail\n                        "
                   ),
+                  _c("a", { attrs: { href: "#" } }, [
+                    _vm._v("storeofertatotal@gmail.com"),
+                  ]),
+                  _vm._v("\n                    "),
                 ]),
               ]),
               _vm._v(" "),
@@ -77901,27 +77883,15 @@ var render = function () {
                     _vm._v("                        "),
                     _c("b", [_vm._v("FOLLOW")]),
                     _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [_vm._v("Twitter")]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [
-                      _vm._v("Facebook"),
-                    ]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [
-                      _vm._v("Instagram"),
-                    ]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [
-                      _vm._v("Dribbble"),
-                    ]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [_vm._v("GitHub")]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [_vm._v("500px")]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [_vm._v("Phone")]),
-                    _vm._v("\n                        "),
-                    _c("b-link", { attrs: { href: "#" } }, [_vm._v("Email")]),
+                    _c(
+                      "b-link",
+                      {
+                        attrs: {
+                          href: "https://www.tiktok.com/@ofertatotal.com",
+                        },
+                      },
+                      [_vm._v("Tiktok")]
+                    ),
                     _vm._v("\n                    "),
                   ],
                   1
@@ -78079,6 +78049,7 @@ var render = function () {
                         {
                           staticClass: "btn btn-outline-primary",
                           staticStyle: {
+                            "margin-top": "1px",
                             "margin-left": "-46px",
                             border: "none",
                             "z-index": "10",
@@ -78178,7 +78149,7 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("a", { staticClass: "navbar-brand", attrs: { href: "/#" } }, [
+    return _c("a", { staticClass: "navbar-brand", attrs: { href: "/" } }, [
       _c("img", {
         attrs: {
           src: "/images/ofertatotal.png",
@@ -78188,7 +78159,7 @@ var staticRenderFns = [
       }),
       _vm._v(" "),
       _c("span", { staticClass: "color-custom2" }, [
-        _c("b", [_vm._v("Oferta Total")]),
+        _c("b", [_vm._v("OFERTA TOTAL")]),
       ]),
     ])
   },
@@ -79666,7 +79637,7 @@ var render = function () {
                 "b-row",
                 {
                   staticClass: "jc-c card-itens",
-                  staticStyle: { "min-height": "840px" },
+                  style: _vm.product.length == 1 ? "" : "min-height: 840px;",
                 },
                 _vm._l(_vm.product, function (item, index) {
                   return _c(

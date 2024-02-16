@@ -2,8 +2,8 @@
     <div>
         <nav class="navbar navbar-expand-sm navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="/#">
-                    <img src="/images/ofertatotal.png" alt="CaserioBr" width="40" /> <span class="color-custom2"><b>Oferta Total</b></span> 
+                <a class="navbar-brand" href="/">
+                    <img src="/images/ofertatotal.png" alt="CaserioBr" width="40" /> <span class="color-custom2"><b>OFERTA TOTAL</b></span> 
                 </a>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -17,7 +17,7 @@
                                 placeholder="Pesquisar produto..."
                             >
                             <div class="input-group-append">
-                            <button class="btn btn-outline-primary" @click="searchItens" style="margin-left: -46px;border: none;z-index: 10;" type="button">
+                            <button class="btn btn-outline-primary" @click="searchItens" style="margin-top:1px;margin-left: -46px;border: none;z-index: 10;" type="button">
                                 <b-icon icon="search" aria-hidden="true"></b-icon>
                             </button>
                             </div>
@@ -70,10 +70,16 @@
         },
         methods: {
             onInputFocus(){
-                this.$store.state.showBanner = false;
+                var vm = this;
+                if(vm.search.trim() != ''){
+                    vm.$store.state.showBanner = false;
+                }
             },
             onInputBlur(){
-                // vm.$store.state.showBanner = true;
+                var vm = this;
+                if(vm.search.trim() == ''){
+                    vm.$store.state.showBanner = true;
+                }
             },
             searchItens(){
                 var vm = this;
@@ -109,7 +115,14 @@
     .color-custom1{
         color: #2d6125;
     }
-    .color-custom2{
-        color: #198754;
+    .color-custom2 {
+        color: #3f0606;
+        font-weight: bold;
+    }
+
+    /* Adiciona transição suave para a mudança de cor ao passar o mouse */
+    .color-custom2:hover {
+        color: #0d6e9c; /* Nova cor ao passar o mouse (tom de azul) */
+        transition: color 0.3s ease-in-out;
     }
 </style>

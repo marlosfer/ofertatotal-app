@@ -108,7 +108,7 @@
             </b-col>
 
             <b-col>
-                <b-row class="jc-c card-itens" style="min-height: 840px;">
+                <b-row class="jc-c card-itens" :style="product.length == 1 ? '' : 'min-height: 840px;'">
                     <!-- <div class="input-group mb-3" style="margin-top: 10px;">
                         <input type="text" class="form-control" placeholder="Pesquisar produto...">
                         <div class="input-group-append">

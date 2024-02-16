@@ -65,28 +65,17 @@
                         <h4>Oferta Total</h4>
                         <p>Junte-se a nós e descubra um universo de ofertas exclusivas, promoções relâmpago e produtos de qualidade. Na Oferta Total, transformamos o conceito de compras online, tornando acessíveis as melhores oportunidades para todos os nossos seguidores.</p>
                     </b-col>
-                    <b-col>
+                    <!-- <b-col>
                         <pre>
                             <b>INSTITUCIONAL</b>
                             <b-link href="#">Sobre a Oferta Total</b-link>
                             <b-link href="#">Depoimentos de Clientes</b-link>
                             <b-link href="#">faq</b-link>
                             <b-link href="#">Fale Conosco</b-link>
-                        </pre>
-
-
-                    <!-- <p>
-                        Oferta Total é a sua porta de entrada para oportunidades incríveis! Somos uma empresa especializada em potencializar a visibilidade de produtos acessíveis provenientes da Shopee e Hotmart através das redes sociais mais populares, como TikTok, Twitter e Instagram.
-
-                        Nosso compromisso é conectar consumidores a ofertas irresistíveis, trazendo até você produtos de alta qualidade a preços acessíveis. Através de estratégias inovadoras de marketing digital, destacamos as melhores ofertas da Shopee e Hotmart, garantindo que você esteja sempre atualizado sobre as últimas tendências e promoções.
-
-                        No TikTok, Twitter e Instagram, nossa equipe dedicada trabalha arduamente para criar conteúdo envolvente e informativo que destaca os produtos mais populares e vantajosos do momento. Seja você um entusiasta de tecnologia, moda, beleza ou qualquer outra categoria, a Oferta Total está aqui para fornecer uma experiência de compra única, economizando tempo e dinheiro.
-
-                        Siga-nos nas redes sociais e embarque nessa jornada de economia e descobertas! Oferta Total - O melhor caminho para aproveitar o máximo em economia, qualidade e estilo!
-                    </p> -->
-                    </b-col>
+                        </pre> 
+                    </b-col> -->
                     <b-col>
-                        <pre>
+                        <!-- <pre>
                             <b>ATENDIMENTO</b>
                             Contato
                             +55 (63) 9224-3968
@@ -96,6 +85,11 @@
 
                             HORÁRIO DE ATENDIMENTO
                             Segunda a Sexta das 9h às 18h
+                        </pre> -->
+                        <pre>
+                            <b>ATENDIMENTO</b>
+                            Envie um e-mail
+                            <a href="#">storeofertatotal@gmail.com</a>
                         </pre>
                     </b-col>
                     <!-- <b-col>
@@ -114,6 +108,10 @@
                     <b-col>
                         <pre>
                             <b>FOLLOW</b>
+                            <b-link href="https://www.tiktok.com/@ofertatotal.com">Tiktok</b-link>
+                        </pre>
+                        <!-- <pre>
+                            <b>FOLLOW</b>
                             <b-link href="#">Twitter</b-link>
                             <b-link href="#">Facebook</b-link>
                             <b-link href="#">Instagram</b-link>
@@ -122,7 +120,7 @@
                             <b-link href="#">500px</b-link>
                             <b-link href="#">Phone</b-link>
                             <b-link href="#">Email</b-link>
-                        </pre>
+                        </pre> -->
                     </b-col>
                 </b-row>
             </section>
