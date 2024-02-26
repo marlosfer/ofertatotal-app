@@ -166,7 +166,7 @@
                         localStorage.setItem('ofertatotal_1', JSON.stringify({ value: 'true', expirationTime }));
                         this.sendMessage = true;
                     }else{
-                        alert('erro ao salvar');
+                        // alert('erro ao salvar');
                     }
                 }).catch(err => {
                     console.error(err); 

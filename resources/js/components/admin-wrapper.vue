@@ -7,6 +7,7 @@
                     <span @click="showTab = 'produtos'" :class="showTab == 'produtos' ? 'menusuperior caret menu-h active-h' : 'menusuperior caret menu-h'">Lista de Produtos</span>
                     <span @click="showTab = 'cadastrar'" :class="showTab == 'cadastrar' ? 'menusuperior caret menu-h active-h' : 'menusuperior caret menu-h'">Cadastrar</span>
                     <span @click="showTab = 'emails'" :class="showTab == 'emails' ? 'menusuperior caret menu-h active-h' : 'menusuperior caret menu-h'">Emails/Sugestões</span>  
+                    <span @click="showTab = 'pagamento'" :class="showTab == 'pagamento' ? 'menusuperior caret menu-h active-h' : 'menusuperior caret menu-h'">Pagamentos</span>  
                 </span>
             </b-col>
         </b-row>
@@ -39,10 +40,10 @@
         <div v-if="showTab == 'emails'">
             <emails></emails>
         </div>
-      
 
-
-
+        <div v-if="showTab == 'pagamento'">
+            <pagamentos></pagamentos>
+        </div>
 
     </div>
 </template>
@@ -52,12 +53,14 @@
     import productsList from '../components/products/products-list.vue';
     import outers from '../components/products/outers.vue';
     import emails from '../components/products/emails.vue';
+    import pagamentos from '../components/products/pagamentos.vue';
     export default {  
         components:{
             productsRegister,
             productsList,
             outers,
             emails,
+            pagamentos,
         },
         data: function () {
             return {
