@@ -23,6 +23,7 @@ Route::post('/login-unique-private', [App\Http\Controllers\HomeController::class
 Route::get('/login-unique-private', [App\Http\Controllers\HomeController::class, 'showLoginForm'])->name('login');
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/marlos', [App\Http\Controllers\HomeController::class, 'marlos'])->name('marlos');
 
 
 
@@ -58,10 +59,10 @@ Route::middleware(['auth'])->group(function () {
     // Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::get('/admin', [App\Http\Controllers\HomeController::class, 'admin'])->name('admin');
 
-    Route::post('/create-product', [App\Http\Controllers\ItemsController::class, 'createProduct'])->name('admin');
-    Route::post('/edit-product', [App\Http\Controllers\ItemsController::class, 'editProduct'])->name('admin');
+    Route::post('/create-product', [App\Http\Controllers\ItemsController::class, 'createProduct']);
+    Route::post('/edit-product', [App\Http\Controllers\ItemsController::class, 'editProduct']);
     Route::get('/get-all-product', [App\Http\Controllers\ItemsController::class, 'getAllProduct']);
-    Route::get('/get-type-product', [App\Http\Controllers\ItemsController::class, 'getTypeProduct'])->name('admin');
-    Route::get('/get-susgestions', [App\Http\Controllers\ItemsController::class, 'getSusgestions'])->name('admin');
+    Route::get('/get-type-product', [App\Http\Controllers\ItemsController::class, 'getTypeProduct']);
+    Route::get('/get-susgestions', [App\Http\Controllers\ItemsController::class, 'getSusgestions']);
 
 });

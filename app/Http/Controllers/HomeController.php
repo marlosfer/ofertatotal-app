@@ -63,4 +63,9 @@ class HomeController extends Controller
         return view('layouts.admin');
     }
 
+    public function marlos()
+    {
+        return view('marlos');
+    }
+
 }
