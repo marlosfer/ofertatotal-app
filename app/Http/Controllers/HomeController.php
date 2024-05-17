@@ -67,5 +67,9 @@ class HomeController extends Controller
     {
         return view('marlos');
     }
+    public function marlos2()
+    {
+        return view('marlos2');
+    }
 
 }

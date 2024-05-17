@@ -23,7 +23,7 @@ Route::post('/login-unique-private', [App\Http\Controllers\HomeController::class
 Route::get('/login-unique-private', [App\Http\Controllers\HomeController::class, 'showLoginForm'])->name('login');
 Route::get('/logout', [App\Http\Controllers\HomeController::class, 'logout'])->name('logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/marlos', [App\Http\Controllers\HomeController::class, 'marlos'])->name('marlos');
+Route::get('/marlos', [App\Http\Controllers\HomeController::class, 'marlos2'])->name('marlos');
 
 
 
