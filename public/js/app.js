@@ -5143,19 +5143,81 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      title: 'teste'
+      menuAberto: false,
+      dropdownAberto: false,
+      secaoAtiva: 'produtos'
     };
   },
   mounted: function mounted() {
-    console.log('Component mounted.');
+    document.addEventListener('click', this.fecharDropdown);
+  },
+  beforeDestroy: function beforeDestroy() {
+    document.removeEventListener('click', this.fecharDropdown);
   },
   methods: {
+    irPara: function irPara(secao) {
+      this.secaoAtiva = secao === 'inicio' ? 'produtos' : secao;
+      this.menuAberto = false;
+      var mapa = {
+        inicio: 'inicio',
+        produtos: 'produtos',
+        cursos: 'cursos',
+        contato: 'contato'
+      };
+      var el = document.getElementById(mapa[secao] || secao);
+      if (el) {
+        el.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+      this.$root.$emit('navegar-secao', secao);
+    },
     sair: function sair() {
-      console.log('saiu');
+      this.dropdownAberto = false;
+      window.location.href = '/logout';
+    },
+    fecharDropdown: function fecharDropdown(e) {
+      if (!this.$el.contains(e.target)) {
+        this.dropdownAberto = false;
+      }
     }
   }
 });
@@ -5338,43 +5400,176 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      title: this.$t('bs-department-dashboard'),
-      selected2: 'custom',
-      isFirstLoad: true,
-      selectPeriodOptions1: [{
-        text: this.$t('bs-last-7-days'),
-        value: 'week'
+      busca: '',
+      categoriaAtiva: 'Todos',
+      comodoAtivo: 'Sala de Estar',
+      contatoEnviado: false,
+      contato: {
+        nome: '',
+        email: '',
+        mensagem: ''
+      },
+      categorias: ['Todos', 'Sala', 'Cozinha', 'Banheiro', 'Quarto', 'Escritório', 'Área externa'],
+      comodos: ['Sala de Estar', 'Sala de Jantar', 'Cozinha', 'Banheiro Principal', 'Quarto Principal', 'Quarto de Hóspedes', 'Banheiro de Hóspedes', 'Escritório', 'Lavanderia', 'Garagem', 'Sótão', 'Porão', 'Quarto de Crianças', 'Banheiro de Crianças', 'Sala de TV / Home Theater', 'Varanda ou Terraço', 'Corredor ou Hall de Entrada', 'Closet', 'Despensa', 'Banheiro Social'],
+      cursos: ['Como escolher eletrodomésticos', 'Organização de cômodos', 'Economia em compras online'],
+      produtos: [{
+        id: 1,
+        titulo: 'Máquina De Cortar Cabelo Para Barba Masculina Designer Elétrico Profissional',
+        descricao: 'Máquina aparador de cabelo profissional T9, elétrica, ideal para uso masculino e barbearia.',
+        imagem: 'https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e',
+        link: 'https://shope.ee/3VLQP2t3dy',
+        categoria: 'Banheiro',
+        comodo: 'Banheiro Principal'
+      }, {
+        id: 2,
+        titulo: 'Mini Processador Elétrico de Alimentos Portátil USB 250 ml Bivolt',
+        descricao: 'É de fácil utilização, bastando somente pressionar o botão para que o triturador faça seu trabalho, trazendo conforto na hora de fazer aquela receita. A bateria com bastante autonomia, carregamento via USB e tamanho portátil é perfeita para levar a qualquer lugar.',
+        imagem: 'https://down-br.img.susercontent.com/file/588eea9b630cf18620fc565d5c98ac1e',
+        link: 'https://shope.ee/LOOfQXhal',
+        categoria: 'Cozinha',
+        comodo: 'Cozinha'
+      }, {
+        id: 3,
+        titulo: 'Aparador Profissional para Uso Doméstico e Barber',
+        descricao: 'Aparador elétrico com design compacto, ótimo para manutenção de barba e cabelo em casa.',
+        imagem: 'https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e',
+        link: 'https://shope.ee/3VLQP2t3dy',
+        categoria: 'Banheiro',
+        comodo: 'Banheiro Social'
+      }, {
+        id: 4,
+        titulo: 'Kit Organização para Sala de Estar',
+        descricao: 'Soluções práticas para manter a sala organizada com peças versáteis e modernas.',
+        imagem: 'https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e',
+        link: 'https://shope.ee/3VLQP2t3dy',
+        categoria: 'Sala',
+        comodo: 'Sala de Estar'
+      }, {
+        id: 5,
+        titulo: 'Acessórios Essenciais para Quarto Principal',
+        descricao: 'Itens selecionados para conforto, organização e praticidade no quarto principal.',
+        imagem: 'https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e',
+        link: 'https://shope.ee/3VLQP2t3dy',
+        categoria: 'Quarto',
+        comodo: 'Quarto Principal'
       }]
     };
   },
-  mounted: function mounted() {
-    console.log('Component mounted.');
+  computed: {
+    anoAtual: function anoAtual() {
+      return new Date().getFullYear();
+    },
+    produtosFiltrados: function produtosFiltrados() {
+      var _this = this;
+      var termo = this.busca.trim().toLowerCase();
+      var categoriaDoComodo = this.categoriaDoComodo(this.comodoAtivo);
+      return this.produtos.filter(function (produto) {
+        var bateBusca = !termo || produto.titulo.toLowerCase().includes(termo) || produto.descricao.toLowerCase().includes(termo);
+        if (!bateBusca) {
+          return false;
+        }
+        if (_this.categoriaAtiva !== 'Todos') {
+          return produto.categoria === _this.categoriaAtiva;
+        }
+        if (produto.comodo === _this.comodoAtivo) {
+          return true;
+        }
+        if (categoriaDoComodo !== 'Todos') {
+          return produto.categoria === categoriaDoComodo;
+        }
+        return true;
+      });
+    }
   },
-  methods: {}
+  mounted: function mounted() {
+    this.$root.$on('navegar-secao', this.onNavegarSecao);
+  },
+  beforeDestroy: function beforeDestroy() {
+    this.$root.$off('navegar-secao', this.onNavegarSecao);
+  },
+  methods: {
+    truncar: function truncar(texto, limite) {
+      if (!texto) return '';
+      return texto.length > limite ? texto.substring(0, limite) + '...' : texto;
+    },
+    categoriaDoComodo: function categoriaDoComodo(comodo) {
+      var mapa = {
+        'Sala de Estar': 'Sala',
+        'Sala de Jantar': 'Sala',
+        'Sala de TV / Home Theater': 'Sala',
+        'Cozinha': 'Cozinha',
+        'Despensa': 'Cozinha',
+        'Banheiro Principal': 'Banheiro',
+        'Banheiro de Hóspedes': 'Banheiro',
+        'Banheiro de Crianças': 'Banheiro',
+        'Banheiro Social': 'Banheiro',
+        'Quarto Principal': 'Quarto',
+        'Quarto de Hóspedes': 'Quarto',
+        'Quarto de Crianças': 'Quarto',
+        'Closet': 'Quarto',
+        'Escritório': 'Escritório',
+        'Varanda ou Terraço': 'Área externa',
+        'Garagem': 'Área externa'
+      };
+      return mapa[comodo] || 'Todos';
+    },
+    selecionarCategoria: function selecionarCategoria(cat) {
+      var _this2 = this;
+      this.categoriaAtiva = cat;
+      this.contatoEnviado = false;
+      if (cat !== 'Todos') {
+        var comodoRelacionado = this.comodos.find(function (c) {
+          return _this2.categoriaDoComodo(c) === cat;
+        });
+        if (comodoRelacionado) {
+          this.comodoAtivo = comodoRelacionado;
+        }
+      }
+      this.rolarPara('produtos');
+    },
+    selecionarComodo: function selecionarComodo(comodo) {
+      this.comodoAtivo = comodo;
+      this.categoriaAtiva = 'Todos';
+      this.rolarPara('produtos');
+    },
+    pesquisar: function pesquisar() {
+      this.rolarPara('produtos');
+    },
+    limparFiltros: function limparFiltros() {
+      this.busca = '';
+      this.categoriaAtiva = 'Todos';
+      this.comodoAtivo = 'Sala de Estar';
+    },
+    rolarPara: function rolarPara(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
+    },
+    onNavegarSecao: function onNavegarSecao(secao) {
+      if (secao === 'inicio' || secao === 'produtos' || secao === 'cursos' || secao === 'contato') {
+        this.rolarPara(secao === 'inicio' ? 'inicio' : secao);
+      }
+    },
+    abrirCurso: function abrirCurso(curso) {
+      window.alert("O curso \"".concat(curso, "\" estar\xE1 dispon\xEDvel em breve."));
+    },
+    enviarContato: function enviarContato() {
+      this.contatoEnviado = true;
+      this.contato = {
+        nome: '',
+        email: '',
+        mensagem: ''
+      };
+    }
+  }
 });
 
 /***/ }),
@@ -53731,6 +53926,30 @@ ___CSS_LOADER_EXPORT___.push([module.id, "@charset \"UTF-8\";\n/*!\n * Bootstrap
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\n.ot-header[data-v-f7391524] {\n    position: sticky;\n    top: 0;\n    z-index: 1000;\n    background: rgba(255, 255, 255, 0.92);\n    -webkit-backdrop-filter: blur(12px);\n            backdrop-filter: blur(12px);\n    border-bottom: 1px solid rgba(15, 23, 42, 0.08);\n    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);\n}\n.ot-nav[data-v-f7391524] {\n    max-width: 1280px;\n    margin: 0 auto;\n    padding: 0.75rem 1.5rem;\n    display: flex;\n    align-items: center;\n    gap: 1.5rem;\n}\n.ot-brand[data-v-f7391524] {\n    display: inline-flex;\n    align-items: center;\n    gap: 0.65rem;\n    text-decoration: none;\n    flex-shrink: 0;\n}\n.ot-brand-logo[data-v-f7391524] {\n    width: 36px;\n    height: 36px;\n    -o-object-fit: contain;\n       object-fit: contain;\n}\n.ot-brand-text[data-v-f7391524] {\n    font-family: 'Segoe UI', 'Nunito', sans-serif;\n    font-weight: 800;\n    font-size: 1.15rem;\n    letter-spacing: -0.02em;\n    color: #0f766e;\n}\n.ot-toggler[data-v-f7391524] {\n    display: none;\n    margin-left: auto;\n    width: 42px;\n    height: 42px;\n    border: 1px solid #e2e8f0;\n    border-radius: 10px;\n    background: #fff;\n    flex-direction: column;\n    align-items: center;\n    justify-content: center;\n    gap: 5px;\n    cursor: pointer;\n}\n.ot-toggler span[data-v-f7391524] {\n    display: block;\n    width: 18px;\n    height: 2px;\n    background: #0f172a;\n    border-radius: 2px;\n}\n.ot-nav-collapse[data-v-f7391524] {\n    display: flex;\n    align-items: center;\n    justify-content: space-between;\n    flex: 1;\n    gap: 1rem;\n}\n.ot-nav-links[data-v-f7391524] {\n    display: flex;\n    align-items: center;\n    gap: 0.25rem;\n    list-style: none;\n    margin: 0;\n    padding: 0;\n}\n.ot-link[data-v-f7391524] {\n    display: inline-flex;\n    align-items: center;\n    padding: 0.55rem 0.95rem;\n    border-radius: 999px;\n    text-decoration: none;\n    color: #475569;\n    font-weight: 600;\n    font-size: 0.92rem;\n    transition: background 0.2s ease, color 0.2s ease;\n}\n.ot-link[data-v-f7391524]:hover,\n.ot-link.active[data-v-f7391524] {\n    background: #ecfdf5;\n    color: #0f766e;\n}\n.ot-nav-actions[data-v-f7391524] {\n    margin-left: auto;\n}\n.ot-user[data-v-f7391524] {\n    position: relative;\n    display: inline-flex;\n    align-items: center;\n    gap: 0.55rem;\n    padding: 0.35rem 0.7rem 0.35rem 0.35rem;\n    border-radius: 999px;\n    border: 1px solid #e2e8f0;\n    background: #fff;\n    cursor: pointer;\n    -webkit-user-select: none;\n       -moz-user-select: none;\n            user-select: none;\n    transition: border-color 0.2s ease, box-shadow 0.2s ease;\n}\n.ot-user[data-v-f7391524]:hover {\n    border-color: #99f6e4;\n    box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.08);\n}\n.ot-avatar[data-v-f7391524] {\n    width: 32px;\n    height: 32px;\n    border-radius: 50%;\n    background: linear-gradient(135deg, #0f766e, #14b8a6);\n    color: #fff;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    font-weight: 700;\n    font-size: 0.85rem;\n}\n.ot-user-name[data-v-f7391524] {\n    font-weight: 600;\n    color: #0f172a;\n    font-size: 0.9rem;\n}\n.ot-chevron[data-v-f7391524] {\n    color: #64748b;\n}\n.ot-dropdown[data-v-f7391524] {\n    position: absolute;\n    top: calc(100% + 8px);\n    right: 0;\n    min-width: 180px;\n    background: #fff;\n    border: 1px solid #e2e8f0;\n    border-radius: 12px;\n    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.12);\n    padding: 0.4rem;\n    z-index: 20;\n}\n.ot-dropdown-item[data-v-f7391524] {\n    display: block;\n    padding: 0.7rem 0.85rem;\n    border-radius: 8px;\n    text-decoration: none;\n    color: #b91c1c;\n    font-weight: 600;\n    font-size: 0.9rem;\n}\n.ot-dropdown-item[data-v-f7391524]:hover {\n    background: #fef2f2;\n}\n@media (max-width: 768px) {\n.ot-toggler[data-v-f7391524] {\n        display: inline-flex;\n}\n.ot-nav-collapse[data-v-f7391524] {\n        display: none;\n        position: absolute;\n        top: 100%;\n        left: 0;\n        right: 0;\n        flex-direction: column;\n        align-items: stretch;\n        background: #fff;\n        border-bottom: 1px solid #e2e8f0;\n        padding: 1rem 1.25rem 1.25rem;\n        box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);\n}\n.ot-nav-collapse.is-open[data-v-f7391524] {\n        display: flex;\n}\n.ot-nav-links[data-v-f7391524] {\n        flex-direction: column;\n        align-items: stretch;\n}\n.ot-nav-actions[data-v-f7391524] {\n        margin-left: 0;\n        margin-top: 0.75rem;\n}\n.ot-user[data-v-f7391524] {\n        width: 100%;\n        justify-content: flex-start;\n}\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/wrapper.vue?vue&type=style&index=0&id=29eaf6d0&scoped=true&lang=css&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/wrapper.vue?vue&type=style&index=0&id=29eaf6d0&scoped=true&lang=css& ***!
@@ -53748,7 +53967,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.banner[data-v-29eaf6d0] {\n    height: 400px;\n    background-image: url('/images/background1.webp');\n    background-size: cover;\n    background-position: center;\n    background-repeat: no-repeat;\n    /* Outras propriedades opcionais, como background-color, podem ser adicionadas conforme necessário */\n}\n.sizeCard[data-v-29eaf6d0]{\n    padding: 20px;\n    min-height: 400px;\n}\n.menusuperior[data-v-29eaf6d0]{\n    background-color: white;\n    border-radius: 4px;\n    color: black;\n    width: 100%;\n    padding: 8px;\n}\n.product[data-v-29eaf6d0]{\n    width: 20rem;\n    margin-left: 10px;\n}\n.dp-flex[data-v-29eaf6d0]{\n    display: flex;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.ot-page[data-v-29eaf6d0] {\n    --ot-bg: #f3f7f6;\n    --ot-surface: #ffffff;\n    --ot-ink: #0f172a;\n    --ot-muted: #64748b;\n    --ot-brand: #0f766e;\n    --ot-brand-dark: #0d5f59;\n    --ot-accent: #ea580c;\n    --ot-line: #e2e8f0;\n    --ot-radius: 18px;\n    background:\n        radial-gradient(circle at top right, rgba(20, 184, 166, 0.12), transparent 28%),\n        linear-gradient(180deg, #f8fbfa 0%, var(--ot-bg) 40%, #eef5f3 100%);\n    color: var(--ot-ink);\n    min-height: 100vh;\n}\n.ot-hero[data-v-29eaf6d0] {\n    position: relative;\n    min-height: 360px;\n    margin: 1rem 1.25rem 0;\n    border-radius: 28px;\n    overflow: hidden;\n    background-image: url('/images/background1.webp');\n    background-size: cover;\n    background-position: center;\n    display: flex;\n    align-items: flex-end;\n}\n.ot-hero-overlay[data-v-29eaf6d0] {\n    position: absolute;\n    inset: 0;\n    background: linear-gradient(120deg, rgba(15, 23, 42, 0.78) 10%, rgba(15, 118, 110, 0.55) 55%, rgba(15, 23, 42, 0.35) 100%);\n}\n.ot-hero-content[data-v-29eaf6d0] {\n    position: relative;\n    z-index: 1;\n    padding: 2.5rem;\n    max-width: 640px;\n    color: #fff;\n}\n.ot-hero h1[data-v-29eaf6d0] {\n    margin: 0 0 0.75rem;\n    font-size: clamp(1.8rem, 4vw, 2.6rem);\n    line-height: 1.15;\n    letter-spacing: -0.03em;\n    font-weight: 800;\n}\n.ot-hero-sub[data-v-29eaf6d0] {\n    margin: 0 0 1.5rem;\n    color: rgba(255, 255, 255, 0.88);\n    font-size: 1.05rem;\n    max-width: 34rem;\n}\n.ot-hero-actions[data-v-29eaf6d0] {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 0.75rem;\n}\n.ot-btn[data-v-29eaf6d0] {\n    -webkit-appearance: none;\n       -moz-appearance: none;\n            appearance: none;\n    border: none;\n    cursor: pointer;\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    gap: 0.4rem;\n    padding: 0.75rem 1.2rem;\n    border-radius: 12px;\n    font-weight: 700;\n    font-size: 0.92rem;\n    text-decoration: none;\n    transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;\n}\n.ot-btn[data-v-29eaf6d0]:active {\n    transform: translateY(1px);\n}\n.ot-btn-primary[data-v-29eaf6d0] {\n    background: var(--ot-brand);\n    color: #fff;\n    box-shadow: 0 10px 24px rgba(15, 118, 110, 0.25);\n}\n.ot-btn-primary[data-v-29eaf6d0]:hover {\n    background: var(--ot-brand-dark);\n    color: #fff;\n}\n.ot-btn-ghost[data-v-29eaf6d0] {\n    background: rgba(255, 255, 255, 0.14);\n    color: #fff;\n    border: 1px solid rgba(255, 255, 255, 0.28);\n}\n.ot-btn-ghost[data-v-29eaf6d0]:hover {\n    background: rgba(255, 255, 255, 0.22);\n    color: #fff;\n}\n.ot-toolbar[data-v-29eaf6d0] {\n    max-width: 1280px;\n    margin: 1.5rem auto 0;\n    padding: 0 1.25rem;\n}\n.ot-brand-row[data-v-29eaf6d0] {\n    display: flex;\n    align-items: center;\n    gap: 0.85rem;\n    margin-bottom: 1rem;\n}\n.ot-brand-row img[data-v-29eaf6d0] {\n    width: 56px;\n    height: 56px;\n    -o-object-fit: contain;\n       object-fit: contain;\n    background: #fff;\n    border-radius: 14px;\n    padding: 6px;\n    border: 1px solid var(--ot-line);\n}\n.ot-brand-row strong[data-v-29eaf6d0] {\n    display: block;\n    font-size: 1.15rem;\n    color: var(--ot-brand);\n}\n.ot-brand-row p[data-v-29eaf6d0] {\n    margin: 0;\n    color: var(--ot-muted);\n    font-size: 0.9rem;\n}\n.ot-categories[data-v-29eaf6d0] {\n    display: flex;\n    flex-wrap: wrap;\n    gap: 0.55rem;\n}\n.ot-chip[data-v-29eaf6d0] {\n    border: 1px solid var(--ot-line);\n    background: var(--ot-surface);\n    color: #334155;\n    border-radius: 999px;\n    padding: 0.55rem 1rem;\n    font-weight: 600;\n    font-size: 0.9rem;\n    cursor: pointer;\n    transition: all 0.2s ease;\n}\n.ot-chip[data-v-29eaf6d0]:hover {\n    border-color: #99f6e4;\n    color: var(--ot-brand);\n}\n.ot-chip.active[data-v-29eaf6d0] {\n    background: var(--ot-brand);\n    border-color: var(--ot-brand);\n    color: #fff;\n    box-shadow: 0 8px 18px rgba(15, 118, 110, 0.2);\n}\n.ot-main[data-v-29eaf6d0] {\n    max-width: 1280px;\n    margin: 1.5rem auto 0;\n    padding: 0 1.25rem 2rem;\n    display: grid;\n    grid-template-columns: 260px 1fr;\n    gap: 1.25rem;\n    scroll-margin-top: 90px;\n}\n.ot-sidebar-card[data-v-29eaf6d0] {\n    background: var(--ot-surface);\n    border: 1px solid var(--ot-line);\n    border-radius: var(--ot-radius);\n    padding: 1rem;\n    position: sticky;\n    top: 88px;\n    max-height: calc(100vh - 110px);\n    overflow: auto;\n}\n.ot-sidebar-card h2[data-v-29eaf6d0] {\n    margin: 0 0 0.85rem;\n    font-size: 0.95rem;\n    text-transform: uppercase;\n    letter-spacing: 0.06em;\n    color: var(--ot-muted);\n}\n.ot-room[data-v-29eaf6d0] {\n    width: 100%;\n    text-align: left;\n    border: none;\n    background: transparent;\n    color: #334155;\n    border-radius: 10px;\n    padding: 0.7rem 0.8rem;\n    font-weight: 600;\n    font-size: 0.9rem;\n    cursor: pointer;\n    margin-bottom: 0.25rem;\n    transition: background 0.15s ease, color 0.15s ease;\n}\n.ot-room[data-v-29eaf6d0]:hover {\n    background: #f0fdfa;\n    color: var(--ot-brand);\n}\n.ot-room.active[data-v-29eaf6d0] {\n    background: #ecfdf5;\n    color: var(--ot-brand);\n    box-shadow: inset 3px 0 0 var(--ot-brand);\n}\n.ot-search[data-v-29eaf6d0] {\n    display: flex;\n    gap: 0.65rem;\n    margin-bottom: 1rem;\n}\n.ot-search-input[data-v-29eaf6d0] {\n    flex: 1;\n    border: 1px solid var(--ot-line);\n    border-radius: 12px;\n    padding: 0.85rem 1rem;\n    background: var(--ot-surface);\n    outline: none;\n    font-size: 0.95rem;\n}\n.ot-search-input[data-v-29eaf6d0]:focus {\n    border-color: #5eead4;\n    box-shadow: 0 0 0 4px rgba(15, 118, 110, 0.12);\n}\n.ot-search-btn[data-v-29eaf6d0] {\n    white-space: nowrap;\n}\n.ot-meta[data-v-29eaf6d0] {\n    display: flex;\n    align-items: baseline;\n    justify-content: space-between;\n    gap: 1rem;\n    margin-bottom: 1rem;\n}\n.ot-meta h2[data-v-29eaf6d0] {\n    margin: 0;\n    font-size: 1.35rem;\n    letter-spacing: -0.02em;\n}\n.ot-meta span[data-v-29eaf6d0] {\n    color: var(--ot-muted);\n    font-weight: 600;\n    font-size: 0.9rem;\n}\n.ot-grid[data-v-29eaf6d0] {\n    display: grid;\n    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));\n    gap: 1rem;\n    background: rgba(255, 255, 255, 0.65);\n    border: 1px solid rgba(226, 232, 240, 0.9);\n    border-radius: 24px;\n    padding: 1rem;\n}\n.ot-card[data-v-29eaf6d0] {\n    background: var(--ot-surface);\n    border: 1px solid var(--ot-line);\n    border-radius: 18px;\n    overflow: hidden;\n    display: flex;\n    flex-direction: column;\n    min-height: 100%;\n    transition: transform 0.2s ease, box-shadow 0.2s ease;\n}\n.ot-card[data-v-29eaf6d0]:hover {\n    transform: translateY(-4px);\n    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.1);\n}\n.ot-card-media[data-v-29eaf6d0] {\n    aspect-ratio: 1 / 1;\n    background: #f8fafc;\n    overflow: hidden;\n}\n.ot-card-media img[data-v-29eaf6d0] {\n    width: 100%;\n    height: 100%;\n    -o-object-fit: cover;\n       object-fit: cover;\n    display: block;\n}\n.ot-card-body[data-v-29eaf6d0] {\n    padding: 1rem 1rem 0.5rem;\n    flex: 1;\n}\n.ot-badge[data-v-29eaf6d0] {\n    display: inline-block;\n    margin-bottom: 0.55rem;\n    padding: 0.2rem 0.55rem;\n    border-radius: 999px;\n    background: #fff7ed;\n    color: var(--ot-accent);\n    font-size: 0.72rem;\n    font-weight: 800;\n    text-transform: uppercase;\n    letter-spacing: 0.04em;\n}\n.ot-card-body h3[data-v-29eaf6d0] {\n    margin: 0 0 0.5rem;\n    font-size: 1rem;\n    line-height: 1.35;\n    display: -webkit-box;\n    -webkit-line-clamp: 2;\n    -webkit-box-orient: vertical;\n    overflow: hidden;\n}\n.ot-card-body p[data-v-29eaf6d0] {\n    margin: 0;\n    color: var(--ot-muted);\n    font-size: 0.88rem;\n    line-height: 1.45;\n}\n.ot-card-cta[data-v-29eaf6d0] {\n    margin: 0.85rem 1rem 1rem;\n}\n.ot-empty[data-v-29eaf6d0] {\n    background: var(--ot-surface);\n    border: 1px dashed #cbd5e1;\n    border-radius: 18px;\n    padding: 2.5rem 1.5rem;\n    text-align: center;\n}\n.ot-empty h3[data-v-29eaf6d0] {\n    margin: 0 0 0.4rem;\n}\n.ot-empty p[data-v-29eaf6d0] {\n    margin: 0 0 1rem;\n    color: var(--ot-muted);\n}\n.ot-empty .ot-btn-ghost[data-v-29eaf6d0] {\n    background: #f8fafc;\n    color: var(--ot-brand);\n    border: 1px solid var(--ot-line);\n}\n.ot-courses[data-v-29eaf6d0] {\n    scroll-margin-top: 90px;\n    max-width: 1280px;\n    margin: 0 auto 2rem;\n    padding: 0 1.25rem;\n}\n.ot-courses-inner[data-v-29eaf6d0] {\n    background: linear-gradient(135deg, #0f766e 0%, #115e59 55%, #0f172a 120%);\n    color: #fff;\n    border-radius: 24px;\n    padding: 1.75rem;\n    display: grid;\n    grid-template-columns: 1.1fr 1fr;\n    gap: 1.25rem;\n}\n.ot-courses-inner h2[data-v-29eaf6d0] {\n    margin: 0 0 0.5rem;\n    font-size: 1.5rem;\n}\n.ot-courses-inner p[data-v-29eaf6d0] {\n    margin: 0;\n    color: rgba(255, 255, 255, 0.85);\n}\n.ot-course-list[data-v-29eaf6d0] {\n    display: grid;\n    gap: 0.65rem;\n}\n.ot-course-item[data-v-29eaf6d0] {\n    width: 100%;\n    text-align: left;\n    border: 1px solid rgba(255, 255, 255, 0.18);\n    background: rgba(255, 255, 255, 0.08);\n    color: #fff;\n    border-radius: 14px;\n    padding: 0.9rem 1rem;\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    gap: 1rem;\n    font-weight: 600;\n    cursor: pointer;\n    transition: background 0.2s ease;\n}\n.ot-course-item[data-v-29eaf6d0]:hover {\n    background: rgba(255, 255, 255, 0.16);\n}\n.ot-course-item span[data-v-29eaf6d0] {\n    font-size: 0.75rem;\n    opacity: 0.8;\n    text-transform: uppercase;\n    letter-spacing: 0.04em;\n}\n.ot-footer[data-v-29eaf6d0] {\n    scroll-margin-top: 90px;\n    background: #0b1220;\n    color: #e2e8f0;\n    margin-top: 1rem;\n    padding: 2.5rem 1.25rem 1.5rem;\n}\n.ot-footer-grid[data-v-29eaf6d0] {\n    max-width: 1280px;\n    margin: 0 auto;\n    display: grid;\n    grid-template-columns: 1.2fr 0.8fr 1.2fr;\n    gap: 2rem;\n}\n.ot-footer-brand[data-v-29eaf6d0] {\n    display: block;\n    font-size: 1.2rem;\n    color: #5eead4;\n    margin-bottom: 0.5rem;\n}\n.ot-footer h3[data-v-29eaf6d0] {\n    margin: 0 0 0.75rem;\n    font-size: 0.85rem;\n    text-transform: uppercase;\n    letter-spacing: 0.06em;\n    color: #94a3b8;\n}\n.ot-footer-link[data-v-29eaf6d0] {\n    display: block;\n    width: 100%;\n    text-align: left;\n    background: transparent;\n    border: none;\n    color: #e2e8f0;\n    padding: 0.35rem 0;\n    cursor: pointer;\n    font-weight: 600;\n}\n.ot-footer-link[data-v-29eaf6d0]:hover {\n    color: #5eead4;\n}\n.ot-contact[data-v-29eaf6d0] {\n    display: grid;\n    gap: 0.55rem;\n}\n.ot-contact input[data-v-29eaf6d0],\n.ot-contact textarea[data-v-29eaf6d0] {\n    width: 100%;\n    border: 1px solid #1e293b;\n    background: #111827;\n    color: #fff;\n    border-radius: 10px;\n    padding: 0.7rem 0.85rem;\n    outline: none;\n}\n.ot-contact input[data-v-29eaf6d0]:focus,\n.ot-contact textarea[data-v-29eaf6d0]:focus {\n    border-color: #14b8a6;\n}\n.ot-success[data-v-29eaf6d0] {\n    margin: 0.25rem 0 0;\n    color: #5eead4;\n    font-size: 0.85rem;\n}\n.ot-copy[data-v-29eaf6d0] {\n    max-width: 1280px;\n    margin: 2rem auto 0;\n    padding-top: 1.25rem;\n    border-top: 1px solid #1e293b;\n    color: #94a3b8;\n    font-size: 0.85rem;\n}\n@media (max-width: 980px) {\n.ot-main[data-v-29eaf6d0] {\n        grid-template-columns: 1fr;\n}\n.ot-sidebar-card[data-v-29eaf6d0] {\n        position: static;\n        max-height: none;\n        display: grid;\n        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));\n        gap: 0.35rem;\n}\n.ot-sidebar-card h2[data-v-29eaf6d0] {\n        grid-column: 1 / -1;\n}\n.ot-courses-inner[data-v-29eaf6d0],\n    .ot-footer-grid[data-v-29eaf6d0] {\n        grid-template-columns: 1fr;\n}\n}\n@media (max-width: 640px) {\n.ot-hero[data-v-29eaf6d0] {\n        min-height: 300px;\n        margin: 0.75rem;\n        border-radius: 20px;\n}\n.ot-hero-content[data-v-29eaf6d0] {\n        padding: 1.5rem;\n}\n.ot-search[data-v-29eaf6d0] {\n        flex-direction: column;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -74568,6 +74787,36 @@ var update = _style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMP
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css&":
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_style_index_0_id_f7391524_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_style_index_0_id_f7391524_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"], options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_style_index_0_id_f7391524_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__["default"].locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/wrapper.vue?vue&type=style&index=0&id=29eaf6d0&scoped=true&lang=css&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/wrapper.vue?vue&type=style&index=0&id=29eaf6d0&scoped=true&lang=css& ***!
@@ -74944,23 +75193,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./nav-bar.vue?vue&type=template&id=f7391524& */ "./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&");
+/* harmony import */ var _nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./nav-bar.vue?vue&type=template&id=f7391524&scoped=true& */ "./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true&");
 /* harmony import */ var _nav_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./nav-bar.vue?vue&type=script&lang=js& */ "./resources/js/components/nav-bar.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _nav_bar_vue_vue_type_style_index_0_id_f7391524_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css& */ "./resources/js/components/nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _nav_bar_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__.render,
-  _nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  null,
+  "f7391524",
   null
   
 )
@@ -75061,6 +75312,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css&":
+/*!******************************************************************************************************!*\
+  !*** ./resources/js/components/nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css& ***!
+  \******************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_style_index_0_id_f7391524_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader/dist/cjs.js!../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=style&index=0&id=f7391524&scoped=true&lang=css&");
+
+
+/***/ }),
+
 /***/ "./resources/js/components/wrapper.vue?vue&type=style&index=0&id=29eaf6d0&scoped=true&lang=css&":
 /*!******************************************************************************************************!*\
   !*** ./resources/js/components/wrapper.vue?vue&type=style&index=0&id=29eaf6d0&scoped=true&lang=css& ***!
@@ -75091,19 +75355,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524& ***!
-  \****************************************************************************/
+/***/ "./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true&":
+/*!****************************************************************************************!*\
+  !*** ./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true& ***!
+  \****************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   render: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   staticRenderFns: () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./nav-bar.vue?vue&type=template&id=f7391524& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_nav_bar_vue_vue_type_template_id_f7391524_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./nav-bar.vue?vue&type=template&id=f7391524&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true&");
 
 
 /***/ }),
@@ -75150,10 +75414,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&":
-/*!*******************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524& ***!
-  \*******************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true&":
+/*!*******************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/nav-bar.vue?vue&type=template&id=f7391524&scoped=true& ***!
+  \*******************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -75166,85 +75430,209 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c(
-      "nav",
-      {
-        staticClass: "navbar navbar-expand-sm navbar-light bg-white shadow-sm",
-      },
-      [
-        _c("div", { staticClass: "container" }, [
-          _c("a", { staticClass: "navbar-brand", attrs: { href: "/#" } }, [
-            _vm._v("\n                Laravel\n            "),
+  return _c("header", { staticClass: "ot-header" }, [
+    _c("nav", { staticClass: "ot-nav" }, [
+      _c(
+        "a",
+        {
+          staticClass: "ot-brand",
+          attrs: { href: "#" },
+          on: {
+            click: function ($event) {
+              $event.preventDefault()
+              return _vm.irPara("inicio")
+            },
+          },
+        },
+        [
+          _c("img", {
+            staticClass: "ot-brand-logo",
+            attrs: { src: "/images/ofertatotal.png", alt: "OfertaTotal" },
+          }),
+          _vm._v(" "),
+          _c("span", { staticClass: "ot-brand-text" }, [_vm._v("OfertaTotal")]),
+        ]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "ot-toggler",
+          attrs: {
+            type: "button",
+            "aria-expanded": _vm.menuAberto ? "true" : "false",
+            "aria-label": "Abrir menu",
+          },
+          on: {
+            click: function ($event) {
+              _vm.menuAberto = !_vm.menuAberto
+            },
+          },
+        },
+        [_c("span"), _vm._v(" "), _c("span"), _vm._v(" "), _c("span")]
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "ot-nav-collapse",
+          class: { "is-open": _vm.menuAberto },
+        },
+        [
+          _c("ul", { staticClass: "ot-nav-links" }, [
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "ot-link",
+                  class: { active: _vm.secaoAtiva === "produtos" },
+                  attrs: { href: "#produtos" },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.irPara("produtos")
+                    },
+                  },
+                },
+                [
+                  _vm._v(
+                    "\n                        Produtos\n                    "
+                  ),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "ot-link",
+                  class: { active: _vm.secaoAtiva === "cursos" },
+                  attrs: { href: "#cursos" },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.irPara("cursos")
+                    },
+                  },
+                },
+                [
+                  _vm._v(
+                    "\n                        Cursos\n                    "
+                  ),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c("li", [
+              _c(
+                "a",
+                {
+                  staticClass: "ot-link",
+                  class: { active: _vm.secaoAtiva === "contato" },
+                  attrs: { href: "#contato" },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.irPara("contato")
+                    },
+                  },
+                },
+                [
+                  _vm._v(
+                    "\n                        Contato\n                    "
+                  ),
+                ]
+              ),
+            ]),
           ]),
           _vm._v(" "),
-          _c(
-            "div",
-            {
-              staticClass: "collapse navbar-collapse",
-              attrs: { id: "navbarSupportedContent" },
-            },
-            [
-              _c("ul", { staticClass: "navbar-nav me-auto" }, [
-                _vm._v("\n                    Produtos\n                "),
-              ]),
-              _vm._v(" "),
-              _c("ul", { staticClass: "navbar-nav me-auto" }, [
-                _vm._v("\n                    Cursos\n                "),
-              ]),
-              _vm._v(" "),
-              _c("ul", { staticClass: "navbar-nav ms-auto" }, [
-                _c("li", { staticClass: "nav-item dropdown" }, [
-                  _c(
-                    "a",
-                    {
-                      pre: true,
+          _c("div", { staticClass: "ot-nav-actions" }, [
+            _c(
+              "div",
+              {
+                staticClass: "ot-user",
+                on: {
+                  click: function ($event) {
+                    _vm.dropdownAberto = !_vm.dropdownAberto
+                  },
+                },
+              },
+              [
+                _c("span", { staticClass: "ot-avatar" }, [_vm._v("M")]),
+                _vm._v(" "),
+                _c("span", { staticClass: "ot-user-name" }, [_vm._v("Marlos")]),
+                _vm._v(" "),
+                _c(
+                  "svg",
+                  {
+                    staticClass: "ot-chevron",
+                    attrs: {
+                      width: "14",
+                      height: "14",
+                      viewBox: "0 0 24 24",
+                      fill: "none",
+                      "aria-hidden": "true",
+                    },
+                  },
+                  [
+                    _c("path", {
                       attrs: {
-                        id: "navbarDropdown",
-                        class: "nav-link dropdown-toggle",
-                        href: "#",
-                        role: "button",
-                        "data-bs-toggle": "dropdown",
-                        "aria-haspopup": "true",
-                        "aria-expanded": "false",
+                        d: "M6 9l6 6 6-6",
+                        stroke: "currentColor",
+                        "stroke-width": "2",
+                        "stroke-linecap": "round",
+                        "stroke-linejoin": "round",
+                      },
+                    }),
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.dropdownAberto,
+                        expression: "dropdownAberto",
+                      },
+                    ],
+                    staticClass: "ot-dropdown",
+                    on: {
+                      click: function ($event) {
+                        $event.stopPropagation()
                       },
                     },
-                    [
-                      _vm._v(
-                        "\n                            Marlos\n                        "
-                      ),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    {
-                      staticClass: "dropdown-menu dropdown-menu-end",
-                      attrs: { "aria-labelledby": "navbarDropdown" },
-                    },
-                    [
-                      _c(
-                        "a",
-                        {
-                          staticClass: "dropdown-item",
-                          attrs: { href: "/logout" },
-                          on: { click: _vm.sair },
+                  },
+                  [
+                    _c(
+                      "a",
+                      {
+                        staticClass: "ot-dropdown-item",
+                        attrs: { href: "/logout" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            return _vm.sair.apply(null, arguments)
+                          },
                         },
-                        [
-                          _vm._v(
-                            "\n                                Logout\n                            "
-                          ),
-                        ]
-                      ),
-                    ]
-                  ),
-                ]),
-              ]),
-            ]
-          ),
-        ]),
-      ]
-    ),
+                      },
+                      [
+                        _vm._v(
+                          "\n                            Sair da conta\n                        "
+                        ),
+                      ]
+                    ),
+                  ]
+                ),
+              ]
+            ),
+          ]),
+        ]
+      ),
+    ]),
   ])
 }
 var staticRenderFns = []
@@ -75270,598 +75658,498 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "wrapper" },
-    [
-      _c("div", { staticClass: "banner" }),
+  return _c("div", { staticClass: "ot-page" }, [
+    _c("section", { staticClass: "ot-hero", attrs: { id: "inicio" } }, [
+      _c("div", { staticClass: "ot-hero-overlay" }),
       _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c("b-col", { attrs: { cols: "auto" } }, [
-            _c("div", [
-              _c("img", {
-                attrs: {
-                  src: "/images/ofertatotal.png",
-                  alt: "CaserioBr",
-                  width: "80",
-                },
-              }),
-            ]),
-          ]),
-          _vm._v(" "),
-          _c("b-col"),
-          _vm._v(" "),
-          _c("b-col", { attrs: { cols: "auto" } }),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        { staticStyle: { "justify-content": "center" } },
-        [
-          _c("b-col", { attrs: { cols: "12" } }, [
-            _c(
-              "span",
-              {
-                staticStyle: {
-                  display: "flex",
-                  "justify-content": "center",
-                  "margin-left": "10px",
+      _c("div", { staticClass: "ot-hero-content" }, [
+        _c("h1", [_vm._v("Encontre os melhores produtos por cômodo")]),
+        _vm._v(" "),
+        _c("p", { staticClass: "ot-hero-sub" }, [
+          _vm._v(
+            "\n                Compare ofertas selecionadas e monte sua casa com praticidade.\n            "
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "ot-hero-actions" }, [
+          _c(
+            "button",
+            {
+              staticClass: "ot-btn ot-btn-primary",
+              attrs: { type: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.rolarPara("produtos")
                 },
               },
-              [
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Sala")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [
-                  _vm._v("Cozinha"),
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [
-                  _vm._v("Banheiro"),
-                ]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Quarto")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Outros")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Outros")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Outros")]),
-                _vm._v(" "),
-                _c("span", { staticClass: "menusuperior" }, [_vm._v("Outros")]),
-              ]
-            ),
-          ]),
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        { staticClass: "pd-10" },
-        [
-          _c(
-            "b-col",
-            { attrs: { cols: "auto" } },
-            [
-              _c(
-                "b-list-group",
-                [
-                  _c(
-                    "b-list-group-item",
-                    [_c("center", [_c("b", [_vm._v("Cômodos")])])],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c("b-list-group-item", { attrs: { active: "" } }, [
-                    _vm._v("Sala de Estar"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Sala de Jantar")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Cozinha")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Banheiro Principal")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Quarto Principal")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Quarto de Hóspedes")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Banheiro de Hóspedes")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Escritório")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Lavanderia")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Garagem")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Sótão")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Porão")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Quarto de Crianças")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Banheiro de Crianças")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [
-                    _vm._v("Sala de TV / Home Theater"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Varanda ou Terraço")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [
-                    _vm._v("Corredor ou Hall de Entrada"),
-                  ]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Closet")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Despensa")]),
-                  _vm._v(" "),
-                  _c("b-list-group-item", [_vm._v("Banheiro Social")]),
-                ],
-                1
-              ),
-            ],
-            1
+            },
+            [_vm._v("\n                    Ver produtos\n                ")]
           ),
           _vm._v(" "),
           _c(
-            "b-col",
+            "button",
+            {
+              staticClass: "ot-btn ot-btn-ghost",
+              attrs: { type: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.selecionarCategoria("Cozinha")
+                },
+              },
+            },
             [
-              _c("div", { staticClass: "input-group mb-3" }, [
-                _c("input", {
-                  staticClass: "form-control",
-                  attrs: { type: "text", placeholder: "Pesquisar produto..." },
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "input-group-append" }, [
-                  _c(
-                    "button",
-                    {
-                      staticClass: "btn btn-outline-secondary",
-                      attrs: { type: "button" },
-                    },
-                    [_vm._v("Pesquisar")]
-                  ),
-                ]),
-              ]),
-              _vm._v(" "),
-              _c(
-                "b-row",
+              _vm._v(
+                "\n                    Ofertas da cozinha\n                "
+              ),
+            ]
+          ),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("section", { staticClass: "ot-toolbar" }, [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "ot-categories",
+          attrs: { role: "tablist", "aria-label": "Categorias" },
+        },
+        _vm._l(_vm.categorias, function (cat) {
+          return _c(
+            "button",
+            {
+              key: cat,
+              staticClass: "ot-chip",
+              class: { active: _vm.categoriaAtiva === cat },
+              attrs: { type: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.selecionarCategoria(cat)
+                },
+              },
+            },
+            [_vm._v("\n                " + _vm._s(cat) + "\n            ")]
+          )
+        }),
+        0
+      ),
+    ]),
+    _vm._v(" "),
+    _c("section", { staticClass: "ot-main", attrs: { id: "produtos" } }, [
+      _c("aside", { staticClass: "ot-sidebar" }, [
+        _c(
+          "div",
+          { staticClass: "ot-sidebar-card" },
+          [
+            _c("h2", [_vm._v("Cômodos")]),
+            _vm._v(" "),
+            _vm._l(_vm.comodos, function (comodo) {
+              return _c(
+                "button",
                 {
-                  staticClass: "jc-c",
-                  staticStyle: {
-                    "background-color": "white",
-                    "border-radius": "20px",
+                  key: comodo,
+                  staticClass: "ot-room",
+                  class: { active: _vm.comodoAtivo === comodo },
+                  attrs: { type: "button" },
+                  on: {
+                    click: function ($event) {
+                      return _vm.selecionarComodo(comodo)
+                    },
                   },
                 },
                 [
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "dp-flex sizeCard",
-                      attrs: { cols: "auto" },
-                    },
-                    [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
-                              alt: "Produto 1",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
-                              _vm._v(
-                                "Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional"
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                    Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber\n                                "
-                              ),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: {
-                              href: "https://shope.ee/3VLQP2t3dy",
-                              target: "_blank",
-                            },
-                          },
-                          [_vm._v("Ver Detalhes")]
-                        ),
-                      ]),
-                    ]
+                  _vm._v(
+                    "\n                    " +
+                      _vm._s(comodo) +
+                      "\n                "
                   ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "dp-flex sizeCard",
-                      attrs: { cols: "auto" },
-                    },
-                    [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src: "https://down-br.img.susercontent.com/file/588eea9b630cf18620fc565d5c98ac1e",
-                              alt: "Produto 1",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
-                              _vm._v(
-                                "Mini Processador Elétrico de Alimentos Portátil com 3 lâminas de aço inox USB 250 ml Bivolt"
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                    " +
-                                  _vm._s(
-                                    "É de fácil utilização, bastando somente pressionar o botão para que o triturador faça seu trabalho, trazendo conforto na hora de fazer aquela receita. A bateria com bastante autonomia, carregamento via USB e tamanho portátil é perfeita para levar a qualquer lugar.".substring(
-                                      0,
-                                      110
-                                    ) + "..."
-                                  ) +
-                                  "\n                                "
-                              ),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: {
-                              href: "https://shope.ee/LOOfQXhal",
-                              target: "_blank",
-                            },
-                          },
-                          [_vm._v("Ver Detalhes")]
-                        ),
+                ]
+              )
+            }),
+          ],
+          2
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "ot-content" }, [
+        _c(
+          "form",
+          {
+            staticClass: "ot-search",
+            on: {
+              submit: function ($event) {
+                $event.preventDefault()
+                return _vm.pesquisar.apply(null, arguments)
+              },
+            },
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.busca,
+                  expression: "busca",
+                },
+              ],
+              staticClass: "ot-search-input",
+              attrs: {
+                type: "search",
+                placeholder: "Pesquisar produto...",
+                "aria-label": "Pesquisar produto",
+              },
+              domProps: { value: _vm.busca },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.busca = $event.target.value
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "ot-btn ot-btn-primary ot-search-btn",
+                attrs: { type: "submit" },
+              },
+              [_vm._v("\n                    Pesquisar\n                ")]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "ot-meta" }, [
+          _c("h2", [_vm._v(_vm._s(_vm.comodoAtivo))]),
+          _vm._v(" "),
+          _c("span", [
+            _vm._v(
+              _vm._s(_vm.produtosFiltrados.length) +
+                " produto" +
+                _vm._s(_vm.produtosFiltrados.length === 1 ? "" : "s")
+            ),
+          ]),
+        ]),
+        _vm._v(" "),
+        _vm.produtosFiltrados.length
+          ? _c(
+              "div",
+              { staticClass: "ot-grid" },
+              _vm._l(_vm.produtosFiltrados, function (produto) {
+                return _c(
+                  "article",
+                  { key: produto.id, staticClass: "ot-card" },
+                  [
+                    _c("div", { staticClass: "ot-card-media" }, [
+                      _c("img", {
+                        attrs: { src: produto.imagem, alt: produto.titulo },
+                      }),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "ot-card-body" }, [
+                      _c("span", { staticClass: "ot-badge" }, [
+                        _vm._v(_vm._s(produto.categoria)),
                       ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "dp-flex sizeCard",
-                      attrs: { cols: "auto" },
-                    },
-                    [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
-                              alt: "Produto 1",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
-                              _vm._v(
-                                "Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional"
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                    Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber\n                                "
-                              ),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: {
-                              href: "https://shope.ee/3VLQP2t3dy",
-                              target: "_blank",
-                            },
-                          },
-                          [_vm._v("Ver Detalhes")]
-                        ),
+                      _vm._v(" "),
+                      _c("h3", [_vm._v(_vm._s(produto.titulo))]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(_vm._s(_vm.truncar(produto.descricao, 110))),
                       ]),
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "dp-flex sizeCard",
-                      attrs: { cols: "auto" },
-                    },
-                    [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
-                              alt: "Produto 1",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
-                              _vm._v(
-                                "Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional"
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                    Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber\n                                "
-                              ),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: {
-                              href: "https://shope.ee/3VLQP2t3dy",
-                              target: "_blank",
-                            },
-                          },
-                          [_vm._v("Ver Detalhes")]
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        staticClass: "ot-btn ot-btn-primary ot-card-cta",
+                        attrs: {
+                          href: produto.link,
+                          target: "_blank",
+                          rel: "noopener noreferrer",
+                        },
+                      },
+                      [
+                        _vm._v(
+                          "\n                        Ver detalhes\n                    "
                         ),
-                      ]),
-                    ]
+                      ]
+                    ),
+                  ]
+                )
+              }),
+              0
+            )
+          : _c("div", { staticClass: "ot-empty" }, [
+              _c("h3", [_vm._v("Nenhum produto encontrado")]),
+              _vm._v(" "),
+              _c("p", [
+                _vm._v("Tente outro termo ou escolha uma categoria diferente."),
+              ]),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "ot-btn ot-btn-ghost",
+                  attrs: { type: "button" },
+                  on: { click: _vm.limparFiltros },
+                },
+                [
+                  _vm._v(
+                    "\n                    Limpar filtros\n                "
                   ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    {
-                      staticClass: "dp-flex sizeCard",
-                      attrs: { cols: "auto" },
-                    },
-                    [
-                      _c("div", { staticClass: "card product bd-none" }, [
-                        _c("div", { staticClass: "h-100" }, [
-                          _c("img", {
-                            staticClass: "card-img-top",
-                            attrs: {
-                              src: "https://down-br.img.susercontent.com/file/83e72d752c263768d72a1e8bed73fc9e",
-                              alt: "Produto 1",
-                            },
-                          }),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "card-body" }, [
-                            _c("h5", { staticClass: "card-title" }, [
-                              _vm._v(
-                                "Máquina De Cortar Cabelo Para Barba Masculina Designer Aleatório Elétrico Profissional"
-                              ),
-                            ]),
-                            _vm._v(" "),
-                            _c("p", { staticClass: "card-text" }, [
-                              _vm._v(
-                                "\n                                    Máquina de Aparador De Cabelo Profissional De Cabelo T9 Aparador Elétrico Para Man Barber De Corte De Cabelo Homem Barber\n                                "
-                              ),
-                            ]),
-                          ]),
-                        ]),
-                        _vm._v(" "),
-                        _c(
-                          "a",
-                          {
-                            staticClass: "btn btn-primary w-90 mg-10",
-                            attrs: {
-                              href: "https://shope.ee/3VLQP2t3dy",
-                              target: "_blank",
-                            },
-                          },
-                          [_vm._v("Ver Detalhes")]
-                        ),
-                      ]),
-                    ]
-                  ),
-                ],
-                1
+                ]
               ),
-            ],
-            1
+            ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("section", { staticClass: "ot-courses", attrs: { id: "cursos" } }, [
+      _c("div", { staticClass: "ot-courses-inner" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "ot-course-list" },
+          _vm._l(_vm.cursos, function (curso) {
+            return _c(
+              "button",
+              {
+                key: curso,
+                staticClass: "ot-course-item",
+                attrs: { type: "button" },
+                on: {
+                  click: function ($event) {
+                    return _vm.abrirCurso(curso)
+                  },
+                },
+              },
+              [
+                _vm._v(
+                  "\n                    " +
+                    _vm._s(curso) +
+                    "\n                    "
+                ),
+                _c("span", [_vm._v("Em breve")]),
+              ]
+            )
+          }),
+          0
+        ),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("footer", { staticClass: "ot-footer", attrs: { id: "contato" } }, [
+      _c("div", { staticClass: "ot-footer-grid" }, [
+        _vm._m(2),
+        _vm._v(" "),
+        _c("div", [
+          _c("h3", [_vm._v("Navegação")]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "ot-footer-link",
+              attrs: { type: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.rolarPara("produtos")
+                },
+              },
+            },
+            [_vm._v("Produtos")]
           ),
-        ],
-        1
-      ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "ot-footer-link",
+              attrs: { type: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.rolarPara("cursos")
+                },
+              },
+            },
+            [_vm._v("Cursos")]
+          ),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              staticClass: "ot-footer-link",
+              attrs: { type: "button" },
+              on: {
+                click: function ($event) {
+                  return _vm.rolarPara("contato")
+                },
+              },
+            },
+            [_vm._v("Contato")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("h3", [_vm._v("Fale conosco")]),
+          _vm._v(" "),
+          _c(
+            "form",
+            {
+              staticClass: "ot-contact",
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.enviarContato.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.contato.nome,
+                    expression: "contato.nome",
+                  },
+                ],
+                attrs: { type: "text", placeholder: "Seu nome", required: "" },
+                domProps: { value: _vm.contato.nome },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.contato, "nome", $event.target.value)
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.contato.email,
+                    expression: "contato.email",
+                  },
+                ],
+                attrs: {
+                  type: "email",
+                  placeholder: "Seu e-mail",
+                  required: "",
+                },
+                domProps: { value: _vm.contato.email },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.contato, "email", $event.target.value)
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c("textarea", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.contato.mensagem,
+                    expression: "contato.mensagem",
+                  },
+                ],
+                attrs: { rows: "3", placeholder: "Mensagem", required: "" },
+                domProps: { value: _vm.contato.mensagem },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.contato, "mensagem", $event.target.value)
+                  },
+                },
+              }),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass: "ot-btn ot-btn-primary",
+                  attrs: { type: "submit" },
+                },
+                [_vm._v("Enviar mensagem")]
+              ),
+              _vm._v(" "),
+              _vm.contatoEnviado
+                ? _c("p", { staticClass: "ot-success" }, [
+                    _vm._v(
+                      "Mensagem registrada. Em breve entraremos em contato."
+                    ),
+                  ])
+                : _vm._e(),
+            ]
+          ),
+        ]),
+      ]),
       _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _vm._m(0),
-    ],
-    1
-  )
+      _c("div", { staticClass: "ot-copy" }, [
+        _vm._v(
+          "\n            © " +
+            _vm._s(_vm.anoAtual) +
+            " OfertaTotal. Todos os direitos reservados.\n        "
+        ),
+      ]),
+    ]),
+  ])
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("footer", { attrs: { id: "footer" } }, [
-      _c("div", { staticClass: "inner" }, [
-        _c("section", [
-          _c("h2", [_vm._v("Get in touch")]),
-          _vm._v(" "),
-          _c("form", { attrs: { method: "post", action: "#" } }, [
-            _c("div", { staticClass: "fields" }, [
-              _c("div", { staticClass: "field half" }, [
-                _c("input", {
-                  attrs: {
-                    type: "text",
-                    name: "name",
-                    id: "name",
-                    placeholder: "Name",
-                  },
-                }),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "field half" }, [
-                _c("input", {
-                  attrs: {
-                    type: "email",
-                    name: "email",
-                    id: "email",
-                    placeholder: "Email",
-                  },
-                }),
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "field" }, [
-                _c("textarea", {
-                  attrs: {
-                    name: "message",
-                    id: "message",
-                    placeholder: "Message",
-                  },
-                }),
-              ]),
-            ]),
-            _vm._v(" "),
-            _c("ul", { staticClass: "actions" }, [
-              _c("li", [
-                _c("input", {
-                  staticClass: "primary",
-                  attrs: { type: "submit", value: "Send" },
-                }),
-              ]),
-            ]),
-          ]),
-        ]),
+    return _c("div", { staticClass: "ot-brand-row" }, [
+      _c("img", {
+        attrs: {
+          src: "/images/ofertatotal.png",
+          alt: "OfertaTotal",
+          width: "56",
+          height: "56",
+        },
+      }),
+      _vm._v(" "),
+      _c("div", [
+        _c("strong", [_vm._v("OfertaTotal")]),
         _vm._v(" "),
-        _c("section", [
-          _c("h2", [_vm._v("Follow")]),
-          _vm._v(" "),
-          _c("ul", { staticClass: "icons" }, [
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icon brands style2 fa-twitter",
-                  attrs: { href: "#" },
-                },
-                [_c("span", { staticClass: "label" }, [_vm._v("Twitter")])]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icon brands style2 fa-facebook-f",
-                  attrs: { href: "#" },
-                },
-                [_c("span", { staticClass: "label" }, [_vm._v("Facebook")])]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icon brands style2 fa-instagram",
-                  attrs: { href: "#" },
-                },
-                [_c("span", { staticClass: "label" }, [_vm._v("Instagram")])]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icon brands style2 fa-dribbble",
-                  attrs: { href: "#" },
-                },
-                [_c("span", { staticClass: "label" }, [_vm._v("Dribbble")])]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icon brands style2 fa-github",
-                  attrs: { href: "#" },
-                },
-                [_c("span", { staticClass: "label" }, [_vm._v("GitHub")])]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icon brands style2 fa-500px",
-                  attrs: { href: "#" },
-                },
-                [_c("span", { staticClass: "label" }, [_vm._v("500px")])]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icon solid style2 fa-phone",
-                  attrs: { href: "#" },
-                },
-                [_c("span", { staticClass: "label" }, [_vm._v("Phone")])]
-              ),
-            ]),
-            _vm._v(" "),
-            _c("li", [
-              _c(
-                "a",
-                {
-                  staticClass: "icon solid style2 fa-envelope",
-                  attrs: { href: "#" },
-                },
-                [_c("span", { staticClass: "label" }, [_vm._v("Email")])]
-              ),
-            ]),
-          ]),
-        ]),
-        _vm._v(" "),
-        _c("ul", { staticClass: "copyright" }, [
-          _c("li", [_vm._v("© Untitled. All rights reserved")]),
-          _c("li", [
-            _vm._v("Design: "),
-            _c("a", { attrs: { href: "http://html5up.net" } }, [
-              _vm._v("Insectoyde"),
-            ]),
-          ]),
-        ]),
+        _c("p", [_vm._v("Catálogo de ofertas para o lar")]),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("h2", [_vm._v("Cursos e dicas")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v(
+          "Aprenda a escolher melhor e aproveitar cada oferta com conteúdo prático."
+        ),
+      ]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", [
+      _c("strong", { staticClass: "ot-footer-brand" }, [_vm._v("OfertaTotal")]),
+      _vm._v(" "),
+      _c("p", [
+        _vm._v("Ofertas selecionadas para casa, organização e bem-estar."),
       ]),
     ])
   },
